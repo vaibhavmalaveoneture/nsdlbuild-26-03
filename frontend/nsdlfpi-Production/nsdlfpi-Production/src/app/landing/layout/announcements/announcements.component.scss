@@ -1,0 +1,88 @@
+@use "sass:color";
+
+// Variables
+$primary-color: #8f1709;
+$primary-color-adjusted: color.adjust($primary-color, $lightness: -10%);
+$bg-color: #f5f5fa;
+$table-header-bg: #f8f9fa;
+$table-border-color: #dee2e6;
+$text-color: #2c3e50;
+$breakpoint-md: 768px;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background-color: $bg-color;
+  height: 100vh;
+}
+
+.announcement-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  width: 100%;
+
+  h1 {
+    color: $text-color;
+    font-size: 3rem;
+    font-weight: 700;
+  }
+}
+
+.table-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-x: auto;
+}
+
+// Style the PrimeNG table and buttons
+:host ::ng-deep {
+  .p-datatable {
+    width: 100%;
+  }
+
+  .p-datatable .p-datatable-header {
+    background-color: $table-header-bg;
+    border: 1px solid $table-border-color;
+  }
+
+  .p-button {
+    background-color: transparent;
+    color: $primary-color;
+    border-color: $primary-color;
+
+    &:hover {
+      background-color: $primary-color-adjusted;
+      border-color: $primary-color-adjusted;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(143, 23, 9, 0.5);
+    }
+  }
+
+  .sub-labels {
+    @media screen and (max-width: $breakpoint-md) {
+      min-width: 120px;
+    }
+  }
+}
+
+// Responsive adjustments
+@media screen and (max-width: $breakpoint-md) {
+  .table-container {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .announcement-header h1 {
+    font-size: 2rem;
+  }
+}
