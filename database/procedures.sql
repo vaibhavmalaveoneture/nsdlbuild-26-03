@@ -18,6 +18,7 @@ BEGIN
         PRINT 'No existing record found for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_Update_DesignatedBankName
     @ApplicationId VARCHAR(255),
@@ -42,6 +43,7 @@ BEGIN
         PRINT 'No existing record found for ApplicationId: ' + @ApplicationId + ' and Name: ' + @Name;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_Update_DisciplinaryHistory
     @ApplicationId VARCHAR(255),
@@ -65,6 +67,7 @@ BEGIN
         PRINT 'No existing record found for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_Update_DpInfo
     @ApplicationId VARCHAR(255),
@@ -92,6 +95,7 @@ BEGIN
         PRINT 'No existing record found for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_Update_HasPan
     @ApplicationId INT,
@@ -115,6 +119,7 @@ BEGIN
         PRINT 'No existing record found for ApplicationId: ' + CAST(@ApplicationId AS NVARCHAR);
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_Update_PriorAssociation
     @ApplicationId INT,
@@ -136,6 +141,7 @@ BEGIN
         PRINT 'No existing record found for ApplicationId: ' + CAST(@ApplicationId AS NVARCHAR);
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_Update_PriorAssociationRow
     @ApplicationId INT,
@@ -171,6 +177,7 @@ BEGIN
         PRINT 'No existing record found for ApplicationId: ' + CAST(@ApplicationId AS NVARCHAR);
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_Update_ThroughGlobalCustodian
     @ApplicationId INT,
@@ -204,6 +211,7 @@ BEGIN
         PRINT 'No existing record found for ApplicationId: ' + CAST(@ApplicationId AS NVARCHAR);
     END
 END;
+GO
 
 -- SP_UpdateDDP
 CREATE PROCEDURE [nsdl].[SP_UpdateDDP]
@@ -216,6 +224,7 @@ BEGIN
     SET ddp = @DdpId, pending_ddp_flag = 0, modified_dtm = GETDATE()
     WHERE ur_id = @UserRegistrationId;
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_UpdateDeclarationAndUndertaking
     @ApplicationId INT,
@@ -252,6 +261,7 @@ BEGIN
         PRINT 'No existing record found for ApplicationId: ' + CAST(@ApplicationId AS NVARCHAR);
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.SP_UpdatePassword
     @UserId INT,
@@ -261,6 +271,7 @@ BEGIN
     SET NOCOUNT ON;
     UPDATE [nsdl].[users] SET new_password = @Password,is_forget_password = 0, last_pwd_change_dtm = GETDATE() WHERE user_id = @UserId;
 END;
+GO
 
 CREATE PROCEDURE [nsdl].[SP_UpdateRegistrationVerificationFlag]
     @UrId INT,
@@ -270,6 +281,7 @@ BEGIN
     SET NOCOUNT ON;
     UPDATE [nsdl].user_registrations SET verification_flag = @VerificationFlag WHERE ur_id = @UrId;
 END;
+GO
 
 -- SP_UpdateUserRegistrationPassword
 CREATE PROCEDURE nsdl.SP_UpdateUserRegistrationPassword
@@ -282,6 +294,7 @@ BEGIN
     SET new_password = @Password, modified_dtm = GETDATE()
     WHERE ur_id = @UserRegistrationId;
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_ApplicantOtherName
     @ApplicationId NVARCHAR(50),
@@ -307,6 +320,7 @@ BEGIN
         PRINT 'Applicant other name record does not exist for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_ApplicantType
     @ApplicationId NVARCHAR(50),
@@ -332,6 +346,7 @@ BEGIN
         PRINT 'Applicant Type record does not exist for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_ComplianceOfficerInfo
     @ApplicationId NVARCHAR(50),
@@ -363,6 +378,7 @@ BEGIN
         PRINT 'Compliance Officer Info record does not exist for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_ContactDetails
     @ApplicationId NVARCHAR(50),
@@ -390,6 +406,7 @@ BEGIN
         PRINT 'Contact Details record does not exist for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_ContactInfo
     @ApplicationId NVARCHAR(50),
@@ -418,6 +435,7 @@ BEGIN
         PRINT 'Contact Info record does not exist for ApplicationId: ' + @ApplicationId + ' Type: ' + @Type;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_CustodianInfo
     @ApplicationId varchar(255),
@@ -445,6 +463,7 @@ BEGIN
         PRINT 'Custodian Info record does not exist for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_DdpInfo
     @ApplicationId VARCHAR(255),
@@ -474,6 +493,7 @@ BEGIN
         PRINT 'DDP Info record does not exist for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_Ekyc
     @ApplicationId NVARCHAR(50),
@@ -535,6 +555,7 @@ BEGIN
         PRINT 'ApplicationId does not exist: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_ForeignOffice
     @ApplicationId NVARCHAR(50),
@@ -574,6 +595,7 @@ BEGIN
         PRINT 'Foreign office record does not exist for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_IncomeDetails
     @ApplicationId NVARCHAR(50),
@@ -615,6 +637,7 @@ BEGIN
         PRINT 'Income Details record does not exist for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_InvestmentManager
     @ApplicationId NVARCHAR(50),
@@ -648,6 +671,7 @@ BEGIN
         PRINT 'Investment Manager record does not exist for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_ManagingOfficial
     @ApplicationId NVARCHAR(50),
@@ -682,6 +706,7 @@ BEGIN
         PRINT 'Managing Official record does not exist for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_OfficeInIndia
     @ApplicationId NVARCHAR(50),
@@ -723,6 +748,7 @@ BEGIN
         PRINT 'Office in India record does not exist for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_RegisteredOffice
     @ApplicationId NVARCHAR(50),
@@ -762,6 +788,7 @@ BEGIN
         PRINT 'Registered office record does not exist for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_RegistrationForm
     @ApplicationId INT,
@@ -807,6 +834,7 @@ BEGIN
         PRINT 'Registration Form record does not exist for ApplicationId: ' + CAST(@ApplicationId AS NVARCHAR);
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Update_TaxResidency
     @ApplicationId NVARCHAR(50),
@@ -831,6 +859,7 @@ BEGIN
         PRINT 'Tax residency record does not exist for ApplicationId: ' + @ApplicationId;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.UpdateFvciApplication
 @ApplicationId NVARCHAR(255),  
@@ -859,6 +888,7 @@ BEGIN
         PRINT 'ApplicationId does not exist: ' + @ApplicationId;
     END
 END;
+GO
 CREATE PROCEDURE nsdl.Upsert_Ekyc
     @ApplicationId NVARCHAR(50),
     @Name NVARCHAR(255),
@@ -937,6 +967,7 @@ BEGIN
                 source.ProofOfIdentity, source.ProofOfAddress, source.Date, source.TypeOfEntity, source.SelectedCity, 
                 source.PoliticallyExposed, source.RelatedToPoliticallyExposed, GETUTCDATE(), GETUTCDATE());
 END;
+GO
 CREATE PROCEDURE nsdl.Upsert_ApplicantOtherName
     @ApplicationId NVARCHAR(50),
     @OtherNameRadio BIT,
@@ -959,6 +990,7 @@ BEGIN
         INSERT (ApplicationId, OtherNameRadio, OtherNameField, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @OtherNameRadio, @OtherNameField, GETUTCDATE(), GETUTCDATE());
 END;
+GO
 CREATE PROCEDURE nsdl.Upsert_TaxResidency
     @ApplicationId NVARCHAR(50),
     @TRCNo NVARCHAR(255),
@@ -981,6 +1013,7 @@ BEGIN
         INSERT (ApplicationId, TRCNo, CountryCode, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @TRCNo, @CountryCode, GETUTCDATE(), GETUTCDATE());
 END;
+GO
 CREATE PROCEDURE nsdl.Upsert_RegisteredOffice
     @ApplicationId NVARCHAR(50),
     @RegisteredFlatNum NVARCHAR(255),
@@ -1017,6 +1050,7 @@ BEGIN
         INSERT (ApplicationId, RegisteredFlatNum, RegisteredBuildingName, RegisteredCountryCode, RegisteredRoadName, RegisteredAreaName, RegisteredTownName, RegisteredZipName, RegisteredStateName, NotApplicableResidence, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @RegisteredFlatNum, @RegisteredBuildingName, @RegisteredCountryCode, @RegisteredRoadName, @RegisteredAreaName, @RegisteredTownName, @RegisteredZipName, @RegisteredStateName, @NotApplicableResidence, GETUTCDATE(), GETUTCDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.Upsert_ForeignOffice
     @ApplicationId NVARCHAR(50),
@@ -1054,6 +1088,7 @@ BEGIN
         INSERT (ApplicationId, ForeignFlatNum, ForeignBuildingName, ForeignCountryCode, ForeignRoadName, ForeignAreaName, ForeignTownName, ForeignZipName, ForeignStateName, NotApplicableForeignOffice, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @ForeignFlatNum, @ForeignBuildingName, @ForeignCountryCode, @ForeignRoadName, @ForeignAreaName, @ForeignTownName, @ForeignZipName, @ForeignStateName, @NotApplicableForeignOffice, GETUTCDATE(), GETUTCDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.Upsert_OfficeInIndia
     @ApplicationId NVARCHAR(50),
@@ -1093,6 +1128,7 @@ BEGIN
         INSERT (ApplicationId, OfficeInIndiaRadio, IndianFlatNum, IndianBuildingName, IndianCountryCode, IndianRoadName, IndianAreaName, IndianTownName, IndianZipName, IndianStateName, NotApplicableIndOffice, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @OfficeInIndiaRadio, @IndianFlatNum, @IndianBuildingName, @IndianCountryCode, @IndianRoadName, @IndianAreaName, @IndianTownName, @IndianZipName, @IndianStateName, @NotApplicableIndOffice, GETUTCDATE(), GETUTCDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.Upsert_ContactDetails
     @ApplicationId NVARCHAR(50),
@@ -1118,6 +1154,7 @@ BEGIN
         INSERT (ApplicationId, MobileNumber, EmailId, Website, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @MobileNumber, @EmailId, @Website, GETUTCDATE(), GETUTCDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.Upsert_ContactInfo
     @ApplicationId NVARCHAR(50),
@@ -1144,6 +1181,7 @@ BEGIN
         INSERT (ApplicationId, Type, CountryCode, AreaCode, Number, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @Type, @CountryCode, @AreaCode, @Number, GETUTCDATE(), GETUTCDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.Upsert_InvestmentManager
     @ApplicationId NVARCHAR(50),
@@ -1175,6 +1213,7 @@ BEGIN
         INSERT (ApplicationId, NameOfEntity, TypeOfEntity, CountryCode, TelephoneNumber, FaxNumber, EmailId, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @NameOfEntity, @TypeOfEntity, @CountryCode, @TelephoneNumber, @FaxNumber, @EmailId, GETUTCDATE(), GETUTCDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.Upsert_ComplianceOfficerInfo
     @ApplicationId NVARCHAR(50),
@@ -1204,6 +1243,7 @@ BEGIN
         INSERT (ApplicationId, ComplianceOfficerInfoName, ComplianceOfficerInfoJob, ComplianceOfficerInfoMobile, ComplianceOfficerInfoFax, ComplianceOfficerInfoEmail, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @ComplianceOfficerInfoName, @ComplianceOfficerInfoJob, @ComplianceOfficerInfoMobile, @ComplianceOfficerInfoFax, @ComplianceOfficerInfoEmail, GETUTCDATE(), GETUTCDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.Upsert_ManagingOfficial
     @ApplicationId NVARCHAR(50),
@@ -1237,6 +1277,7 @@ BEGIN
         INSERT (ApplicationId, GovernmentIdNumber, NameAndAddress, DateOfBirth, TaxResidencyJurisdiction, Nationality, ActingAsGroupDetails, BoGroupShareholding, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @GovernmentIdNumber, @NameAndAddress, @DateOfBirth, @TaxResidencyJurisdiction, @Nationality, @ActingAsGroupDetails, @BoGroupShareholding, GETUTCDATE(), GETUTCDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.Upsert_IncomeDetails
     @ApplicationId NVARCHAR(50),
@@ -1279,6 +1320,7 @@ BEGIN
         SELECT @ApplicationId, IncomeSourceType, GETUTCDATE() FROM @IncomeSource;
     END
 END;
+GO
 
 CREATE PROCEDURE nsdl.Upsert_ApplicantType
     @ApplicationId NVARCHAR(50),
@@ -1302,6 +1344,7 @@ BEGIN
         INSERT (ApplicationId, ApplicantTypeName, ApplicantTypeOtherEntity, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @ApplicantTypeName, @ApplicantTypeOtherEntity, GETUTCDATE(), GETUTCDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.Upsert_RegistrationForm
     @ApplicationId INT,
@@ -1350,6 +1393,7 @@ BEGIN
                 @DpRegistrationNumber, @SelectedCity, @HasOtherEntity, @OtherEntityDetails, GETDATE(), GETDATE());
 
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_Upsert_ThroughGlobalCustodian
     @ApplicationId INT,
@@ -1377,6 +1421,7 @@ BEGIN
         INSERT (ApplicationId, ThroughGlobalCustodianRadio, ThroughGlobalCustodianName, ThroughGlobalCustodianAddress, ThroughGlobalCustodianRegistration, ThroughGlobalCustodianCountry, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @ThroughGlobalCustodianRadio, @ThroughGlobalCustodianName, @ThroughGlobalCustodianAddress, @ThroughGlobalCustodianRegistration, @ThroughGlobalCustodianCountry, GETDATE(), GETDATE());
 END;
+GO
 
 
 CREATE PROCEDURE nsdl.sp_Upsert_DesignatedBank
@@ -1397,6 +1442,7 @@ BEGIN
         INSERT (ApplicationId, DesignatedBankAddress, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @DesignatedBankAddress, GETDATE(), GETDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_Upsert_DesignatedBankName
     @ApplicationId varchar(255),
@@ -1419,6 +1465,7 @@ BEGIN
         INSERT (ApplicationId, Name, Value, Address, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @Name, @Value, @Address, GETDATE(), GETDATE());
 END;
+GO
 
 
 CREATE PROCEDURE nsdl.sp_Upsert_PriorAssociation
@@ -1439,6 +1486,7 @@ BEGIN
         INSERT (ApplicationId, PriorAssociationRadio, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @PriorAssociationRadio, GETDATE(), GETDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_Upsert_PriorAssociationRow
     @ApplicationId INT,
@@ -1466,6 +1514,7 @@ BEGIN
         INSERT (ApplicationId, SebiRegNumber, EntityName, RegistrationType, RegistrationStart, RegistrationEnd, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @SebiRegNumber, @EntityName, @RegistrationType, @RegistrationStart, @RegistrationEnd, GETDATE(), GETDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_Upsert_HasPan
     @ApplicationId INT,
@@ -1487,6 +1536,7 @@ BEGIN
         INSERT (ApplicationId, HasPanRadio, HasPanNumber, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @HasPanRadio, @HasPanNumber, GETDATE(), GETDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_Upsert_DisciplinaryHistory
     @ApplicationId varchar(255),
@@ -1508,6 +1558,7 @@ BEGIN
         INSERT (ApplicationId, DisciplinaryHistoryRadio, DisciplinaryHistoryText, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @DisciplinaryHistoryRadio, @DisciplinaryHistoryText, GETDATE(), GETDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_Upsert_DdpInfo
     @ApplicationId varchar(255),
@@ -1533,6 +1584,7 @@ BEGIN
         INSERT (ApplicationId, Name, Value, RegistrationNumber, DdpId, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @Name, @Value, @RegistrationNumber, @DdpId, GETDATE(), GETDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_Upsert_DpInfo
     @ApplicationId varchar(255),
@@ -1582,6 +1634,7 @@ BEGIN
         INSERT (ApplicationId, Name, Value, RegistrationNumber, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @Name, @Value, @RegistrationNumber, GETDATE(), GETDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.sp_UpsertDeclarationAndUndertaking
     @ApplicationId INT,
@@ -1621,6 +1674,7 @@ BEGIN
         (@ApplicationId, @Name, @Capacity, @Place, @Date, @NameOfSignatory, @DesignationOfSignatory, @DateOfSignature, @Signature);
     END
 END;
+GO
 
 
 
@@ -1657,6 +1711,7 @@ BEGIN
         INSERT (ApplicationId, IntermediateMaterial, EntityHolding, NoEntityHolding, BeneficialOwnership, CreatedAt, UpdatedAt)
         VALUES (Source.ApplicationId, Source.IntermediateMaterial, Source.EntityHolding, Source.NoEntityHolding, Source.BeneficialOwnership, GETDATE(), GETDATE());
 END;
+GO
 CREATE PROCEDURE nsdl.UpsertSegregatedPortfolio
     @ApplicationId VARCHAR(255),
     @SeggregatedPortfolioRadio BIT,
@@ -1682,6 +1737,7 @@ BEGIN
         INSERT (ApplicationId, SeggregatedPortfolioRadio, SeggregatedPortfolioText, CreatedAt, UpdatedAt)
         VALUES (Source.ApplicationId, Source.SeggregatedPortfolioRadio, Source.SeggregatedPortfolioText, GETDATE(), GETDATE());
 END;
+GO
 
 CREATE PROCEDURE nsdl.UpsertBankDeclaration
     @ApplicationId VARCHAR(255),
@@ -1708,6 +1764,7 @@ BEGIN
         INSERT (ApplicationId, BankDeclarationRadio, BankDeclarationText, CreatedAt, UpdatedAt)
         VALUES (Source.ApplicationId, Source.BankDeclarationRadio, Source.BankDeclarationText, GETDATE(), GETDATE());
 END;
+GO
 CREATE PROCEDURE nsdl.UpsertConsentIntermediary
     @ApplicationId VARCHAR(255),
     @ConsentIntermediaryRadio BIT,
@@ -1748,6 +1805,7 @@ BEGIN
                 Source.ConsentIntermediaryEmail1, Source.ConsentIntermediaryEmail2, Source.ConsentIntermediaryEmail3, 
                 Source.ConsentIntermediaryMobile, GETDATE(), GETDATE());
 END;
+GO
 CREATE PROCEDURE nsdl.UpsertInformationOfSaSmFvciApplicant
     @ApplicationId VARCHAR(255),
     @Name VARCHAR(255),
@@ -1789,6 +1847,7 @@ BEGIN
         INSERT (ApplicationId, Name, RelationWithApplicant, Pan, NationalityCode, DateOfBirth, ResidentialAddress, IdentityDocNumber, CreatedAt, UpdatedAt)
         VALUES (Source.ApplicationId, Source.Name, Source.RelationWithApplicant, Source.Pan, Source.NationalityCode, Source.DateOfBirth, Source.ResidentialAddress, Source.IdentityDocNumber, GETDATE(), GETDATE());
 END;
+GO
 CREATE PROCEDURE nsdl.UpsertSignatory
     @ApplicationId VARCHAR(255),
     @Details VARCHAR(500),
@@ -1822,6 +1881,7 @@ BEGIN
         SET @SignatoryId = SCOPE_IDENTITY();
     END
 END;
+GO
 CREATE PROCEDURE nsdl.UpsertOwnerDetails
     @SignatoryId INT,
     @NameAddressOfBo VARCHAR(255),
@@ -1865,6 +1925,7 @@ BEGIN
                 Source.NationalityCode, Source.ActingAloneOrMoreNaturalPerson, Source.BoGroupPercentageShareHolding, 
                 Source.IdentityDocument, GETDATE(), GETDATE());
 END;
+GO
 CREATE PROCEDURE nsdl.UpsertMaterialShareholder
     @ApplicationId VARCHAR(255),
     @NameOfBeneficialOwner VARCHAR(255),
@@ -1904,6 +1965,7 @@ BEGIN
         VALUES (Source.ApplicationId, Source.NameOfBeneficialOwner, Source.DirectIndirectStake, Source.NameOfEntities, 
                 Source.CountryOfIncorporationOrNationalityCode, Source.PercentageStakeHeld, Source.IndividualOrNonIndividual, GETDATE(), GETDATE());
 END;
+GO
 CREATE PROCEDURE nsdl.UpsertBeneficialOwners
     @ApplicationId VARCHAR(255),
     @NameOfBeneficialOwner VARCHAR(255),
@@ -1940,6 +2002,7 @@ BEGIN
         VALUES (Source.ApplicationId, Source.NameOfBeneficialOwner, Source.MethodOfControl, Source.CountryOfIncorporationCode, 
                 Source.PercentageStakeHeld, Source.IndividualOrNonIndividual, GETDATE(), GETDATE());
 END;
+GO
 CREATE PROCEDURE nsdl.UpsertManagers
     @ApplicationId VARCHAR(255),
     @NameOfEntity VARCHAR(255),
@@ -1979,6 +2042,7 @@ BEGIN
         VALUES (Source.ApplicationId, Source.NameOfEntity, Source.TypeOfEntity, Source.CountryCode, 
                 Source.TelephoneNumber, Source.FaxNumber, Source.EmailId, GETDATE(), GETDATE());
 END;
+GO
 
 
 CREATE PROCEDURE nsdl.sp_InsertFromDraft
@@ -2326,6 +2390,7 @@ BEGIN
 
 
 END;
+GO
 ALTER PROCEDURE nsdl.SP_GetApplicationData
     @ApplicationId NVARCHAR(50)
 AS
@@ -2390,6 +2455,7 @@ BEGIN
         UpdatedAt = GETDATE()
     WHERE ApplicationId = @ApplicationId;
 END;
+GO
 CREATE PROCEDURE nsdl.UpdateSegregatedPortfolio
     @ApplicationId VARCHAR(255),
     @SeggregatedPortfolioRadio BIT,
@@ -2405,6 +2471,7 @@ BEGIN
         UpdatedAt = GETDATE()
     WHERE ApplicationId = @ApplicationId;
 END;
+GO
 CREATE PROCEDURE nsdl.UpdateBankDeclaration
     @ApplicationId VARCHAR(255),
     @BankDeclarationRadio VARCHAR(50),
@@ -2420,6 +2487,7 @@ BEGIN
         UpdatedAt = GETDATE()
     WHERE ApplicationId = @ApplicationId;
 END;
+GO
 CREATE PROCEDURE nsdl.UpdateConsentIntermediary
     @ApplicationId VARCHAR(255),
     @ConsentIntermediaryRadio BIT,
@@ -2443,6 +2511,7 @@ BEGIN
         UpdatedAt = GETDATE()
     WHERE ApplicationId = @ApplicationId;
 END;
+GO
 CREATE PROCEDURE nsdl.UpdateInformationOfSaSmFvciApplicant
     @ApplicationId VARCHAR(255),
     @Name VARCHAR(255),
@@ -2467,6 +2536,7 @@ BEGIN
         UpdatedAt = GETDATE()
     WHERE ApplicationId = @ApplicationId AND Name = @Name;
 END;
+GO
 CREATE PROCEDURE nsdl.UpdateSignatory
     @ApplicationId varchar(255),
     @Details VARCHAR(500)
@@ -2480,6 +2550,7 @@ BEGIN
         UpdatedAt = GETDATE()
     WHERE ApplicationId = @ApplicationId;
 END;
+GO
 CREATE PROCEDURE nsdl.UpdateOwnerDetailsBySignatoryId
     @ApplicationId varchar(255),
     @DateOfBirthOfBo DATE,
@@ -2503,6 +2574,7 @@ BEGIN
         UpdatedAt = GETDATE()
     WHERE SignatoryId = (select Id from nsdl.Signatory where ApplicationId = @ApplicationId);
 END;
+GO
 CREATE PROCEDURE nsdl.UpdateMaterialShareholder
     @ApplicationId VARCHAR(255),
     @NameOfBeneficialOwner VARCHAR(255),
@@ -2526,6 +2598,7 @@ BEGIN
     WHERE ApplicationId = @ApplicationId 
           AND NameOfBeneficialOwner = @NameOfBeneficialOwner;
 END;
+GO
 CREATE PROCEDURE nsdl.UpdateBeneficialOwners
     @ApplicationId VARCHAR(255),
     @NameOfBeneficialOwner VARCHAR(255),
@@ -2547,6 +2620,7 @@ BEGIN
     WHERE ApplicationId = @ApplicationId 
           AND NameOfBeneficialOwner = @NameOfBeneficialOwner;
 END;
+GO
 CREATE PROCEDURE nsdl.UpdateManagers
     @ApplicationId VARCHAR(255),
     @NameOfEntity VARCHAR(255),
@@ -2570,6 +2644,7 @@ BEGIN
     WHERE ApplicationId = @ApplicationId 
           AND NameOfEntity = @NameOfEntity;
 END;
+GO
 ALTER PROCEDURE SaveFvciApplication
                         @ApplicationId NVARCHAR(255) = NULL,
                         @UserId NVARCHAR(255),
@@ -2634,6 +2709,7 @@ ALTER PROCEDURE SaveFvciApplication
                         SELECT @GeneratedApplicationId = application_id FROM @InsertedApplicationId;
                         PRINT 'Inserted ApplicationId: ' + COALESCE(@GeneratedApplicationId, 'NULL');
                     END;
+GO
 CREATE PROCEDURE nsdl.UpdateFvciApplication
 @ApplicationId NVARCHAR(255),
                         @UserId NVARCHAR(255),
@@ -2679,6 +2755,7 @@ BEGIN
         PRINT 'ApplicationId does not exist: ' + @ApplicationId;
     END
 END;
+GO
 
 
 
@@ -2776,4 +2853,5 @@ BEGIN
         SELECT Repository_nm regulatory_name, Country_Name country_name, Reg_Auth_Website website FROM [nsdl].regulatory_master rm ;
     END 
 END;
+GO
 
