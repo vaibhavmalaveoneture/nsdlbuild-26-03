@@ -1075,4 +1075,42 @@ export class AnnexureFormComponent implements OnInit {
 
     return incomeDetails;
   }
+
+  sanitizePercentageInput(event: any): void {
+    const input = event.target as HTMLInputElement;
+    const originalValue = input.value;
+    let cursor = input.selectionStart || 0;
+  
+    // Remove non-numeric and non-dot characters
+    let cleaned = originalValue.replace(/[^0-9.]/g, '');
+  
+    // Only allow one decimal point
+    const parts = cleaned.split('.');
+    if (parts.length > 2) {
+      cleaned = parts[0] + '.' + parts[1];
+    }
+  
+    // Limit to 2 decimal places
+    if (parts[1]?.length > 2) {
+      cleaned = parts[0] + '.' + parts[1].slice(0, 2);
+    }
+  
+    // Prevent value > 100
+    const numericValue = parseFloat(cleaned);
+    if (!isNaN(numericValue) && numericValue > 100) {
+      cleaned = '100';
+    }
+  
+    if (cleaned !== originalValue) {
+      input.value = cleaned;
+  
+      // Recalculate and restore caret position
+      const diff = originalValue.length - cleaned.length;
+      const newCursor = Math.max(0, cursor - diff);
+      setTimeout(() => {
+        input.setSelectionRange(newCursor, newCursor);
+      });
+    }
+  }
+
 }
