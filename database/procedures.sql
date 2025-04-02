@@ -214,7 +214,7 @@ END;
 GO
 
 -- SP_UpdateDDP
-CREATE PROCEDURE nsdl.dbo.SP_UpdateDDP
+ALTER PROCEDURE nsdl.dbo.SP_UpdateDDP
     @UserRegistrationId INT,
     @DdpId INT
 AS
@@ -226,7 +226,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.dbo.sp_UpdateDeclarationAndUndertaking
+ALTER PROCEDURE nsdl.dbo.sp_UpdateDeclarationAndUndertaking
     @ApplicationId INT,
     @Name NVARCHAR(255),
     @Capacity NVARCHAR(255),
@@ -263,7 +263,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.dbo.SP_UpdatePassword
+ALTER PROCEDURE nsdl.dbo.SP_UpdatePassword
     @UserId INT,
     @Password VARCHAR(255)
 AS
@@ -273,7 +273,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.dbo.SP_UpdateRegistrationVerificationFlag
+ALTER PROCEDURE nsdl.dbo.SP_UpdateRegistrationVerificationFlag
     @UrId INT,
     @VerificationFlag INT
 AS
@@ -284,7 +284,7 @@ END;
 GO
 
 -- SP_UpdateUserRegistrationPassword
-CREATE PROCEDURE nsdl.dbo.SP_UpdateUserRegistrationPassword
+ALTER PROCEDURE nsdl.dbo.SP_UpdateUserRegistrationPassword
     @UserRegistrationId INT,
     @Password VARCHAR(255)
 AS
@@ -296,7 +296,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.dbo.Update_ApplicantOtherName
+ALTER PROCEDURE nsdl.dbo.Update_ApplicantOtherName
     @ApplicationId NVARCHAR(50),
     @OtherNameRadio BIT,
     @OtherNameField NVARCHAR(255)
@@ -322,7 +322,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.dbo.Update_ApplicantType
+ALTER PROCEDURE nsdl.dbo.Update_ApplicantType
     @ApplicationId NVARCHAR(50),
     @ApplicantTypeName NVARCHAR(255) NULL,
     @ApplicantTypeOtherEntity NVARCHAR(255) NULL
