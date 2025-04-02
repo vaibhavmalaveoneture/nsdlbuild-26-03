@@ -1,4 +1,4 @@
-CREATE PROCEDURE nsdl.sp_Update_DesignatedBank
+CREATE PROCEDURE nsdl.dbo.sp_Update_DesignatedBank
     @ApplicationId VARCHAR(255),
     @DesignatedBankAddress NVARCHAR(500)
 AS
@@ -6,9 +6,9 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Update only if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.DesignatedBank WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.DesignatedBank WHERE ApplicationId = @ApplicationId)
     BEGIN
-        UPDATE nsdl.DesignatedBank
+        UPDATE nsdl.dbo.DesignatedBank
         SET DesignatedBankAddress = @DesignatedBankAddress,
             UpdatedAt = GETDATE()
         WHERE ApplicationId = @ApplicationId;
@@ -20,7 +20,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_Update_DesignatedBankName
+CREATE PROCEDURE nsdl.dbo.sp_Update_DesignatedBankName
     @ApplicationId VARCHAR(255),
     @Name NVARCHAR(255),
     @Value INT,
@@ -30,9 +30,9 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Update only if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.DesignatedBankName WHERE ApplicationId = @ApplicationId AND Name = @Name)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.DesignatedBankName WHERE ApplicationId = @ApplicationId AND Name = @Name)
     BEGIN
-        UPDATE nsdl.DesignatedBankName
+        UPDATE nsdl.dbo.DesignatedBankName
         SET Value = @Value,
             Address = @Address,
             UpdatedAt = GETDATE()
@@ -45,7 +45,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_Update_DisciplinaryHistory
+CREATE PROCEDURE nsdl.dbo.sp_Update_DisciplinaryHistory
     @ApplicationId VARCHAR(255),
     @DisciplinaryHistoryRadio BIT,
     @DisciplinaryHistoryText NVARCHAR(1000)
@@ -54,9 +54,9 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Update only if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.DisciplinaryHistory WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.DisciplinaryHistory WHERE ApplicationId = @ApplicationId)
     BEGIN
-        UPDATE nsdl.DisciplinaryHistory
+        UPDATE nsdl.dbo.DisciplinaryHistory
         SET DisciplinaryHistoryRadio = @DisciplinaryHistoryRadio,
             DisciplinaryHistoryText = @DisciplinaryHistoryText,
             UpdatedAt = GETDATE()
@@ -69,7 +69,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_Update_DpInfo
+CREATE PROCEDURE nsdl.dbo.sp_Update_DpInfo
     @ApplicationId VARCHAR(255),
     @Name NVARCHAR(255),
     @Value INT,
@@ -80,9 +80,9 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Update only if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.DpInfo WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.DpInfo WHERE ApplicationId = @ApplicationId)
     BEGIN
-        UPDATE nsdl.DpInfo
+        UPDATE nsdl.dbo.DpInfo
         SET Name = @Name,
             Value = @Value,
             RegistrationNumber = @RegistrationNumber,
@@ -97,7 +97,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_Update_HasPan
+CREATE PROCEDURE nsdl.dbo.sp_Update_HasPan
     @ApplicationId INT,
     @HasPanRadio BIT,
     @HasPanNumber NVARCHAR(20)
@@ -106,9 +106,9 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Update only if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.HasPan WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.HasPan WHERE ApplicationId = @ApplicationId)
     BEGIN
-        UPDATE nsdl.HasPan
+        UPDATE nsdl.dbo.HasPan
         SET HasPanRadio = @HasPanRadio,
             HasPanNumber = @HasPanNumber,
             UpdatedAt = GETDATE()
@@ -121,7 +121,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_Update_PriorAssociation
+CREATE PROCEDURE nsdl.dbo.sp_Update_PriorAssociation
     @ApplicationId INT,
     @PriorAssociationRadio BIT
 AS
@@ -129,9 +129,9 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Update only if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.PriorAssociation WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.PriorAssociation WHERE ApplicationId = @ApplicationId)
     BEGIN
-        UPDATE nsdl.PriorAssociation
+        UPDATE nsdl.dbo.PriorAssociation
         SET PriorAssociationRadio = @PriorAssociationRadio,
             UpdatedAt = GETDATE()
         WHERE ApplicationId = @ApplicationId;
@@ -143,7 +143,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_Update_PriorAssociationRow
+CREATE PROCEDURE nsdl.dbo.sp_Update_PriorAssociationRow
     @ApplicationId INT,
     @SebiRegNumber NVARCHAR(50),
     @EntityName NVARCHAR(255),
@@ -157,13 +157,13 @@ BEGIN
     -- Update only if the record exists
     IF EXISTS (
         SELECT 1 
-        FROM nsdl.PriorAssociationRow 
+        FROM nsdl.dbo.PriorAssociationRow 
         WHERE ApplicationId = @ApplicationId 
         AND SebiRegNumber = @SebiRegNumber 
         AND RegistrationStart = @RegistrationStart
     )
     BEGIN
-        UPDATE nsdl.PriorAssociationRow
+        UPDATE nsdl.dbo.PriorAssociationRow
         SET EntityName = @EntityName,
             RegistrationType = @RegistrationType,
             RegistrationEnd = @RegistrationEnd,
@@ -179,7 +179,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_Update_ThroughGlobalCustodian
+CREATE PROCEDURE nsdl.dbo.sp_Update_ThroughGlobalCustodian
     @ApplicationId INT,
     @ThroughGlobalCustodianRadio NVARCHAR(50),
     @ThroughGlobalCustodianName NVARCHAR(255),
@@ -193,11 +193,11 @@ BEGIN
     -- Update only if the record exists
     IF EXISTS (
         SELECT 1 
-        FROM nsdl.ThroughGlobalCustodian 
+        FROM nsdl.dbo.ThroughGlobalCustodian 
         WHERE ApplicationId = @ApplicationId
     )
     BEGIN
-        UPDATE nsdl.ThroughGlobalCustodian
+        UPDATE nsdl.dbo.ThroughGlobalCustodian
         SET ThroughGlobalCustodianRadio = @ThroughGlobalCustodianRadio,
             ThroughGlobalCustodianName = @ThroughGlobalCustodianName,
             ThroughGlobalCustodianAddress = @ThroughGlobalCustodianAddress,
@@ -214,19 +214,19 @@ END;
 GO
 
 -- SP_UpdateDDP
-CREATE PROCEDURE [nsdl].[SP_UpdateDDP]
+CREATE PROCEDURE nsdl.dbo.SP_UpdateDDP
     @UserRegistrationId INT,
     @DdpId INT
 AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [nsdl].user_registrations
+    UPDATE nsdl.dbo.user_registrations
     SET ddp = @DdpId, pending_ddp_flag = 0, modified_dtm = GETDATE()
     WHERE ur_id = @UserRegistrationId;
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_UpdateDeclarationAndUndertaking
+CREATE PROCEDURE nsdl.dbo.sp_UpdateDeclarationAndUndertaking
     @ApplicationId INT,
     @Name NVARCHAR(255),
     @Capacity NVARCHAR(255),
@@ -241,9 +241,9 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Update only if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.DeclarationAndUndertakingForm WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.DeclarationAndUndertakingForm WHERE ApplicationId = @ApplicationId)
     BEGIN
-        UPDATE nsdl.DeclarationAndUndertakingForm
+        UPDATE nsdl.dbo.DeclarationAndUndertakingForm
         SET 
             Name = @Name,
             Capacity = @Capacity,
@@ -263,40 +263,40 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.SP_UpdatePassword
+CREATE PROCEDURE nsdl.dbo.SP_UpdatePassword
     @UserId INT,
     @Password VARCHAR(255)
 AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [nsdl].[users] SET new_password = @Password,is_forget_password = 0, last_pwd_change_dtm = GETDATE() WHERE user_id = @UserId;
+    UPDATE nsdl.dbo.users SET new_password = @Password,is_forget_password = 0, last_pwd_change_dtm = GETDATE() WHERE user_id = @UserId;
 END;
 GO
 
-CREATE PROCEDURE [nsdl].[SP_UpdateRegistrationVerificationFlag]
+CREATE PROCEDURE nsdl.dbo.SP_UpdateRegistrationVerificationFlag
     @UrId INT,
     @VerificationFlag INT
 AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [nsdl].user_registrations SET verification_flag = @VerificationFlag WHERE ur_id = @UrId;
+    UPDATE nsdl.dbo.user_registrations SET verification_flag = @VerificationFlag WHERE ur_id = @UrId;
 END;
 GO
 
 -- SP_UpdateUserRegistrationPassword
-CREATE PROCEDURE nsdl.SP_UpdateUserRegistrationPassword
+CREATE PROCEDURE nsdl.dbo.SP_UpdateUserRegistrationPassword
     @UserRegistrationId INT,
     @Password VARCHAR(255)
 AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [nsdl].user_registrations
+    UPDATE nsdl.dbo.user_registrations
     SET new_password = @Password, modified_dtm = GETDATE()
     WHERE ur_id = @UserRegistrationId;
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_ApplicantOtherName
+CREATE PROCEDURE nsdl.dbo.Update_ApplicantOtherName
     @ApplicationId NVARCHAR(50),
     @OtherNameRadio BIT,
     @OtherNameField NVARCHAR(255)
@@ -305,11 +305,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.ApplicantOtherName WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.ApplicantOtherName WHERE ApplicationId = @ApplicationId)
     BEGIN
         PRINT 'Updating existing applicant other name record: ' + @ApplicationId;
 
-        UPDATE nsdl.ApplicantOtherName
+        UPDATE nsdl.dbo.ApplicantOtherName
         SET OtherNameRadio = @OtherNameRadio,
             OtherNameField = @OtherNameField,
             UpdatedAt = GETUTCDATE()
@@ -322,7 +322,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_ApplicantType
+CREATE PROCEDURE nsdl.dbo.Update_ApplicantType
     @ApplicationId NVARCHAR(50),
     @ApplicantTypeName NVARCHAR(255) NULL,
     @ApplicantTypeOtherEntity NVARCHAR(255) NULL
@@ -331,11 +331,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.ApplicantType WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.ApplicantType WHERE ApplicationId = @ApplicationId)
     BEGIN
         PRINT 'Updating existing Applicant Type record for ApplicationId: ' + @ApplicationId;
 
-        UPDATE nsdl.ApplicantType
+        UPDATE nsdl.dbo.ApplicantType
         SET ApplicantTypeName = @ApplicantTypeName,
             ApplicantTypeOtherEntity = @ApplicantTypeOtherEntity,
             UpdatedAt = GETUTCDATE()
@@ -348,7 +348,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_ComplianceOfficerInfo
+CREATE PROCEDURE nsdl.dbo.Update_ComplianceOfficerInfo
     @ApplicationId NVARCHAR(50),
     @ComplianceOfficerInfoName NVARCHAR(255) NULL,
     @ComplianceOfficerInfoJob NVARCHAR(255) NULL,
@@ -360,11 +360,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.ComplianceOfficerInfo WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.ComplianceOfficerInfo WHERE ApplicationId = @ApplicationId)
     BEGIN
         PRINT 'Updating existing Compliance Officer Info record for ApplicationId: ' + @ApplicationId;
 
-        UPDATE nsdl.ComplianceOfficerInfo
+        UPDATE nsdl.dbo.ComplianceOfficerInfo
         SET ComplianceOfficerInfoName = @ComplianceOfficerInfoName,
             ComplianceOfficerInfoJob = @ComplianceOfficerInfoJob,
             ComplianceOfficerInfoMobile = @ComplianceOfficerInfoMobile,
@@ -380,7 +380,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_ContactDetails
+CREATE PROCEDURE nsdl.dbo.Update_ContactDetails
     @ApplicationId NVARCHAR(50),
     @MobileNumber NVARCHAR(50) NULL,
     @EmailId NVARCHAR(255) NULL,
@@ -390,11 +390,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.ContactDetails WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.ContactDetails WHERE ApplicationId = @ApplicationId)
     BEGIN
         PRINT 'Updating existing Contact Details record for ApplicationId: ' + @ApplicationId;
 
-        UPDATE nsdl.ContactDetails
+        UPDATE nsdl.dbo.ContactDetails
         SET MobileNumber = @MobileNumber,
             EmailId = @EmailId,
             Website = @Website,
@@ -408,7 +408,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_ContactInfo
+CREATE PROCEDURE nsdl.dbo.Update_ContactInfo
     @ApplicationId NVARCHAR(50),
     @Type NVARCHAR(50),
     @CountryCode VARCHAR(255),
@@ -419,11 +419,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.ContactInfo WHERE ApplicationId = @ApplicationId AND Type = @Type)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.ContactInfo WHERE ApplicationId = @ApplicationId AND Type = @Type)
     BEGIN
         PRINT 'Updating existing Contact Info record: ' + @ApplicationId + ' Type: ' + @Type;
 
-        UPDATE nsdl.ContactInfo
+        UPDATE nsdl.dbo.ContactInfo
         SET CountryCode = @CountryCode, 
             AreaCode = @AreaCode, 
             Number = @Number, 
@@ -437,7 +437,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_CustodianInfo
+CREATE PROCEDURE nsdl.dbo.Update_CustodianInfo
     @ApplicationId varchar(255),
     @Name NVARCHAR(255),
     @Value INT,
@@ -447,11 +447,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.CustodianInfo WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.CustodianInfo WHERE ApplicationId = @ApplicationId)
     BEGIN
         PRINT 'Updating existing Custodian Info record for ApplicationId: ' + @ApplicationId;
 
-        UPDATE nsdl.CustodianInfo
+        UPDATE nsdl.dbo.CustodianInfo
         SET Name = @Name,
             Value = @Value,
             RegistrationNumber = @RegistrationNumber,
@@ -465,7 +465,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_DdpInfo
+CREATE PROCEDURE nsdl.dbo.Update_DdpInfo
     @ApplicationId VARCHAR(255),
     @Name NVARCHAR(255),
     @Value INT,
@@ -476,11 +476,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.DdpInfo WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.DdpInfo WHERE ApplicationId = @ApplicationId)
     BEGIN
         PRINT 'Updating existing DDP Info record for ApplicationId: ' + @ApplicationId;
 
-        UPDATE nsdl.DdpInfo
+        UPDATE nsdl.dbo.DdpInfo
         SET Name = @Name,
             Value = @Value,
             RegistrationNumber = @RegistrationNumber,
@@ -495,7 +495,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_Ekyc
+CREATE PROCEDURE nsdl.dbo.Update_Ekyc
     @ApplicationId NVARCHAR(50),
     @Name NVARCHAR(255),
     @DateOfIncorporation DATETIME NULL,
@@ -522,11 +522,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the ApplicationId exists
-    IF EXISTS (SELECT 1 FROM nsdl.Ekyc WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.Ekyc WHERE ApplicationId = @ApplicationId)
     BEGIN
         PRINT 'Updating existing eKYC application: ' + @ApplicationId;
 
-        UPDATE nsdl.Ekyc
+        UPDATE nsdl.dbo.Ekyc
         SET Name = @Name,
             DateOfIncorporation = @DateOfIncorporation,
             DateOfCommencement = @DateOfCommencement,
@@ -557,7 +557,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_ForeignOffice
+CREATE PROCEDURE nsdl.dbo.Update_ForeignOffice
     @ApplicationId NVARCHAR(50),
     @ForeignFlatNum NVARCHAR(255),
     @ForeignBuildingName NVARCHAR(255),
@@ -573,11 +573,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.ForeignOffice WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.ForeignOffice WHERE ApplicationId = @ApplicationId)
     BEGIN
         PRINT 'Updating existing foreign office record: ' + @ApplicationId;
 
-        UPDATE nsdl.ForeignOffice
+        UPDATE nsdl.dbo.ForeignOffice
         SET ForeignFlatNum = @ForeignFlatNum,
             ForeignBuildingName = @ForeignBuildingName,
             ForeignCountryCode = @ForeignCountryCode,
@@ -597,7 +597,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_IncomeDetails
+CREATE PROCEDURE nsdl.dbo.Update_IncomeDetails
     @ApplicationId NVARCHAR(50),
     @BusinessCode NVARCHAR(255) NULL,
     @AnnualIncome NVARCHAR(255) NULL,
@@ -609,18 +609,18 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.IncomeDetails WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.IncomeDetails WHERE ApplicationId = @ApplicationId)
     BEGIN
         PRINT 'Updating existing Income Details record for ApplicationId: ' + @ApplicationId;
 
-        UPDATE nsdl.IncomeDetails
+        UPDATE nsdl.dbo.IncomeDetails
         SET BusinessCode = @BusinessCode,
             AnnualIncome = @AnnualIncome,
             AssetLess = @AssetLess,
             AsOnDate = @AsOnDate,
             UpdatedAt = GETUTCDATE()
         WHERE ApplicationId = @ApplicationId;
-       	DELETE FROM nsdl.IncomeSource WHERE ApplicationId = @ApplicationId;
+       	DELETE FROM nsdl.dbo.IncomeSource WHERE ApplicationId = @ApplicationId;
 
     -- Insert new IncomeSource records (IncomeSourceList is a comma-separated list of integers)
     IF @IncomeSourceList IS NOT NULL
@@ -628,7 +628,7 @@ BEGIN
         DECLARE @IncomeSource TABLE (IncomeSourceType INT);
         INSERT INTO @IncomeSource SELECT value FROM STRING_SPLIT(@IncomeSourceList, ',');
 
-        INSERT INTO nsdl.IncomeSource (ApplicationId, IncomeSourceType, CreatedAt)
+        INSERT INTO nsdl.dbo.IncomeSource (ApplicationId, IncomeSourceType, CreatedAt)
         SELECT @ApplicationId, IncomeSourceType, GETUTCDATE() FROM @IncomeSource;
     END
     END
@@ -639,7 +639,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_InvestmentManager
+CREATE PROCEDURE nsdl.dbo.Update_InvestmentManager
     @ApplicationId NVARCHAR(50),
     @NameOfEntity NVARCHAR(255) NULL,
     @TypeOfEntity NVARCHAR(255) NULL,
@@ -652,11 +652,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.InvestmentManager WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.InvestmentManager WHERE ApplicationId = @ApplicationId)
     BEGIN
         PRINT 'Updating existing Investment Manager record for ApplicationId: ' + @ApplicationId;
 
-        UPDATE nsdl.InvestmentManager
+        UPDATE nsdl.dbo.InvestmentManager
         SET NameOfEntity = @NameOfEntity,
             TypeOfEntity = @TypeOfEntity,
             CountryCode = @CountryCode,
@@ -673,7 +673,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_ManagingOfficial
+CREATE PROCEDURE nsdl.dbo.Update_ManagingOfficial
     @ApplicationId NVARCHAR(50),
     @GovernmentIdNumber NVARCHAR(50),
     @NameAndAddress NVARCHAR(500) NULL,
@@ -687,11 +687,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.ManagingOfficial WHERE ApplicationId = @ApplicationId AND GovernmentIdNumber = @GovernmentIdNumber)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.ManagingOfficial WHERE ApplicationId = @ApplicationId AND GovernmentIdNumber = @GovernmentIdNumber)
     BEGIN
         PRINT 'Updating existing Managing Official record for ApplicationId: ' + @ApplicationId;
 
-        UPDATE nsdl.ManagingOfficial
+        UPDATE nsdl.dbo.ManagingOfficial
         SET NameAndAddress = @NameAndAddress,
             DateOfBirth = @DateOfBirth,
             TaxResidencyJurisdiction = @TaxResidencyJurisdiction,
@@ -708,7 +708,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_OfficeInIndia
+CREATE PROCEDURE nsdl.dbo.Update_OfficeInIndia
     @ApplicationId NVARCHAR(50),
     @OfficeInIndiaRadio BIT,
     @IndianFlatNum NVARCHAR(255),
@@ -725,11 +725,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.OfficeInIndia WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.OfficeInIndia WHERE ApplicationId = @ApplicationId)
     BEGIN
         PRINT 'Updating existing Office in India record: ' + @ApplicationId;
 
-        UPDATE nsdl.OfficeInIndia
+        UPDATE nsdl.dbo.OfficeInIndia
         SET OfficeInIndiaRadio = @OfficeInIndiaRadio,
             IndianFlatNum = @IndianFlatNum,
             IndianBuildingName = @IndianBuildingName,
@@ -750,7 +750,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_RegisteredOffice
+CREATE PROCEDURE nsdl.dbo.Update_RegisteredOffice
     @ApplicationId NVARCHAR(50),
     @RegisteredFlatNum NVARCHAR(255),
     @RegisteredBuildingName NVARCHAR(255),
@@ -766,11 +766,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.RegisteredOffice WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.RegisteredOffice WHERE ApplicationId = @ApplicationId)
     BEGIN
         PRINT 'Updating existing registered office record: ' + @ApplicationId;
 
-        UPDATE nsdl.RegisteredOffice
+        UPDATE nsdl.dbo.RegisteredOffice
         SET RegisteredFlatNum = @RegisteredFlatNum,
             RegisteredBuildingName = @RegisteredBuildingName,
             RegisteredCountryCode = @RegisteredCountryCode,
@@ -790,7 +790,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_RegistrationForm
+CREATE PROCEDURE nsdl.dbo.Update_RegistrationForm
     @ApplicationId INT,
     @ProvidedValidForm BIT,
     @RegulatoryAuthorityName NVARCHAR(255),
@@ -809,11 +809,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.RegistrationForm WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.RegistrationForm WHERE ApplicationId = @ApplicationId)
     BEGIN
         PRINT 'Updating existing Registration Form record for ApplicationId: ' + CAST(@ApplicationId AS NVARCHAR);
 
-        UPDATE nsdl.RegistrationForm
+        UPDATE nsdl.dbo.RegistrationForm
         SET ProvidedValidForm = @ProvidedValidForm,
             RegulatoryAuthorityName = @RegulatoryAuthorityName,
             RegulatoryAuthorityCountry = @RegulatoryAuthorityCountry,
@@ -836,7 +836,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Update_TaxResidency
+CREATE PROCEDURE nsdl.dbo.Update_TaxResidency
     @ApplicationId NVARCHAR(50),
     @TRCNo NVARCHAR(255),
     @CountryCode VARCHAR(255)
@@ -845,11 +845,11 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the record exists
-    IF EXISTS (SELECT 1 FROM nsdl.TaxResidency WHERE ApplicationId = @ApplicationId AND TRCNo = @TRCNo)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.TaxResidency WHERE ApplicationId = @ApplicationId AND TRCNo = @TRCNo)
     BEGIN
         PRINT 'Updating existing tax residency record: ' + @ApplicationId;
 
-        UPDATE nsdl.TaxResidency
+        UPDATE nsdl.dbo.TaxResidency
         SET CountryCode = @CountryCode,
             UpdatedAt = GETUTCDATE()
         WHERE ApplicationId = @ApplicationId AND TRCNo = @TRCNo;
@@ -861,7 +861,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.UpdateFvciApplication
+CREATE PROCEDURE nsdl.dbo.UpdateFvciApplication
 @ApplicationId NVARCHAR(255),  
                         @UserId NVARCHAR(255),
                         @FvciRegistrationNumber NVARCHAR(255),
@@ -873,10 +873,10 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check if the ApplicationId exists
-    IF EXISTS (SELECT 1 FROM nsdl.fvci_applications WHERE application_id = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.fvci_applications WHERE application_id = @ApplicationId)
     BEGIN
 
-        UPDATE nsdl.fvci_applications
+        UPDATE nsdl.dbo.fvci_applications
         SET user_id = @UserId,
             fvci_registration_number = @FvciRegistrationNumber,
             updated_at = @UpdatedAt,
@@ -889,7 +889,7 @@ BEGIN
     END
 END;
 GO
-CREATE PROCEDURE nsdl.Upsert_Ekyc
+CREATE PROCEDURE nsdl.dbo.Upsert_Ekyc
     @ApplicationId NVARCHAR(50),
     @Name NVARCHAR(255),
     @DateOfIncorporation DATETIME NULL,
@@ -915,7 +915,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_Ekyc AS target
+    MERGE INTO nsdl.dbo.draft_Ekyc AS target
     USING (VALUES 
         (@ApplicationId, @Name, @DateOfIncorporation, @DateOfCommencement, 
          @PlaceOfIncorporation, @CountryOfIncorporation, @CountryCodeOfIncorporation, 
@@ -968,7 +968,7 @@ BEGIN
                 source.PoliticallyExposed, source.RelatedToPoliticallyExposed, GETUTCDATE(), GETUTCDATE());
 END;
 GO
-CREATE PROCEDURE nsdl.Upsert_ApplicantOtherName
+CREATE PROCEDURE nsdl.dbo.Upsert_ApplicantOtherName
     @ApplicationId NVARCHAR(50),
     @OtherNameRadio BIT,
     @OtherNameField NVARCHAR(255)
@@ -976,7 +976,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_ApplicantOtherName AS target
+    MERGE INTO nsdl.dbo.draft_ApplicantOtherName AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
 
@@ -991,7 +991,7 @@ BEGIN
         VALUES (@ApplicationId, @OtherNameRadio, @OtherNameField, GETUTCDATE(), GETUTCDATE());
 END;
 GO
-CREATE PROCEDURE nsdl.Upsert_TaxResidency
+CREATE PROCEDURE nsdl.dbo.Upsert_TaxResidency
     @ApplicationId NVARCHAR(50),
     @TRCNo NVARCHAR(255),
     @CountryCode VARCHAR(255)
@@ -999,7 +999,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_TaxResidency AS target
+    MERGE INTO nsdl.dbo.draft_TaxResidency AS target
     USING (SELECT @ApplicationId AS ApplicationId, @TRCNo as TRCNo) AS source
     ON target.ApplicationId = source.ApplicationId and target.TRCNo = source.TRCNo
 
@@ -1014,7 +1014,7 @@ BEGIN
         VALUES (@ApplicationId, @TRCNo, @CountryCode, GETUTCDATE(), GETUTCDATE());
 END;
 GO
-CREATE PROCEDURE nsdl.Upsert_RegisteredOffice
+CREATE PROCEDURE nsdl.dbo.Upsert_RegisteredOffice
     @ApplicationId NVARCHAR(50),
     @RegisteredFlatNum NVARCHAR(255),
     @RegisteredBuildingName NVARCHAR(255),
@@ -1029,7 +1029,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_RegisteredOffice AS target
+    MERGE INTO nsdl.dbo.draft_RegisteredOffice AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
 
@@ -1052,7 +1052,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Upsert_ForeignOffice
+CREATE PROCEDURE nsdl.dbo.Upsert_ForeignOffice
     @ApplicationId NVARCHAR(50),
     @ForeignFlatNum NVARCHAR(255),
     @ForeignBuildingName NVARCHAR(255),
@@ -1067,7 +1067,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_ForeignOffice AS target
+    MERGE INTO nsdl.dbo.draft_ForeignOffice AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
 
@@ -1090,7 +1090,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Upsert_OfficeInIndia
+CREATE PROCEDURE nsdl.dbo.Upsert_OfficeInIndia
     @ApplicationId NVARCHAR(50),
     @OfficeInIndiaRadio BIT,
     @IndianFlatNum NVARCHAR(255),
@@ -1106,7 +1106,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_OfficeInIndia AS target
+    MERGE INTO nsdl.dbo.draft_OfficeInIndia AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
 
@@ -1130,7 +1130,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Upsert_ContactDetails
+CREATE PROCEDURE nsdl.dbo.Upsert_ContactDetails
     @ApplicationId NVARCHAR(50),
     @MobileNumber NVARCHAR(50) NULL,
     @EmailId NVARCHAR(255) NULL,
@@ -1139,7 +1139,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_ContactDetails AS target
+    MERGE INTO nsdl.dbo.draft_ContactDetails AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
 
@@ -1156,7 +1156,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Upsert_ContactInfo
+CREATE PROCEDURE nsdl.dbo.Upsert_ContactInfo
     @ApplicationId NVARCHAR(50),
     @Type NVARCHAR(50),
     @CountryCode VARCHAR(255),
@@ -1166,7 +1166,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_ContactInfo AS target
+    MERGE INTO nsdl.dbo.draft_ContactInfo AS target
     USING (SELECT @ApplicationId AS ApplicationId, @Type AS Type) AS source
     ON target.ApplicationId = source.ApplicationId AND target.Type = source.Type
 
@@ -1183,7 +1183,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Upsert_InvestmentManager
+CREATE PROCEDURE nsdl.dbo.Upsert_InvestmentManager
     @ApplicationId NVARCHAR(50),
     @NameOfEntity NVARCHAR(255) NULL,
     @TypeOfEntity NVARCHAR(255) NULL,
@@ -1195,7 +1195,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_InvestmentManager AS target
+    MERGE INTO nsdl.dbo.draft_InvestmentManager AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
 
@@ -1215,7 +1215,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Upsert_ComplianceOfficerInfo
+CREATE PROCEDURE nsdl.dbo.Upsert_ComplianceOfficerInfo
     @ApplicationId NVARCHAR(50),
     @ComplianceOfficerInfoName NVARCHAR(255) NULL,
     @ComplianceOfficerInfoJob NVARCHAR(255) NULL,
@@ -1226,7 +1226,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_ComplianceOfficerInfo AS target
+    MERGE INTO nsdl.dbo.draft_ComplianceOfficerInfo AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
 
@@ -1245,7 +1245,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Upsert_ManagingOfficial
+CREATE PROCEDURE nsdl.dbo.Upsert_ManagingOfficial
     @ApplicationId NVARCHAR(50),
     @GovernmentIdNumber NVARCHAR(50),
     @NameAndAddress NVARCHAR(500) NULL,
@@ -1259,7 +1259,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Upsert using MERGE
-    MERGE INTO nsdl.draft_ManagingOfficial AS target
+    MERGE INTO nsdl.dbo.draft_ManagingOfficial AS target
     USING (SELECT @ApplicationId AS ApplicationId, @GovernmentIdNumber AS GovernmentIdNumber) AS source
     ON target.ApplicationId = source.ApplicationId AND target.GovernmentIdNumber = source.GovernmentIdNumber
 
@@ -1279,7 +1279,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Upsert_IncomeDetails
+CREATE PROCEDURE nsdl.dbo.Upsert_IncomeDetails
     @ApplicationId NVARCHAR(50),
     @BusinessCode NVARCHAR(255) NULL,
     @AnnualIncome NVARCHAR(255) NULL,
@@ -1291,7 +1291,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Upsert IncomeDetails
-    MERGE INTO nsdl.draft_IncomeDetails AS target
+    MERGE INTO nsdl.dbo.draft_IncomeDetails AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
 
@@ -1308,7 +1308,7 @@ BEGIN
         VALUES (@ApplicationId, @BusinessCode, @AnnualIncome, @AssetLess, @AsOnDate, GETUTCDATE(), GETUTCDATE());
 
     -- Delete old IncomeSource records for this ApplicationId
-    DELETE FROM nsdl.draft_IncomeSource WHERE ApplicationId = @ApplicationId;
+    DELETE FROM nsdl.dbo.draft_IncomeSource WHERE ApplicationId = @ApplicationId;
 
     -- Insert new IncomeSource records (IncomeSourceList is a comma-separated list of integers)
     IF @IncomeSourceList IS NOT NULL
@@ -1316,13 +1316,13 @@ BEGIN
         DECLARE @IncomeSource TABLE (IncomeSourceType INT);
         INSERT INTO @IncomeSource SELECT value FROM STRING_SPLIT(@IncomeSourceList, ',');
 
-        INSERT INTO nsdl.draft_IncomeSource (ApplicationId, IncomeSourceType, CreatedAt)
+        INSERT INTO nsdl.dbo.draft_IncomeSource (ApplicationId, IncomeSourceType, CreatedAt)
         SELECT @ApplicationId, IncomeSourceType, GETUTCDATE() FROM @IncomeSource;
     END
 END;
 GO
 
-CREATE PROCEDURE nsdl.Upsert_ApplicantType
+CREATE PROCEDURE nsdl.dbo.Upsert_ApplicantType
     @ApplicationId NVARCHAR(50),
     @ApplicantTypeName NVARCHAR(255) NULL,
     @ApplicantTypeOtherEntity NVARCHAR(255) NULL
@@ -1330,7 +1330,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_ApplicantType AS target
+    MERGE INTO nsdl.dbo.draft_ApplicantType AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
 
@@ -1346,7 +1346,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.Upsert_RegistrationForm
+CREATE PROCEDURE nsdl.dbo.Upsert_RegistrationForm
     @ApplicationId INT,
     @ProvidedValidForm BIT,
     @RegulatoryAuthorityName NVARCHAR(255),
@@ -1364,7 +1364,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_RegistrationForm AS target
+    MERGE INTO nsdl.dbo.draft_RegistrationForm AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
     WHEN MATCHED THEN
@@ -1395,7 +1395,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_Upsert_ThroughGlobalCustodian
+CREATE PROCEDURE nsdl.dbo.sp_Upsert_ThroughGlobalCustodian
     @ApplicationId INT,
     @ThroughGlobalCustodianRadio NVARCHAR(50),
     @ThroughGlobalCustodianName NVARCHAR(255),
@@ -1406,7 +1406,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_ThroughGlobalCustodian AS target
+    MERGE INTO nsdl.dbo.draft_ThroughGlobalCustodian AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
     WHEN MATCHED THEN
@@ -1424,14 +1424,14 @@ END;
 GO
 
 
-CREATE PROCEDURE nsdl.sp_Upsert_DesignatedBank
+CREATE PROCEDURE nsdl.dbo.sp_Upsert_DesignatedBank
     @ApplicationId varchar(255),
     @DesignatedBankAddress NVARCHAR(500)
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_DesignatedBank AS target
+    MERGE INTO nsdl.dbo.draft_DesignatedBank AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
     WHEN MATCHED THEN
@@ -1444,7 +1444,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_Upsert_DesignatedBankName
+CREATE PROCEDURE nsdl.dbo.sp_Upsert_DesignatedBankName
     @ApplicationId varchar(255),
     @Name NVARCHAR(255),
     @Value INT,
@@ -1453,7 +1453,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_DesignatedBankName AS target
+    MERGE INTO nsdl.dbo.draft_DesignatedBankName AS target
     USING (SELECT @ApplicationId AS ApplicationId, @Name AS Name, @Value AS Value) AS source
     ON target.ApplicationId = source.ApplicationId AND target.Name = source.Name
     WHEN MATCHED THEN
@@ -1468,14 +1468,14 @@ END;
 GO
 
 
-CREATE PROCEDURE nsdl.sp_Upsert_PriorAssociation
+CREATE PROCEDURE nsdl.dbo.sp_Upsert_PriorAssociation
     @ApplicationId INT,
     @PriorAssociationRadio BIT
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_PriorAssociation AS target
+    MERGE INTO nsdl.dbo.draft_PriorAssociation AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
     WHEN MATCHED THEN
@@ -1488,7 +1488,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_Upsert_PriorAssociationRow
+CREATE PROCEDURE nsdl.dbo.sp_Upsert_PriorAssociationRow
     @ApplicationId INT,
     @SebiRegNumber NVARCHAR(50),
     @EntityName NVARCHAR(255),
@@ -1499,7 +1499,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_PriorAssociationRow AS target
+    MERGE INTO nsdl.dbo.draft_PriorAssociationRow AS target
     USING (SELECT @ApplicationId AS ApplicationId, @SebiRegNumber AS SebiRegNumber, @RegistrationStart AS RegistrationStart) AS source
     ON target.ApplicationId = source.ApplicationId 
         AND target.SebiRegNumber = source.SebiRegNumber 
@@ -1516,7 +1516,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_Upsert_HasPan
+CREATE PROCEDURE nsdl.dbo.sp_Upsert_HasPan
     @ApplicationId INT,
     @HasPanRadio BIT,
     @HasPanNumber NVARCHAR(20)
@@ -1524,7 +1524,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_HasPan AS target
+    MERGE INTO nsdl.dbo.draft_HasPan AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
     WHEN MATCHED THEN
@@ -1538,7 +1538,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_Upsert_DisciplinaryHistory
+CREATE PROCEDURE nsdl.dbo.sp_Upsert_DisciplinaryHistory
     @ApplicationId varchar(255),
     @DisciplinaryHistoryRadio BIT,
     @DisciplinaryHistoryText NVARCHAR(1000)
@@ -1546,7 +1546,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_DisciplinaryHistory AS target
+    MERGE INTO nsdl.dbo.draft_DisciplinaryHistory AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
     WHEN MATCHED THEN
@@ -1560,7 +1560,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_Upsert_DdpInfo
+CREATE PROCEDURE nsdl.dbo.sp_Upsert_DdpInfo
     @ApplicationId varchar(255),
     @Name NVARCHAR(255),
     @Value INT,
@@ -1570,7 +1570,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_DdpInfo AS target
+    MERGE INTO nsdl.dbo.draft_DdpInfo AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
     WHEN MATCHED THEN
@@ -1586,7 +1586,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_Upsert_DpInfo
+CREATE PROCEDURE nsdl.dbo.sp_Upsert_DpInfo
     @ApplicationId varchar(255),
     @Name NVARCHAR(255),
     @Value INT,
@@ -1596,7 +1596,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_DpInfo AS target
+    MERGE INTO nsdl.dbo.draft_DpInfo AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
     WHEN MATCHED THEN
@@ -1612,7 +1612,7 @@ BEGIN
 END
 ;
 
-CREATE PROCEDURE nsdl.sp_Upsert_CustodianInfo
+CREATE PROCEDURE nsdl.dbo.sp_Upsert_CustodianInfo
     @ApplicationId varchar(255),
     @Name NVARCHAR(255),
     @Value INT,
@@ -1621,7 +1621,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_CustodianInfo AS target
+    MERGE INTO nsdl.dbo.draft_CustodianInfo AS target
     USING (SELECT @ApplicationId AS ApplicationId) AS source
     ON target.ApplicationId = source.ApplicationId
     WHEN MATCHED THEN
@@ -1636,7 +1636,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.sp_UpsertDeclarationAndUndertaking
+CREATE PROCEDURE nsdl.dbo.sp_UpsertDeclarationAndUndertaking
     @ApplicationId INT,
     @Name NVARCHAR(255),
     @Capacity NVARCHAR(255),
@@ -1650,10 +1650,10 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF EXISTS (SELECT 1 FROM nsdl.draft_DeclarationAndUndertakingForm WHERE ApplicationId = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.draft_DeclarationAndUndertakingForm WHERE ApplicationId = @ApplicationId)
     BEGIN
         -- Update existing record
-        UPDATE nsdl.draft_DeclarationAndUndertakingForm
+        UPDATE nsdl.dbo.draft_DeclarationAndUndertakingForm
         SET 
             Name = @Name,
             Capacity = @Capacity,
@@ -1668,7 +1668,7 @@ BEGIN
     ELSE
     BEGIN
         -- Insert new record
-        INSERT INTO nsdl.draft_DeclarationAndUndertakingForm 
+        INSERT INTO nsdl.dbo.draft_DeclarationAndUndertakingForm 
         (ApplicationId, Name, Capacity, Place, Date, NameOfSignatory, DesignationOfSignatory, DateOfSignature, Signature)
         VALUES 
         (@ApplicationId, @Name, @Capacity, @Place, @Date, @NameOfSignatory, @DesignationOfSignatory, @DateOfSignature, @Signature);
@@ -1680,7 +1680,7 @@ GO
 
 
 
-CREATE PROCEDURE nsdl.UpsertDraftAnextureForm
+CREATE PROCEDURE nsdl.dbo.UpsertDraftAnextureForm
     @ApplicationId VARCHAR(255),
     @IntermediateMaterial BIT,
     @EntityHolding INT,
@@ -1690,7 +1690,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE nsdl.draft_AnextureForm AS Target
+    MERGE nsdl.dbo.draft_AnextureForm AS Target
     USING (
         SELECT 
             @ApplicationId AS ApplicationId,
@@ -1712,7 +1712,7 @@ BEGIN
         VALUES (Source.ApplicationId, Source.IntermediateMaterial, Source.EntityHolding, Source.NoEntityHolding, Source.BeneficialOwnership, GETDATE(), GETDATE());
 END;
 GO
-CREATE PROCEDURE nsdl.UpsertSegregatedPortfolio
+CREATE PROCEDURE nsdl.dbo.UpsertSegregatedPortfolio
     @ApplicationId VARCHAR(255),
     @SeggregatedPortfolioRadio BIT,
     @SeggregatedPortfolioText VARCHAR(255)
@@ -1720,7 +1720,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_SegregatedPortfolio AS Target
+    MERGE INTO nsdl.dbo.draft_SegregatedPortfolio AS Target
     USING (
         SELECT 
             @ApplicationId AS ApplicationId,
@@ -1739,7 +1739,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE nsdl.UpsertBankDeclaration
+CREATE PROCEDURE nsdl.dbo.UpsertBankDeclaration
     @ApplicationId VARCHAR(255),
     @BankDeclarationRadio VARCHAR(50),
     @BankDeclarationText VARCHAR(255)
@@ -1747,7 +1747,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_BankDeclaration AS Target
+    MERGE INTO nsdl.dbo.draft_BankDeclaration AS Target
     USING (
         SELECT 
             @ApplicationId AS ApplicationId,
@@ -1765,7 +1765,7 @@ BEGIN
         VALUES (Source.ApplicationId, Source.BankDeclarationRadio, Source.BankDeclarationText, GETDATE(), GETDATE());
 END;
 GO
-CREATE PROCEDURE nsdl.UpsertConsentIntermediary
+CREATE PROCEDURE nsdl.dbo.UpsertConsentIntermediary
     @ApplicationId VARCHAR(255),
     @ConsentIntermediaryRadio BIT,
     @ConsentIntermediaryName VARCHAR(255),
@@ -1777,7 +1777,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_ConsentIntermediary AS Target
+    MERGE INTO nsdl.dbo.draft_ConsentIntermediary AS Target
     USING (
         SELECT 
             @ApplicationId AS ApplicationId,
@@ -1806,7 +1806,7 @@ BEGIN
                 Source.ConsentIntermediaryMobile, GETDATE(), GETDATE());
 END;
 GO
-CREATE PROCEDURE nsdl.UpsertInformationOfSaSmFvciApplicant
+CREATE PROCEDURE nsdl.dbo.UpsertInformationOfSaSmFvciApplicant
     @ApplicationId VARCHAR(255),
     @Name VARCHAR(255),
     @RelationWithApplicant VARCHAR(255),
@@ -1820,7 +1820,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- If Id is provided, try to update; otherwise, insert a new record
-    MERGE INTO nsdl.draft_InformationOfSaSmFvciApplicant AS Target
+    MERGE INTO nsdl.dbo.draft_InformationOfSaSmFvciApplicant AS Target
     USING (
         SELECT 
             @ApplicationId AS ApplicationId, 
@@ -1848,7 +1848,7 @@ BEGIN
         VALUES (Source.ApplicationId, Source.Name, Source.RelationWithApplicant, Source.Pan, Source.NationalityCode, Source.DateOfBirth, Source.ResidentialAddress, Source.IdentityDocNumber, GETDATE(), GETDATE());
 END;
 GO
-CREATE PROCEDURE nsdl.UpsertSignatory
+CREATE PROCEDURE nsdl.dbo.UpsertSignatory
     @ApplicationId VARCHAR(255),
     @Details VARCHAR(500),
     @SignatoryId INT OUTPUT  -- Output parameter to return the generated Id
@@ -1860,13 +1860,13 @@ BEGIN
 
     -- Check if the record already exists
     SELECT @ExistingId = Id 
-    FROM nsdl.draft_Signatory 
+    FROM nsdl.dbo.draft_Signatory 
     WHERE ApplicationId = @ApplicationId AND Details = @Details;
 
     -- If exists, update and return existing Id
     IF @ExistingId IS NOT NULL
     BEGIN
-        UPDATE nsdl.draft_Signatory
+        UPDATE nsdl.dbo.draft_Signatory
         SET UpdatedAt = GETDATE()
         WHERE Id = @ExistingId;
 
@@ -1875,14 +1875,14 @@ BEGIN
     ELSE
     BEGIN
         -- Insert a new record and return new SignatoryId
-        INSERT INTO nsdl.draft_Signatory (ApplicationId, Details, CreatedAt, UpdatedAt)
+        INSERT INTO nsdl.dbo.draft_Signatory (ApplicationId, Details, CreatedAt, UpdatedAt)
         VALUES (@ApplicationId, @Details, GETDATE(), GETDATE());
 
         SET @SignatoryId = SCOPE_IDENTITY();
     END
 END;
 GO
-CREATE PROCEDURE nsdl.UpsertOwnerDetails
+CREATE PROCEDURE nsdl.dbo.UpsertOwnerDetails
     @SignatoryId INT,
     @NameAddressOfBo VARCHAR(255),
     @DateOfBirthOfBo DATE,
@@ -1896,7 +1896,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Match based on SignatoryId and NameAddressOfBo
-    MERGE INTO nsdl.draft_OwnerDetails AS Target
+    MERGE INTO nsdl.dbo.draft_OwnerDetails AS Target
     USING (
         SELECT 
             @SignatoryId AS SignatoryId, 
@@ -1926,7 +1926,7 @@ BEGIN
                 Source.IdentityDocument, GETDATE(), GETDATE());
 END;
 GO
-CREATE PROCEDURE nsdl.UpsertMaterialShareholder
+CREATE PROCEDURE nsdl.dbo.UpsertMaterialShareholder
     @ApplicationId VARCHAR(255),
     @NameOfBeneficialOwner VARCHAR(255),
     @DirectIndirectStake VARCHAR(255),
@@ -1938,7 +1938,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_MaterialShareholder AS Target
+    MERGE INTO nsdl.dbo.draft_MaterialShareholder AS Target
     USING (
         SELECT 
             @ApplicationId AS ApplicationId,
@@ -1966,7 +1966,7 @@ BEGIN
                 Source.CountryOfIncorporationOrNationalityCode, Source.PercentageStakeHeld, Source.IndividualOrNonIndividual, GETDATE(), GETDATE());
 END;
 GO
-CREATE PROCEDURE nsdl.UpsertBeneficialOwners
+CREATE PROCEDURE nsdl.dbo.UpsertBeneficialOwners
     @ApplicationId VARCHAR(255),
     @NameOfBeneficialOwner VARCHAR(255),
     @MethodOfControl VARCHAR(255),
@@ -1977,7 +1977,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_BeneficialOwners AS Target
+    MERGE INTO nsdl.dbo.draft_BeneficialOwners AS Target
     USING (
         SELECT 
             @ApplicationId AS ApplicationId,
@@ -2003,7 +2003,7 @@ BEGIN
                 Source.PercentageStakeHeld, Source.IndividualOrNonIndividual, GETDATE(), GETDATE());
 END;
 GO
-CREATE PROCEDURE nsdl.UpsertManagers
+CREATE PROCEDURE nsdl.dbo.UpsertManagers
     @ApplicationId VARCHAR(255),
     @NameOfEntity VARCHAR(255),
     @TypeOfEntity VARCHAR(255),
@@ -2015,7 +2015,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE INTO nsdl.draft_Managers AS Target
+    MERGE INTO nsdl.dbo.draft_Managers AS Target
     USING (
         SELECT 
             @ApplicationId AS ApplicationId,
@@ -2045,104 +2045,104 @@ END;
 GO
 
 
-CREATE PROCEDURE nsdl.sp_InsertFromDraft
+CREATE PROCEDURE nsdl.dbo.sp_InsertFromDraft
     @ApplicationId NVARCHAR(50)
 AS
 BEGIN
     SET NOCOUNT ON;
 
     -- Insert data from draft_fvci_applications to main table
-    INSERT INTO nsdl.fvci_applications (user_id, application_id, fvci_registration_number, created_at, updated_at, status)
+    INSERT INTO nsdl.dbo.fvci_applications (user_id, application_id, fvci_registration_number, created_at, updated_at, status)
     SELECT user_id, application_id, fvci_registration_number, created_at, updated_at, status
-    FROM nsdl.draft_fvci_applications WHERE application_id = @ApplicationId;
+    FROM nsdl.dbo.draft_fvci_applications WHERE application_id = @ApplicationId;
 
     -- Insert data from draft_Ekyc to main table
-    INSERT INTO nsdl.Ekyc (ApplicationId, Name, DateOfIncorporation, DateOfCommencement, PlaceOfIncorporation, CountryOfIncorporation, 
+    INSERT INTO nsdl.dbo.Ekyc (ApplicationId, Name, DateOfIncorporation, DateOfCommencement, PlaceOfIncorporation, CountryOfIncorporation, 
                                       CountryCodeOfIncorporation, LegalForm, LEI, SameAsAbove, CommunicationAddress, UltimateBeneficialOwner, 
-                                      UltimateBeneficialOwnerHolding, BeneficialOwnership, ProofOfIdentity, ProofOfAddress, [Date], TypeOfEntity, 
+                                      UltimateBeneficialOwnerHolding, BeneficialOwnership, ProofOfIdentity, ProofOfAddress, Date, TypeOfEntity, 
                                       SelectedCity, PoliticallyExposed, RelatedToPoliticallyExposed, CreatedAt, UpdatedAt)
     SELECT ApplicationId, Name, DateOfIncorporation, DateOfCommencement, PlaceOfIncorporation, CountryOfIncorporation, 
            CountryCodeOfIncorporation, LegalForm, LEI, SameAsAbove, CommunicationAddress, UltimateBeneficialOwner, 
-           UltimateBeneficialOwnerHolding, BeneficialOwnership, ProofOfIdentity, ProofOfAddress, [Date], TypeOfEntity, 
+           UltimateBeneficialOwnerHolding, BeneficialOwnership, ProofOfIdentity, ProofOfAddress, Date, TypeOfEntity, 
            SelectedCity, PoliticallyExposed, RelatedToPoliticallyExposed, CreatedAt, UpdatedAt
-    FROM nsdl.draft_Ekyc WHERE ApplicationId = @ApplicationId;
+    FROM nsdl.dbo.draft_Ekyc WHERE ApplicationId = @ApplicationId;
 
     -- Insert data from draft_ApplicantOtherName to main table
-    INSERT INTO nsdl.ApplicantOtherName (ApplicationId, OtherNameRadio, OtherNameField, CreatedAt, UpdatedAt)
+    INSERT INTO nsdl.dbo.ApplicantOtherName (ApplicationId, OtherNameRadio, OtherNameField, CreatedAt, UpdatedAt)
     SELECT ApplicationId, OtherNameRadio, OtherNameField, CreatedAt, UpdatedAt
-    FROM nsdl.draft_ApplicantOtherName WHERE ApplicationId = @ApplicationId;
+    FROM nsdl.dbo.draft_ApplicantOtherName WHERE ApplicationId = @ApplicationId;
 
     -- Insert data from draft_ApplicantType to main table
-    INSERT INTO nsdl.ApplicantType (ApplicationId, ApplicantTypeName, ApplicantTypeOtherEntity, CreatedAt, UpdatedAt)
+    INSERT INTO nsdl.dbo.ApplicantType (ApplicationId, ApplicantTypeName, ApplicantTypeOtherEntity, CreatedAt, UpdatedAt)
     SELECT ApplicationId, ApplicantTypeName, ApplicantTypeOtherEntity, CreatedAt, UpdatedAt
-    FROM nsdl.draft_ApplicantType WHERE ApplicationId = @ApplicationId;
+    FROM nsdl.dbo.draft_ApplicantType WHERE ApplicationId = @ApplicationId;
 
     -- Insert data from draft_ComplianceOfficerInfo to main table
-    INSERT INTO nsdl.ComplianceOfficerInfo (ApplicationId, ComplianceOfficerInfoName, ComplianceOfficerInfoJob, ComplianceOfficerInfoMobile, 
+    INSERT INTO nsdl.dbo.ComplianceOfficerInfo (ApplicationId, ComplianceOfficerInfoName, ComplianceOfficerInfoJob, ComplianceOfficerInfoMobile, 
                                                        ComplianceOfficerInfoFax, ComplianceOfficerInfoEmail, CreatedAt, UpdatedAt)
     SELECT ApplicationId, ComplianceOfficerInfoName, ComplianceOfficerInfoJob, ComplianceOfficerInfoMobile, 
            ComplianceOfficerInfoFax, ComplianceOfficerInfoEmail, CreatedAt, UpdatedAt
-    FROM nsdl.draft_ComplianceOfficerInfo WHERE ApplicationId = @ApplicationId;
+    FROM nsdl.dbo.draft_ComplianceOfficerInfo WHERE ApplicationId = @ApplicationId;
 
     -- Insert data from draft_ContactDetails to main table
-    INSERT INTO nsdl.ContactDetails (ApplicationId, MobileNumber, EmailId, Website, CreatedAt, UpdatedAt)
+    INSERT INTO nsdl.dbo.ContactDetails (ApplicationId, MobileNumber, EmailId, Website, CreatedAt, UpdatedAt)
     SELECT ApplicationId, MobileNumber, EmailId, Website, CreatedAt, UpdatedAt
-    FROM nsdl.draft_ContactDetails WHERE ApplicationId = @ApplicationId;
+    FROM nsdl.dbo.draft_ContactDetails WHERE ApplicationId = @ApplicationId;
 
     -- Insert data from draft_ContactInfo to main table
-    INSERT INTO nsdl.ContactInfo (ApplicationId, [Type], CountryCode, AreaCode, Number, CreatedAt, UpdatedAt)
-    SELECT ApplicationId, [Type], CountryCode, AreaCode, Number, CreatedAt, UpdatedAt
-    FROM nsdl.draft_ContactInfo WHERE ApplicationId = @ApplicationId;
+    INSERT INTO nsdl.dbo.ContactInfo (ApplicationId, Type, CountryCode, AreaCode, Number, CreatedAt, UpdatedAt)
+    SELECT ApplicationId, Type, CountryCode, AreaCode, Number, CreatedAt, UpdatedAt
+    FROM nsdl.dbo.draft_ContactInfo WHERE ApplicationId = @ApplicationId;
 
     -- Insert data from draft_IncomeDetails to main table
-    INSERT INTO nsdl.IncomeDetails (ApplicationId, BusinessCode, AnnualIncome, AssetLess, AsOnDate, CreatedAt, UpdatedAt)
+    INSERT INTO nsdl.dbo.IncomeDetails (ApplicationId, BusinessCode, AnnualIncome, AssetLess, AsOnDate, CreatedAt, UpdatedAt)
     SELECT ApplicationId, BusinessCode, AnnualIncome, AssetLess, AsOnDate, CreatedAt, UpdatedAt
-    FROM nsdl.draft_IncomeDetails WHERE ApplicationId = @ApplicationId;
+    FROM nsdl.dbo.draft_IncomeDetails WHERE ApplicationId = @ApplicationId;
 
     -- Insert data from draft_IncomeSource to main table
-    INSERT INTO nsdl.IncomeSource (ApplicationId, IncomeSourceType, CreatedAt)
+    INSERT INTO nsdl.dbo.IncomeSource (ApplicationId, IncomeSourceType, CreatedAt)
     SELECT ApplicationId, IncomeSourceType, CreatedAt
-    FROM nsdl.draft_IncomeSource WHERE ApplicationId = @ApplicationId;
+    FROM nsdl.dbo.draft_IncomeSource WHERE ApplicationId = @ApplicationId;
 
     -- Insert data from draft_ForeignOffice to main table
-    INSERT INTO nsdl.ForeignOffice (ApplicationId, ForeignFlatNum, ForeignBuildingName, ForeignCountryCode, ForeignRoadName, 
+    INSERT INTO nsdl.dbo.ForeignOffice (ApplicationId, ForeignFlatNum, ForeignBuildingName, ForeignCountryCode, ForeignRoadName, 
                                                ForeignAreaName, ForeignTownName, ForeignZipName, ForeignStateName, NotApplicableForeignOffice, 
                                                CreatedAt, UpdatedAt)
     SELECT ApplicationId, ForeignFlatNum, ForeignBuildingName, ForeignCountryCode, ForeignRoadName, 
            ForeignAreaName, ForeignTownName, ForeignZipName, ForeignStateName, NotApplicableForeignOffice, 
            CreatedAt, UpdatedAt
-    FROM nsdl.draft_ForeignOffice WHERE ApplicationId = @ApplicationId;
+    FROM nsdl.dbo.draft_ForeignOffice WHERE ApplicationId = @ApplicationId;
 
     -- Insert data from draft_ManagingOfficial to main table
-    INSERT INTO nsdl.ManagingOfficial (ApplicationId, GovernmentIdNumber, NameAndAddress, DateOfBirth, TaxResidencyJurisdiction, 
+    INSERT INTO nsdl.dbo.ManagingOfficial (ApplicationId, GovernmentIdNumber, NameAndAddress, DateOfBirth, TaxResidencyJurisdiction, 
                                                   Nationality, ActingAsGroupDetails, BoGroupShareholding, CreatedAt, UpdatedAt)
     SELECT ApplicationId, GovernmentIdNumber, NameAndAddress, DateOfBirth, TaxResidencyJurisdiction, 
            Nationality, ActingAsGroupDetails, BoGroupShareholding, CreatedAt, UpdatedAt
-    FROM nsdl.draft_ManagingOfficial WHERE ApplicationId = @ApplicationId;
+    FROM nsdl.dbo.draft_ManagingOfficial WHERE ApplicationId = @ApplicationId;
 
     -- Insert data from draft_OfficeInIndia to main table
-    INSERT INTO nsdl.OfficeInIndia (ApplicationId, OfficeInIndiaRadio, IndianFlatNum, IndianBuildingName, IndianCountryCode, 
+    INSERT INTO nsdl.dbo.OfficeInIndia (ApplicationId, OfficeInIndiaRadio, IndianFlatNum, IndianBuildingName, IndianCountryCode, 
                                                IndianRoadName, IndianAreaName, IndianTownName, IndianZipName, IndianStateName, 
                                                NotApplicableIndOffice, CreatedAt, UpdatedAt)
     SELECT ApplicationId, OfficeInIndiaRadio, IndianFlatNum, IndianBuildingName, IndianCountryCode, 
            IndianRoadName, IndianAreaName, IndianTownName, IndianZipName, IndianStateName, 
            NotApplicableIndOffice, CreatedAt, UpdatedAt
-    FROM nsdl.draft_OfficeInIndia WHERE ApplicationId = @ApplicationId;
+    FROM nsdl.dbo.draft_OfficeInIndia WHERE ApplicationId = @ApplicationId;
 
     -- Insert data from draft_RegisteredOffice to main table
-    INSERT INTO nsdl.RegisteredOffice (ApplicationId, RegisteredFlatNum, RegisteredBuildingName, RegisteredCountryCode, 
+    INSERT INTO nsdl.dbo.RegisteredOffice (ApplicationId, RegisteredFlatNum, RegisteredBuildingName, RegisteredCountryCode, 
                                                   RegisteredRoadName, RegisteredAreaName, RegisteredTownName, RegisteredZipName, 
                                                   RegisteredStateName, NotApplicableResidence, CreatedAt, UpdatedAt)
     SELECT ApplicationId, RegisteredFlatNum, RegisteredBuildingName, RegisteredCountryCode, 
            RegisteredRoadName, RegisteredAreaName, RegisteredTownName, RegisteredZipName, 
            RegisteredStateName, NotApplicableResidence, CreatedAt, UpdatedAt
-    FROM nsdl.draft_RegisteredOffice WHERE ApplicationId = @ApplicationId;
+    FROM nsdl.dbo.draft_RegisteredOffice WHERE ApplicationId = @ApplicationId;
 
-    INSERT INTO nsdl.TaxResidency (ApplicationId, TRCNo, CountryCode, CreatedAt, UpdatedAt)
+    INSERT INTO nsdl.dbo.TaxResidency (ApplicationId, TRCNo, CountryCode, CreatedAt, UpdatedAt)
     SELECT ApplicationId, TRCNo, CountryCode, CreatedAt, UpdatedAt
-    FROM nsdl.draft_TaxResidency WHERE ApplicationId = @ApplicationId;
+    FROM nsdl.dbo.draft_TaxResidency WHERE ApplicationId = @ApplicationId;
    
-   	INSERT INTO nsdl.RegistrationForm (
+   	INSERT INTO nsdl.dbo.RegistrationForm (
     ApplicationId, ProvidedValidForm, RegulatoryAuthorityName, RegulatoryAuthorityCountry,
     RegulatoryAuthorityWebsite, RegulatoryAuthorityRegNumber, RegulatoryAuthorityCategory,
     DdpRegistrationNumber, CustodianRegistrationNumber, DpRegistrationNumber,
@@ -2153,97 +2153,97 @@ BEGIN
 	    RegulatoryAuthorityWebsite, RegulatoryAuthorityRegNumber, RegulatoryAuthorityCategory,
 	    DdpRegistrationNumber, CustodianRegistrationNumber, DpRegistrationNumber,
 	    SelectedCity, HasOtherEntity, OtherEntityDetails, CreatedAt, UpdatedAt
-	FROM nsdl.draft_RegistrationForm
+	FROM nsdl.dbo.draft_RegistrationForm
 	WHERE ApplicationId = @ApplicationId;
 
-	INSERT INTO nsdl.CustodianInfo (
+	INSERT INTO nsdl.dbo.CustodianInfo (
 	    ApplicationId, Name, Value, RegistrationNumber, CreatedAt, UpdatedAt
 	)
 	SELECT 
 	    ApplicationId, Name, Value, RegistrationNumber, GETDATE(), GETDATE()
-	FROM nsdl.draft_CustodianInfo
+	FROM nsdl.dbo.draft_CustodianInfo
 	WHERE ApplicationId = @ApplicationId;
 
-	INSERT INTO nsdl.DdpInfo (
+	INSERT INTO nsdl.dbo.DdpInfo (
 	    ApplicationId, Name, Value, RegistrationNumber, DdpId, CreatedAt, UpdatedAt
 	)
 	SELECT 
 	    ApplicationId, Name, Value, RegistrationNumber, DdpId, GETDATE(), GETDATE()
-	FROM nsdl.draft_DdpInfo
+	FROM nsdl.dbo.draft_DdpInfo
 	WHERE ApplicationId = @ApplicationId;
 
-	INSERT INTO nsdl.DesignatedBank (
+	INSERT INTO nsdl.dbo.DesignatedBank (
 	    ApplicationId, DesignatedBankAddress, CreatedAt, UpdatedAt
 	)
 	SELECT 
 	    ApplicationId, DesignatedBankAddress, GETDATE(), GETDATE()
-	FROM nsdl.draft_DesignatedBank
+	FROM nsdl.dbo.draft_DesignatedBank
 	WHERE ApplicationId = @ApplicationId;
 
-	INSERT INTO nsdl.DesignatedBankName (
+	INSERT INTO nsdl.dbo.DesignatedBankName (
 	    ApplicationId, Name, Value, Address, CreatedAt, UpdatedAt
 	)
 	SELECT 
 	    ApplicationId, Name, Value, Address, GETDATE(), GETDATE()
-	FROM nsdl.draft_DesignatedBankName
+	FROM nsdl.dbo.draft_DesignatedBankName
 	WHERE ApplicationId = @ApplicationId;
 
-	INSERT INTO nsdl.DisciplinaryHistory (
+	INSERT INTO nsdl.dbo.DisciplinaryHistory (
 	    ApplicationId, DisciplinaryHistoryRadio, DisciplinaryHistoryText, CreatedAt, UpdatedAt
 	)
 	SELECT 
 	    ApplicationId, DisciplinaryHistoryRadio, DisciplinaryHistoryText, GETDATE(), GETDATE()
-	FROM nsdl.draft_DisciplinaryHistory
+	FROM nsdl.dbo.draft_DisciplinaryHistory
 	WHERE ApplicationId = @ApplicationId;
 
-	INSERT INTO nsdl.DpInfo (
+	INSERT INTO nsdl.dbo.DpInfo (
 	    ApplicationId, Name, Value, RegistrationNumber, DdpId, CreatedAt, UpdatedAt
 	)
 	SELECT 
 	    ApplicationId, Name, Value, RegistrationNumber, DdpId, GETDATE(), GETDATE()
-	FROM nsdl.draft_DpInfo
+	FROM nsdl.dbo.draft_DpInfo
 	WHERE ApplicationId = @ApplicationId;
 
-	INSERT INTO nsdl.HasPan (
+	INSERT INTO nsdl.dbo.HasPan (
 	    ApplicationId, HasPanRadio, HasPanNumber, CreatedAt, UpdatedAt
 	)
 	SELECT 
 	    ApplicationId, HasPanRadio, HasPanNumber, GETDATE(), GETDATE()
-	FROM nsdl.draft_HasPan
+	FROM nsdl.dbo.draft_HasPan
 	WHERE ApplicationId = @ApplicationId;
 
-	INSERT INTO nsdl.PriorAssociation (
+	INSERT INTO nsdl.dbo.PriorAssociation (
 	    ApplicationId, PriorAssociationRadio, CreatedAt, UpdatedAt
 	)
 	SELECT 
 	    ApplicationId, PriorAssociationRadio, GETDATE(), GETDATE()
-	FROM nsdl.draft_PriorAssociation
+	FROM nsdl.dbo.draft_PriorAssociation
 	WHERE ApplicationId = @ApplicationId;
 
-	INSERT INTO nsdl.PriorAssociationRow (
+	INSERT INTO nsdl.dbo.PriorAssociationRow (
 	    ApplicationId, SebiRegNumber, EntityName, RegistrationType, RegistrationStart, RegistrationEnd, CreatedAt, UpdatedAt
 	)
 	SELECT 
 	    ApplicationId, SebiRegNumber, EntityName, RegistrationType, RegistrationStart, RegistrationEnd, GETDATE(), GETDATE()
-	FROM nsdl.draft_PriorAssociationRow
+	FROM nsdl.dbo.draft_PriorAssociationRow
 	WHERE ApplicationId = @ApplicationId;
 	
-	INSERT INTO nsdl.ThroughGlobalCustodian (
+	INSERT INTO nsdl.dbo.ThroughGlobalCustodian (
 	    ApplicationId, ThroughGlobalCustodianRadio, ThroughGlobalCustodianName, ThroughGlobalCustodianAddress, 
 	    ThroughGlobalCustodianRegistration, ThroughGlobalCustodianCountry, CreatedAt, UpdatedAt
 	)
 	SELECT 
 	    ApplicationId, ThroughGlobalCustodianRadio, ThroughGlobalCustodianName, ThroughGlobalCustodianAddress, 
 	    ThroughGlobalCustodianRegistration, ThroughGlobalCustodianCountry, GETDATE(), GETDATE()
-	FROM nsdl.draft_ThroughGlobalCustodian
+	FROM nsdl.dbo.draft_ThroughGlobalCustodian
 	WHERE ApplicationId = @ApplicationId;
 	
-	INSERT INTO nsdl.DeclarationAndUndertakingForm (
+	INSERT INTO nsdl.dbo.DeclarationAndUndertakingForm (
     ApplicationId, 
     Name, 
     Capacity, 
     Place, 
-    [Date], 
+    Date, 
     NameOfSignatory, 
     DesignationOfSignatory, 
     DateOfSignature, 
@@ -2256,53 +2256,53 @@ BEGIN
 	    Name, 
 	    Capacity, 
 	    Place, 
-	    [Date], 
+	    Date, 
 	    NameOfSignatory, 
 	    DesignationOfSignatory, 
 	    DateOfSignature, 
 	    Signature, 
 	    GETDATE(), 
 	    GETDATE()
-	FROM nsdl.draft_DeclarationAndUndertakingForm
+	FROM nsdl.dbo.draft_DeclarationAndUndertakingForm
 	WHERE ApplicationId = @ApplicationId;
 
-	insert into nsdl.InvestmentManager(ApplicationId, NameOfEntity, TypeOfEntity, CountryCode, TelephoneNumber, FaxNumber, EmailId, CreatedAt, UpdatedAt)
+	insert into nsdl.dbo.InvestmentManager(ApplicationId, NameOfEntity, TypeOfEntity, CountryCode, TelephoneNumber, FaxNumber, EmailId, CreatedAt, UpdatedAt)
 	SELECT ApplicationId, NameOfEntity, TypeOfEntity, CountryCode, TelephoneNumber, FaxNumber, EmailId, GETDATE(), GETDATE()
-	FROM nsdl.draft_InvestmentManager WHERE ApplicationId = @ApplicationId;
+	FROM nsdl.dbo.draft_InvestmentManager WHERE ApplicationId = @ApplicationId;
 
 	-- Inserting data from draft_AnextureForm to the main AnextureForm table where ApplicationId matches
-	INSERT INTO nsdl.AnextureForm (
+	INSERT INTO nsdl.dbo.AnextureForm (
 	    ApplicationId, IntermediateMaterial, EntityHolding, NoEntityHolding, BeneficialOwnership, CreatedAt, UpdatedAt
 	)
 	SELECT 
 	    ApplicationId, IntermediateMaterial, EntityHolding, NoEntityHolding, BeneficialOwnership, CreatedAt, UpdatedAt
 	FROM 
-	    nsdl.draft_AnextureForm  -- Assuming the draft table is named draft_AnextureForm
+	    nsdl.dbo.draft_AnextureForm  -- Assuming the draft table is named draft_AnextureForm
 	WHERE 
 	    ApplicationId = @ApplicationId;
 	
 	-- Inserting data from draft_SegregatedPortfolio to the main SegregatedPortfolio table where ApplicationId matches
-	INSERT INTO nsdl.SegregatedPortfolio (
+	INSERT INTO nsdl.dbo.SegregatedPortfolio (
 	    ApplicationId, SeggregatedPortfolioRadio, SeggregatedPortfolioText, CreatedAt, UpdatedAt
 	)
 	SELECT 
 	    ApplicationId, SeggregatedPortfolioRadio, SeggregatedPortfolioText, CreatedAt, UpdatedAt
 	FROM 
-	    nsdl.draft_SegregatedPortfolio  -- Assuming the draft table is named draft_SegregatedPortfolio
+	    nsdl.dbo.draft_SegregatedPortfolio  -- Assuming the draft table is named draft_SegregatedPortfolio
 	WHERE 
 	    ApplicationId = @ApplicationId;
 		-- Inserting data from draft_BankDeclaration to the main BankDeclaration table where ApplicationId matches
-	INSERT INTO nsdl.BankDeclaration (
+	INSERT INTO nsdl.dbo.BankDeclaration (
 	    ApplicationId, BankDeclarationRadio, BankDeclarationText, CreatedAt, UpdatedAt
 	)
 	SELECT 
 	    ApplicationId, BankDeclarationRadio, BankDeclarationText, CreatedAt, UpdatedAt
 	FROM 
-	    nsdl.draft_BankDeclaration 
+	    nsdl.dbo.draft_BankDeclaration 
 	WHERE 
 	    ApplicationId = @ApplicationId;
 	   
-	INSERT INTO nsdl.ConsentIntermediary (
+	INSERT INTO nsdl.dbo.ConsentIntermediary (
 	    ApplicationId, ConsentIntermediaryRadio, ConsentIntermediaryName, ConsentIntermediaryEmail1, 
 	    ConsentIntermediaryEmail2, ConsentIntermediaryEmail3, ConsentIntermediaryMobile, CreatedAt, UpdatedAt
 	)
@@ -2310,11 +2310,11 @@ BEGIN
 	    ApplicationId, ConsentIntermediaryRadio, ConsentIntermediaryName, ConsentIntermediaryEmail1, 
 	    ConsentIntermediaryEmail2, ConsentIntermediaryEmail3, ConsentIntermediaryMobile, CreatedAt, UpdatedAt
 	FROM 
-	    nsdl.draft_ConsentIntermediary  -- Assuming the draft table is named draft_ConsentIntermediary
+	    nsdl.dbo.draft_ConsentIntermediary  -- Assuming the draft table is named draft_ConsentIntermediary
 	WHERE 
 	    ApplicationId = @ApplicationId;
 	-- Inserting data from draft_InformationOfSaSmFvciApplicant to the main InformationOfSaSmFvciApplicant table where ApplicationId matches
-	INSERT INTO nsdl.InformationOfSaSmFvciApplicant (
+	INSERT INTO nsdl.dbo.InformationOfSaSmFvciApplicant (
 	    ApplicationId, Name, RelationWithApplicant, Pan, NationalityCode, DateOfBirth, ResidentialAddress, 
 	    IdentityDocNumber, CreatedAt, UpdatedAt
 	)
@@ -2322,21 +2322,21 @@ BEGIN
 	    ApplicationId, Name, RelationWithApplicant, Pan, NationalityCode, DateOfBirth, ResidentialAddress, 
 	    IdentityDocNumber, CreatedAt, UpdatedAt
 	FROM 
-	    nsdl.draft_InformationOfSaSmFvciApplicant  -- Assuming the draft table is named draft_InformationOfSaSmFvciApplicant
+	    nsdl.dbo.draft_InformationOfSaSmFvciApplicant  -- Assuming the draft table is named draft_InformationOfSaSmFvciApplicant
 	WHERE 
 	    ApplicationId = @ApplicationId;
 	-- Inserting data from draft_Signatory to the main Signatory table where ApplicationId matches
-	INSERT INTO nsdl.Signatory (
+	INSERT INTO nsdl.dbo.Signatory (
 	    ApplicationId, Details, CreatedAt, UpdatedAt
 	)
 	SELECT 
 	    ApplicationId, Details, CreatedAt, UpdatedAt
 	FROM 
-	    nsdl.draft_Signatory  -- Assuming the draft table is named draft_Signatory
+	    nsdl.dbo.draft_Signatory  -- Assuming the draft table is named draft_Signatory
 	WHERE 
 	    ApplicationId = @ApplicationId;
 	-- Inserting data from draft_OwnerDetails to the main OwnerDetails table where ApplicationId matches
-	INSERT INTO nsdl.OwnerDetails (
+	INSERT INTO nsdl.dbo.OwnerDetails (
 	    SignatoryId, NameAddressOfBo, DateOfBirthOfBo, TaxResidencyJuridictionCode, NationalityCode, 
 	    ActingAloneOrMoreNaturalPerson, BoGroupPercentageShareHolding, IdentityDocument, CreatedAt, UpdatedAt
 	)
@@ -2344,11 +2344,11 @@ BEGIN
 	    s.Id, o.NameAddressOfBo, o.DateOfBirthOfBo, o.TaxResidencyJuridictionCode, o.NationalityCode, 
 	    o.ActingAloneOrMoreNaturalPerson, o.BoGroupPercentageShareHolding, o.IdentityDocument, o.CreatedAt, o.UpdatedAt
 	FROM 
-	    nsdl.draft_OwnerDetails o
-	inner join nsdl.Signatory s on s.ApplicationId  = @ApplicationId;
+	    nsdl.dbo.draft_OwnerDetails o
+	inner join nsdl.dbo.Signatory s on s.ApplicationId  = @ApplicationId;
 
 	-- Inserting data from draft_MaterialShareholder to the main MaterialShareholder table where ApplicationId matches
-	INSERT INTO nsdl.MaterialShareholder (
+	INSERT INTO nsdl.dbo.MaterialShareholder (
 	    ApplicationId, NameOfBeneficialOwner, DirectIndirectStake, NameOfEntities, 
 	    CountryOfIncorporationOrNationalityCode, PercentageStakeHeld, IndividualOrNonIndividual, 
 	    CreatedAt, UpdatedAt
@@ -2358,11 +2358,11 @@ BEGIN
 	    CountryOfIncorporationOrNationalityCode, PercentageStakeHeld, IndividualOrNonIndividual, 
 	    CreatedAt, UpdatedAt
 	FROM 
-	    nsdl.draft_MaterialShareholder  -- Assuming the draft table is named draft_MaterialShareholder
+	    nsdl.dbo.draft_MaterialShareholder  -- Assuming the draft table is named draft_MaterialShareholder
 	WHERE 
 	    ApplicationId = @ApplicationId;
 	-- Inserting data from draft_BeneficialOwners to the main BeneficialOwners table where ApplicationId matches
-	INSERT INTO nsdl.BeneficialOwners (
+	INSERT INTO nsdl.dbo.BeneficialOwners (
 	    ApplicationId, NameOfBeneficialOwner, MethodOfControl, CountryOfIncorporationCode, 
 	    PercentageStakeHeld, IndividualOrNonIndividual, CreatedAt, UpdatedAt
 	)
@@ -2370,11 +2370,11 @@ BEGIN
 	    ApplicationId, NameOfBeneficialOwner, MethodOfControl, CountryOfIncorporationCode, 
 	    PercentageStakeHeld, IndividualOrNonIndividual, CreatedAt, UpdatedAt
 	FROM 
-	    nsdl.draft_BeneficialOwners  -- Assuming the draft table is named draft_BeneficialOwners
+	    nsdl.dbo.draft_BeneficialOwners  -- Assuming the draft table is named draft_BeneficialOwners
 	WHERE 
 	    ApplicationId = @ApplicationId;
 	-- Inserting data from draft_Managers to the main Managers table where ApplicationId matches
-	INSERT INTO nsdl.Managers (
+	INSERT INTO nsdl.dbo.Managers (
 	    ApplicationId, NameOfEntity, TypeOfEntity, CountryCode, TelephoneNumber, FaxNumber, EmailId, 
 	    CreatedAt, UpdatedAt
 	)
@@ -2382,7 +2382,7 @@ BEGIN
 	    ApplicationId, NameOfEntity, TypeOfEntity, CountryCode, TelephoneNumber, FaxNumber, EmailId, 
 	    CreatedAt, UpdatedAt
 	FROM 
-	    nsdl.draft_Managers  -- Assuming the draft table is named draft_Managers
+	    nsdl.dbo.draft_Managers  -- Assuming the draft table is named draft_Managers
 	WHERE 
 	    ApplicationId = @ApplicationId;
 
@@ -2391,52 +2391,52 @@ BEGIN
 
 END;
 GO
-ALTER PROCEDURE nsdl.SP_GetApplicationData
+ALTER PROCEDURE nsdl.dbo.SP_GetApplicationData
     @ApplicationId NVARCHAR(50)
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT * FROM nsdl.draft_Ekyc WHERE ApplicationId = @ApplicationId;
-    SELECT * FROM nsdl.draft_ApplicantOtherName WHERE ApplicationId = @ApplicationId;
-    SELECT * FROM nsdl.draft_ApplicantType WHERE ApplicationId = @ApplicationId;
-    SELECT * FROM nsdl.draft_ComplianceOfficerInfo WHERE ApplicationId = @ApplicationId;
-    SELECT * FROM nsdl.draft_ContactDetails WHERE ApplicationId = @ApplicationId;
-    SELECT * FROM nsdl.draft_ContactInfo WHERE ApplicationId = @ApplicationId;
-    SELECT * FROM nsdl.draft_IncomeDetails WHERE ApplicationId = @ApplicationId;
-    SELECT * FROM nsdl.draft_IncomeSource WHERE ApplicationId = @ApplicationId;
-    SELECT * FROM nsdl.draft_ForeignOffice WHERE ApplicationId = @ApplicationId;
-    SELECT * FROM nsdl.draft_ManagingOfficial WHERE ApplicationId = @ApplicationId;
-    SELECT * FROM nsdl.draft_OfficeInIndia WHERE ApplicationId = @ApplicationId;
-    SELECT * FROM nsdl.draft_RegisteredOffice WHERE ApplicationId = @ApplicationId;
-    SELECT * FROM nsdl.draft_TaxResidency WHERE ApplicationId = @ApplicationId;
-   	SELECT user_id UserId, application_id ApplicationId,fvci_registration_number fvciRegistrationNumber ,status ,created_at createdAt ,updated_at updatedAt from nsdl.draft_fvci_applications dfa 
+    SELECT * FROM nsdl.dbo.draft_Ekyc WHERE ApplicationId = @ApplicationId;
+    SELECT * FROM nsdl.dbo.draft_ApplicantOtherName WHERE ApplicationId = @ApplicationId;
+    SELECT * FROM nsdl.dbo.draft_ApplicantType WHERE ApplicationId = @ApplicationId;
+    SELECT * FROM nsdl.dbo.draft_ComplianceOfficerInfo WHERE ApplicationId = @ApplicationId;
+    SELECT * FROM nsdl.dbo.draft_ContactDetails WHERE ApplicationId = @ApplicationId;
+    SELECT * FROM nsdl.dbo.draft_ContactInfo WHERE ApplicationId = @ApplicationId;
+    SELECT * FROM nsdl.dbo.draft_IncomeDetails WHERE ApplicationId = @ApplicationId;
+    SELECT * FROM nsdl.dbo.draft_IncomeSource WHERE ApplicationId = @ApplicationId;
+    SELECT * FROM nsdl.dbo.draft_ForeignOffice WHERE ApplicationId = @ApplicationId;
+    SELECT * FROM nsdl.dbo.draft_ManagingOfficial WHERE ApplicationId = @ApplicationId;
+    SELECT * FROM nsdl.dbo.draft_OfficeInIndia WHERE ApplicationId = @ApplicationId;
+    SELECT * FROM nsdl.dbo.draft_RegisteredOffice WHERE ApplicationId = @ApplicationId;
+    SELECT * FROM nsdl.dbo.draft_TaxResidency WHERE ApplicationId = @ApplicationId;
+   	SELECT user_id UserId, application_id ApplicationId,fvci_registration_number fvciRegistrationNumber ,status ,created_at createdAt ,updated_at updatedAt from nsdl.dbo.draft_fvci_applications dfa 
    	where application_id = @ApplicationId;
-   	SELECT * from nsdl.draft_RegistrationForm WHERE ApplicationId = @ApplicationId;
-   	SELECT * from nsdl.draft_CustodianInfo WHERE ApplicationId = @ApplicationId;
-   	SELECT * from nsdl.draft_DdpInfo WHERE ApplicationId = @ApplicationId;
-   	SELECT * from nsdl.draft_DesignatedBank WHERE ApplicationId = @ApplicationId;
-   	SELECT * from nsdl.draft_DesignatedBankName WHERE ApplicationId = @ApplicationId;
-   	SELECT * from nsdl.draft_DisciplinaryHistory WHERE ApplicationId = @ApplicationId;
-   	SELECT * from nsdl.draft_DpInfo WHERE ApplicationId = @ApplicationId;
-   	SELECT * from nsdl.draft_HasPan WHERE ApplicationId = @ApplicationId;
-    SELECT * from nsdl.draft_PriorAssociation WHERE ApplicationId = @ApplicationId;
-   	SELECT * from nsdl.draft_PriorAssociationRow WHERE ApplicationId = @ApplicationId;
-   	SELECT * from nsdl.draft_ThroughGlobalCustodian WHERE ApplicationId = @ApplicationId;
-   	SELECT * from nsdl.draft_DeclarationAndUndertakingForm WHERE ApplicationId = @ApplicationId;
-   	SELECT * from nsdl.draft_AnextureForm daf WHERE ApplicationId = @ApplicationId;
-   	select * from nsdl.draft_SegregatedPortfolio dsp where ApplicationId = @ApplicationId;
-   	SELECT * from nsdl.draft_BankDeclaration dbd where ApplicationId = @ApplicationId;
-	SELECT * from nsdl.draft_ConsentIntermediary dci where ApplicationId = @ApplicationId;
-	SELECT * from nsdl.draft_InformationOfSaSmFvciApplicant diossfa where ApplicationId = @ApplicationId;
-	SELECT * from nsdl.draft_MaterialShareholder dms where ApplicationId = @ApplicationId;
-	SELECT * from nsdl.draft_BeneficialOwners dbo where ApplicationId = @ApplicationId;
-	SELECT * from nsdl.draft_Managers dm where ApplicationId = @ApplicationId;
-	SELECT ds.Details ,dod.* from nsdl.draft_Signatory ds INNER JOIN nsdl.draft_OwnerDetails dod on ds.ApplicationId = @ApplicationId;
+   	SELECT * from nsdl.dbo.draft_RegistrationForm WHERE ApplicationId = @ApplicationId;
+   	SELECT * from nsdl.dbo.draft_CustodianInfo WHERE ApplicationId = @ApplicationId;
+   	SELECT * from nsdl.dbo.draft_DdpInfo WHERE ApplicationId = @ApplicationId;
+   	SELECT * from nsdl.dbo.draft_DesignatedBank WHERE ApplicationId = @ApplicationId;
+   	SELECT * from nsdl.dbo.draft_DesignatedBankName WHERE ApplicationId = @ApplicationId;
+   	SELECT * from nsdl.dbo.draft_DisciplinaryHistory WHERE ApplicationId = @ApplicationId;
+   	SELECT * from nsdl.dbo.draft_DpInfo WHERE ApplicationId = @ApplicationId;
+   	SELECT * from nsdl.dbo.draft_HasPan WHERE ApplicationId = @ApplicationId;
+    SELECT * from nsdl.dbo.draft_PriorAssociation WHERE ApplicationId = @ApplicationId;
+   	SELECT * from nsdl.dbo.draft_PriorAssociationRow WHERE ApplicationId = @ApplicationId;
+   	SELECT * from nsdl.dbo.draft_ThroughGlobalCustodian WHERE ApplicationId = @ApplicationId;
+   	SELECT * from nsdl.dbo.draft_DeclarationAndUndertakingForm WHERE ApplicationId = @ApplicationId;
+   	SELECT * from nsdl.dbo.draft_AnextureForm daf WHERE ApplicationId = @ApplicationId;
+   	select * from nsdl.dbo.draft_SegregatedPortfolio dsp where ApplicationId = @ApplicationId;
+   	SELECT * from nsdl.dbo.draft_BankDeclaration dbd where ApplicationId = @ApplicationId;
+	SELECT * from nsdl.dbo.draft_ConsentIntermediary dci where ApplicationId = @ApplicationId;
+	SELECT * from nsdl.dbo.draft_InformationOfSaSmFvciApplicant diossfa where ApplicationId = @ApplicationId;
+	SELECT * from nsdl.dbo.draft_MaterialShareholder dms where ApplicationId = @ApplicationId;
+	SELECT * from nsdl.dbo.draft_BeneficialOwners dbo where ApplicationId = @ApplicationId;
+	SELECT * from nsdl.dbo.draft_Managers dm where ApplicationId = @ApplicationId;
+	SELECT ds.Details ,dod.* from nsdl.dbo.draft_Signatory ds INNER JOIN nsdl.dbo.draft_OwnerDetails dod on ds.ApplicationId = @ApplicationId;
 
 END
 
-CREATE PROCEDURE nsdl.UpdateDraftAnextureForm
+CREATE PROCEDURE nsdl.dbo.UpdateDraftAnextureForm
     @ApplicationId VARCHAR(255),
     @IntermediateMaterial BIT,
     @EntityHolding INT,
@@ -2446,7 +2446,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    UPDATE nsdl.AnextureForm
+    UPDATE nsdl.dbo.AnextureForm
     SET 
         IntermediateMaterial = @IntermediateMaterial,
         EntityHolding = @EntityHolding,
@@ -2456,7 +2456,7 @@ BEGIN
     WHERE ApplicationId = @ApplicationId;
 END;
 GO
-CREATE PROCEDURE nsdl.UpdateSegregatedPortfolio
+CREATE PROCEDURE nsdl.dbo.UpdateSegregatedPortfolio
     @ApplicationId VARCHAR(255),
     @SeggregatedPortfolioRadio BIT,
     @SeggregatedPortfolioText VARCHAR(255)
@@ -2464,7 +2464,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    UPDATE nsdl.SegregatedPortfolio
+    UPDATE nsdl.dbo.SegregatedPortfolio
     SET 
         SeggregatedPortfolioRadio = @SeggregatedPortfolioRadio,
         SeggregatedPortfolioText = @SeggregatedPortfolioText,
@@ -2472,7 +2472,7 @@ BEGIN
     WHERE ApplicationId = @ApplicationId;
 END;
 GO
-CREATE PROCEDURE nsdl.UpdateBankDeclaration
+CREATE PROCEDURE nsdl.dbo.UpdateBankDeclaration
     @ApplicationId VARCHAR(255),
     @BankDeclarationRadio VARCHAR(50),
     @BankDeclarationText VARCHAR(255)
@@ -2480,7 +2480,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    UPDATE nsdl.BankDeclaration
+    UPDATE nsdl.dbo.BankDeclaration
     SET 
         BankDeclarationRadio = @BankDeclarationRadio,
         BankDeclarationText = @BankDeclarationText,
@@ -2488,7 +2488,7 @@ BEGIN
     WHERE ApplicationId = @ApplicationId;
 END;
 GO
-CREATE PROCEDURE nsdl.UpdateConsentIntermediary
+CREATE PROCEDURE nsdl.dbo.UpdateConsentIntermediary
     @ApplicationId VARCHAR(255),
     @ConsentIntermediaryRadio BIT,
     @ConsentIntermediaryName VARCHAR(255),
@@ -2500,7 +2500,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    UPDATE nsdl.ConsentIntermediary
+    UPDATE nsdl.dbo.ConsentIntermediary
     SET 
         ConsentIntermediaryRadio = @ConsentIntermediaryRadio,
         ConsentIntermediaryName = @ConsentIntermediaryName,
@@ -2512,7 +2512,7 @@ BEGIN
     WHERE ApplicationId = @ApplicationId;
 END;
 GO
-CREATE PROCEDURE nsdl.UpdateInformationOfSaSmFvciApplicant
+CREATE PROCEDURE nsdl.dbo.UpdateInformationOfSaSmFvciApplicant
     @ApplicationId VARCHAR(255),
     @Name VARCHAR(255),
     @RelationWithApplicant VARCHAR(255),
@@ -2525,7 +2525,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    UPDATE nsdl.InformationOfSaSmFvciApplicant
+    UPDATE nsdl.dbo.InformationOfSaSmFvciApplicant
     SET 
         RelationWithApplicant = @RelationWithApplicant,
         Pan = @Pan,
@@ -2537,21 +2537,21 @@ BEGIN
     WHERE ApplicationId = @ApplicationId AND Name = @Name;
 END;
 GO
-CREATE PROCEDURE nsdl.UpdateSignatory
+CREATE PROCEDURE nsdl.dbo.UpdateSignatory
     @ApplicationId varchar(255),
     @Details VARCHAR(500)
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    UPDATE nsdl.Signatory
+    UPDATE nsdl.dbo.Signatory
     SET 
         Details = @Details,
         UpdatedAt = GETDATE()
     WHERE ApplicationId = @ApplicationId;
 END;
 GO
-CREATE PROCEDURE nsdl.UpdateOwnerDetailsBySignatoryId
+CREATE PROCEDURE nsdl.dbo.UpdateOwnerDetailsBySignatoryId
     @ApplicationId varchar(255),
     @DateOfBirthOfBo DATE,
     @TaxResidencyJuridictionCode VARCHAR(10),
@@ -2563,7 +2563,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    UPDATE nsdl.OwnerDetails
+    UPDATE nsdl.dbo.OwnerDetails
     SET 
         DateOfBirthOfBo = @DateOfBirthOfBo,
         TaxResidencyJuridictionCode = @TaxResidencyJuridictionCode,
@@ -2572,10 +2572,10 @@ BEGIN
         BoGroupPercentageShareHolding = @BoGroupPercentageShareHolding,
         IdentityDocument = @IdentityDocument,
         UpdatedAt = GETDATE()
-    WHERE SignatoryId = (select Id from nsdl.Signatory where ApplicationId = @ApplicationId);
+    WHERE SignatoryId = (select Id from nsdl.dbo.Signatory where ApplicationId = @ApplicationId);
 END;
 GO
-CREATE PROCEDURE nsdl.UpdateMaterialShareholder
+CREATE PROCEDURE nsdl.dbo.UpdateMaterialShareholder
     @ApplicationId VARCHAR(255),
     @NameOfBeneficialOwner VARCHAR(255),
     @DirectIndirectStake VARCHAR(255),
@@ -2587,7 +2587,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    UPDATE nsdl.MaterialShareholder
+    UPDATE nsdl.dbo.MaterialShareholder
     SET 
         DirectIndirectStake = @DirectIndirectStake,
         NameOfEntities = @NameOfEntities,
@@ -2599,7 +2599,7 @@ BEGIN
           AND NameOfBeneficialOwner = @NameOfBeneficialOwner;
 END;
 GO
-CREATE PROCEDURE nsdl.UpdateBeneficialOwners
+CREATE PROCEDURE nsdl.dbo.UpdateBeneficialOwners
     @ApplicationId VARCHAR(255),
     @NameOfBeneficialOwner VARCHAR(255),
     @MethodOfControl VARCHAR(255),
@@ -2610,7 +2610,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    UPDATE nsdl.BeneficialOwners
+    UPDATE nsdl.dbo.BeneficialOwners
     SET 
         MethodOfControl = @MethodOfControl,
         CountryOfIncorporationCode = @CountryOfIncorporationCode,
@@ -2621,7 +2621,7 @@ BEGIN
           AND NameOfBeneficialOwner = @NameOfBeneficialOwner;
 END;
 GO
-CREATE PROCEDURE nsdl.UpdateManagers
+CREATE PROCEDURE nsdl.dbo.UpdateManagers
     @ApplicationId VARCHAR(255),
     @NameOfEntity VARCHAR(255),
     @TypeOfEntity VARCHAR(255),
@@ -2633,7 +2633,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    UPDATE nsdl.Managers
+    UPDATE nsdl.dbo.Managers
     SET 
         TypeOfEntity = @TypeOfEntity,
         CountryCode = @CountryCode,
@@ -2663,33 +2663,33 @@ ALTER PROCEDURE SaveFvciApplication
                         IF @ApplicationId IS NOT NULL AND @ApplicationId <> ''
                         BEGIN
 	                       
-	                        delete from nsdl.draft_TaxResidency where ApplicationId = @ApplicationId;
+	                        delete from nsdl.dbo.draft_TaxResidency where ApplicationId = @ApplicationId;
 		
-							delete from nsdl.draft_ContactInfo where ApplicationId = @ApplicationId;
+							delete from nsdl.dbo.draft_ContactInfo where ApplicationId = @ApplicationId;
 							
-							delete from nsdl.draft_ManagingOfficial where ApplicationId = @ApplicationId;
+							delete from nsdl.dbo.draft_ManagingOfficial where ApplicationId = @ApplicationId;
 							
-							delete from nsdl.draft_IncomeDetails where ApplicationId = @ApplicationId;
+							delete from nsdl.dbo.draft_IncomeDetails where ApplicationId = @ApplicationId;
 							
-							delete from nsdl.draft_IncomeSource where ApplicationId = @ApplicationId;
+							delete from nsdl.dbo.draft_IncomeSource where ApplicationId = @ApplicationId;
 							
-							delete from nsdl.draft_PriorAssociationRow where ApplicationId = @ApplicationId;
+							delete from nsdl.dbo.draft_PriorAssociationRow where ApplicationId = @ApplicationId;
 							
-							delete from nsdl.draft_Signatory where ApplicationId = @ApplicationId;
+							delete from nsdl.dbo.draft_Signatory where ApplicationId = @ApplicationId;
 							
-							delete from nsdl.draft_MaterialShareholder where ApplicationId = @ApplicationId;
+							delete from nsdl.dbo.draft_MaterialShareholder where ApplicationId = @ApplicationId;
 							
-							delete from nsdl.draft_BeneficialOwners where ApplicationId = @ApplicationId;
+							delete from nsdl.dbo.draft_BeneficialOwners where ApplicationId = @ApplicationId;
 							
-							delete from nsdl.draft_Managers where ApplicationId = @ApplicationId;
+							delete from nsdl.dbo.draft_Managers where ApplicationId = @ApplicationId;
 	                       
                             SELECT @ExistingApplicationId = application_id
-                            FROM nsdl.draft_fvci_applications
+                            FROM nsdl.dbo.draft_fvci_applications
                             WHERE application_id = @ApplicationId;
                             IF @ExistingApplicationId IS NOT NULL
                             BEGIN
                                 PRINT 'Updating existing application: ' + @ExistingApplicationId;
-                                UPDATE nsdl.draft_fvci_applications
+                                UPDATE nsdl.dbo.draft_fvci_applications
                                 SET user_id = @UserId,
                                     updated_at = @UpdatedAt,
                                     status = 1
@@ -2702,7 +2702,7 @@ ALTER PROCEDURE SaveFvciApplication
                         END
                         -- Insert new record and store the generated ApplicationId in a table variable
                         PRINT 'Inserting new application...';
-                        INSERT INTO nsdl.draft_fvci_applications (user_id, fvci_registration_number, created_at, updated_at, status)
+                        INSERT INTO nsdl.dbo.draft_fvci_applications (user_id, fvci_registration_number, created_at, updated_at, status)
                         OUTPUT INSERTED.application_id INTO @InsertedApplicationId
                         VALUES (@UserId, @FvciRegistrationNumber, @CreatedAt, @UpdatedAt, '1');
                         -- Retrieve the generated ApplicationId from the table variable
@@ -2710,7 +2710,7 @@ ALTER PROCEDURE SaveFvciApplication
                         PRINT 'Inserted ApplicationId: ' + COALESCE(@GeneratedApplicationId, 'NULL');
                     END;
 GO
-CREATE PROCEDURE nsdl.UpdateFvciApplication
+CREATE PROCEDURE nsdl.dbo.UpdateFvciApplication
 @ApplicationId NVARCHAR(255),
                         @UserId NVARCHAR(255),
                         @FvciRegistrationNumber NVARCHAR(255),
@@ -2721,29 +2721,29 @@ AS
 BEGIN
     SET NOCOUNT ON;
     -- Check if the ApplicationId exists
-    IF EXISTS (SELECT 1 FROM nsdl.fvci_applications WHERE application_id = @ApplicationId)
+    IF EXISTS (SELECT 1 FROM nsdl.dbo.fvci_applications WHERE application_id = @ApplicationId)
     BEGIN
 		
-		delete from nsdl.TaxResidency where ApplicationId = @ApplicationId;
+		delete from nsdl.dbo.TaxResidency where ApplicationId = @ApplicationId;
 		
-		delete from nsdl.ContactInfo where ApplicationId = @ApplicationId;
+		delete from nsdl.dbo.ContactInfo where ApplicationId = @ApplicationId;
 		
-		delete from nsdl.ManagingOfficial where ApplicationId = @ApplicationId;
+		delete from nsdl.dbo.ManagingOfficial where ApplicationId = @ApplicationId;
 		
-		delete from nsdl.IncomeDetails where ApplicationId = @ApplicationId;
+		delete from nsdl.dbo.IncomeDetails where ApplicationId = @ApplicationId;
 		
-		delete from nsdl.IncomeSource where ApplicationId = @ApplicationId;
+		delete from nsdl.dbo.IncomeSource where ApplicationId = @ApplicationId;
 		
-		delete from nsdl.PriorAssociationRow where ApplicationId = @ApplicationId;
+		delete from nsdl.dbo.PriorAssociationRow where ApplicationId = @ApplicationId;
 		
-		delete from nsdl.Signatory where ApplicationId = @ApplicationId;
+		delete from nsdl.dbo.Signatory where ApplicationId = @ApplicationId;
 		
-		delete from nsdl.MaterialShareholder where ApplicationId = @ApplicationId;
+		delete from nsdl.dbo.MaterialShareholder where ApplicationId = @ApplicationId;
 		
-		delete from nsdl.BeneficialOwners where ApplicationId = @ApplicationId;
+		delete from nsdl.dbo.BeneficialOwners where ApplicationId = @ApplicationId;
 		
-		delete from nsdl.Managers where ApplicationId = @ApplicationId;
-        UPDATE nsdl.fvci_applications
+		delete from nsdl.dbo.Managers where ApplicationId = @ApplicationId;
+        UPDATE nsdl.dbo.fvci_applications
         SET user_id = @UserId,
             fvci_registration_number = @FvciRegistrationNumber,
             updated_at = @UpdatedAt,
@@ -2767,90 +2767,90 @@ BEGIN
 
     IF @Type = '' OR @Type = 'ATS'
     BEGIN
-        SELECT * FROM [nsdl].[ATS_MSTR_TBL];
+        SELECT * FROM nsdl.dbo.ATS_MSTR_TBL;
     END
 
     IF @Type = '' OR @Type = 'bank'
     BEGIN
-        SELECT BKM_ID bank_id,BKM_Bnk_Id bank_code,BKM_Bnk_Nm bank_name,BKM_Crt_DTM created_dtm,BKM_Upd_DTM modified_dtm, CONCAT(' ', BKM_Addr_Ln_1,BKM_Addr_Ln_2,BKM_Addr_Ln_3,BKM_Addr_Ln_4,BKM_Pin_Cd, BKM_Pin_Cd) as  address FROM [nsdl].[Bnk_Mstr];
+        SELECT BKM_ID bank_id,BKM_Bnk_Id bank_code,BKM_Bnk_Nm bank_name,BKM_Crt_DTM created_dtm,BKM_Upd_DTM modified_dtm, CONCAT(' ', BKM_Addr_Ln_1,BKM_Addr_Ln_2,BKM_Addr_Ln_3,BKM_Addr_Ln_4,BKM_Pin_Cd, BKM_Pin_Cd) as  address FROM nsdl.dbo.Bnk_Mstr;
     END
 
     IF @Type = '' OR @Type = 'CAFApplicantStatus'
     BEGIN
-        SELECT * FROM [nsdl].[CAF_Applicant_Status_MSTR];
+        SELECT * FROM nsdl.dbo.CAF_Applicant_Status_MSTR;
     END
 
     IF @Type = '' OR @Type = 'CAFMasterApplicantStatus'
     BEGIN
-        SELECT * FROM [nsdl].[CAF_MASTER_APPLICANT_STATUS];
+        SELECT * FROM nsdl.dbo.CAF_MASTER_APPLICANT_STATUS;
     END
 
     IF @Type = '' OR @Type = 'CAFMasterBusProf'
     BEGIN
-        SELECT * FROM [nsdl].[CAF_MASTER_BUS_PROF];
+        SELECT * FROM nsdl.dbo.CAF_MASTER_BUS_PROF;
     END
 
     IF @Type = '' OR @Type = 'proof_of_address'
     BEGIN
-        SELECT POA_DOC_CD code,POA_DOC_NM name FROM [nsdl].[CAF_MASTER_POA_DOC];
+        SELECT POA_DOC_CD code,POA_DOC_NM name FROM nsdl.dbo.CAF_MASTER_POA_DOC;
     END
 
     IF @Type = '' OR @Type = 'proof_of_identity'
     BEGIN
-        SELECT POI_DOC_CD code,POI_DOC_NM name FROM [nsdl].[CAF_MASTER_POI_DOC];
+        SELECT POI_DOC_CD code,POI_DOC_NM name FROM nsdl.dbo.CAF_MASTER_POI_DOC;
     END
 
     IF @Type = '' OR @Type = 'source_of_income'
     BEGIN
-        SELECT SRC_INCOMECD code,SRC_INCOME_NM name FROM [nsdl].[CAF_MASTER_SOI];
+        SELECT SRC_INCOMECD code,SRC_INCOME_NM name FROM nsdl.dbo.CAF_MASTER_SOI;
     END
 
     IF @Type = '' OR @Type = 'country' -- or CountryCodeFinal depending on which one is correct.
     BEGIN
-        SELECT RMC_SRNo country_id, RMC_CODE_NAME country_name, RMC_CODE_ISDCODE country_code, RMC_CODE_ID country_short_code, RMC_CRT_DT created_dtm,RMC_UPDT_DT modified_dtm FROM [nsdl].[Country_Code_Master]; -- or Country_Code_Master depending on the correct table name.
+        SELECT RMC_SRNo country_id, RMC_CODE_NAME country_name, RMC_CODE_ISDCODE country_code, RMC_CODE_ID country_short_code, RMC_CRT_DT created_dtm,RMC_UPDT_DT modified_dtm FROM nsdl.dbo.Country_Code_Master; -- or Country_Code_Master depending on the correct table name.
     END
     
     IF @Type = '' OR @Type = 'country_pan' -- or CountryCodeFinal depending on which one is correct.
     BEGIN
-        SELECT  COUNTRY_Name country_name, COUNTRY_ID country_code, Country_CODE country_short_code, Country_ISD country_isd_code FROM [nsdl].[country_pan_master]; -- or Country_Code_Master depending on the correct table name.
+        SELECT  COUNTRY_Name country_name, COUNTRY_ID country_code, Country_CODE country_short_code, Country_ISD country_isd_code FROM nsdl.dbo.country_pan_master; -- or Country_Code_Master depending on the correct table name.
     END
 
     IF @Type = '' OR @Type = 'custodian'
     BEGIN
-        SELECT Cust_Id cust_id,Cust_Reg_No cust_reg_no,Cust_nm cust_nm,Created_dtm created_dtm,Modified_dtm modified_dtm FROM [nsdl].[Custodian_MSTR_TBL];
+        SELECT Cust_Id cust_id,Cust_Reg_No cust_reg_no,Cust_nm cust_nm,Created_dtm created_dtm,Modified_dtm modified_dtm FROM nsdl.dbo.Custodian_MSTR_TBL;
     END
 
     IF @Type = '' OR @Type = 'ddp'
     BEGIN
-        SELECT DDP_ID sebi_registration_no,Created_dtm created_dtm,Modified_dtm modified_dtm,DMT_DDP_NM_CD ddp_id,DMT_DDP_NM ddp_name FROM [nsdl].[DDP_MSTR_TBL];
+        SELECT DDP_ID sebi_registration_no,Created_dtm created_dtm,Modified_dtm modified_dtm,DMT_DDP_NM_CD ddp_id,DMT_DDP_NM ddp_name FROM nsdl.dbo.DDP_MSTR_TBL;
     END
 
     IF @Type = '' OR @Type = 'FormAStatus'
     BEGIN
-        SELECT * FROM [nsdl].[FormA_Status_Master];
+        SELECT * FROM nsdl.dbo.FormA_Status_Master;
     END
     
     IF @Type = '' OR @Type = 'prior_associations'
     BEGIN
-        SELECT * FROM [nsdl].prior_association_master pam;
+        SELECT * FROM nsdl.dbo.prior_association_master pam;
     END
     
     IF @Type = '' OR @Type = 'type_of_entity'
     BEGIN
-        SELECT * FROM [nsdl].type_of_entity_master toem;
+        SELECT * FROM nsdl.dbo.type_of_entity_master toem;
     END
     
     IF @Type = '' OR @Type = 'code_of_business'
     BEGIN
-        SELECT * FROM [nsdl].code_of_business_master cobm ;
+        SELECT * FROM nsdl.dbo.code_of_business_master cobm ;
     END
     IF @Type = '' OR @Type = 'type_of_applicant'
     BEGIN
-        SELECT * FROM [nsdl].FVCI_MASTER_TYPE_OF_APPLICANT ta ;
+        SELECT * FROM nsdl.dbo.FVCI_MASTER_TYPE_OF_APPLICANT ta ;
     END
     IF @Type = '' OR @Type = 'regulatory_authority'
      BEGIN
-        SELECT Repository_nm regulatory_name, Country_Name country_name, Reg_Auth_Website website FROM [nsdl].regulatory_master rm ;
+        SELECT Repository_nm regulatory_name, Country_Name country_name, Reg_Auth_Website website FROM nsdl.dbo.regulatory_master rm ;
     END 
 END;
 GO
