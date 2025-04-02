@@ -1,10 +1,10 @@
--- oneture_db.nsdl.audit_Ekyc definition
+-- nsdl.audit_Ekyc definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_Ekyc;
+-- DROP TABLE nsdl.audit_Ekyc;
 
-CREATE TABLE oneture_db.nsdl.audit_Ekyc (
+CREATE TABLE nsdl.audit_Ekyc (
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	DateOfIncorporation datetime NULL,
@@ -32,13 +32,13 @@ CREATE TABLE oneture_db.nsdl.audit_Ekyc (
 );
 
 
--- oneture_db.nsdl.Ekyc definition
+-- nsdl.Ekyc definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.Ekyc;
+-- DROP TABLE nsdl.Ekyc;
 
-CREATE TABLE oneture_db.nsdl.Ekyc (
+CREATE TABLE nsdl.Ekyc (
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	DateOfIncorporation datetime NULL,
@@ -66,13 +66,13 @@ CREATE TABLE oneture_db.nsdl.Ekyc (
 );
 
 
--- oneture_db.nsdl.draft_Ekyc definition
+-- nsdl.draft_Ekyc definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_Ekyc;
+-- DROP TABLE nsdl.draft_Ekyc;
 
-CREATE TABLE oneture_db.nsdl.draft_Ekyc (
+CREATE TABLE nsdl.draft_Ekyc (
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	DateOfIncorporation datetime NULL,
@@ -102,9 +102,9 @@ CREATE TABLE oneture_db.nsdl.draft_Ekyc (
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_ApplicantOtherName;
+-- DROP TABLE nsdl.audit_ApplicantOtherName;
 
-CREATE TABLE oneture_db.nsdl.audit_ApplicantOtherName (
+CREATE TABLE nsdl.audit_ApplicantOtherName (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	OtherNameRadio bit NULL,
@@ -116,13 +116,13 @@ CREATE TABLE oneture_db.nsdl.audit_ApplicantOtherName (
 );
 
 
--- oneture_db.nsdl.ApplicantOtherName definition
+-- nsdl.ApplicantOtherName definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.ApplicantOtherName;
+-- DROP TABLE nsdl.ApplicantOtherName;
 
-CREATE TABLE oneture_db.nsdl.ApplicantOtherName (
+CREATE TABLE nsdl.ApplicantOtherName (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	OtherNameRadio bit NULL,
@@ -133,13 +133,13 @@ CREATE TABLE oneture_db.nsdl.ApplicantOtherName (
 );
 
 
--- oneture_db.nsdl.draft_ApplicantOtherName definition
+-- nsdl.draft_ApplicantOtherName definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_ApplicantOtherName;
+-- DROP TABLE nsdl.draft_ApplicantOtherName;
 
-CREATE TABLE oneture_db.nsdl.draft_ApplicantOtherName (
+CREATE TABLE nsdl.draft_ApplicantOtherName (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	OtherNameRadio bit NULL,
@@ -152,9 +152,9 @@ CREATE TABLE oneture_db.nsdl.draft_ApplicantOtherName (
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_TaxResidency;
+-- DROP TABLE nsdl.audit_TaxResidency;
 
-CREATE TABLE oneture_db.nsdl.audit_TaxResidency (
+CREATE TABLE nsdl.audit_TaxResidency (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	TRCNo nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -166,13 +166,13 @@ CREATE TABLE oneture_db.nsdl.audit_TaxResidency (
 );
 
 
--- oneture_db.nsdl.TaxResidency definition
+-- nsdl.TaxResidency definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.TaxResidency;
+-- DROP TABLE nsdl.TaxResidency;
 
-CREATE TABLE oneture_db.nsdl.TaxResidency (
+CREATE TABLE nsdl.TaxResidency (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	TRCNo nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -183,13 +183,13 @@ CREATE TABLE oneture_db.nsdl.TaxResidency (
 );
 
 
--- oneture_db.nsdl.draft_TaxResidency definition
+-- nsdl.draft_TaxResidency definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_TaxResidency;
+-- DROP TABLE nsdl.draft_TaxResidency;
 
-CREATE TABLE oneture_db.nsdl.draft_TaxResidency (
+CREATE TABLE nsdl.draft_TaxResidency (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	TRCNo nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -201,13 +201,13 @@ CREATE TABLE oneture_db.nsdl.draft_TaxResidency (
 
 
 
--- oneture_db.nsdl.audit_RegisteredOffice definition
+-- nsdl.audit_RegisteredOffice definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_RegisteredOffice;
+-- DROP TABLE nsdl.audit_RegisteredOffice;
 
-CREATE TABLE oneture_db.nsdl.audit_RegisteredOffice (
+CREATE TABLE nsdl.audit_RegisteredOffice (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	RegisteredFlatNum nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -226,13 +226,13 @@ CREATE TABLE oneture_db.nsdl.audit_RegisteredOffice (
 );
 
 
--- oneture_db.nsdl.RegisteredOffice definition
+-- nsdl.RegisteredOffice definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.RegisteredOffice;
+-- DROP TABLE nsdl.RegisteredOffice;
 
-CREATE TABLE oneture_db.nsdl.RegisteredOffice (
+CREATE TABLE nsdl.RegisteredOffice (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	RegisteredFlatNum nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -250,13 +250,13 @@ CREATE TABLE oneture_db.nsdl.RegisteredOffice (
 );
 
 
--- oneture_db.nsdl.draft_RegisteredOffice definition
+-- nsdl.draft_RegisteredOffice definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_RegisteredOffice;
+-- DROP TABLE nsdl.draft_RegisteredOffice;
 
-CREATE TABLE oneture_db.nsdl.draft_RegisteredOffice (
+CREATE TABLE nsdl.draft_RegisteredOffice (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	RegisteredFlatNum nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -277,9 +277,9 @@ CREATE TABLE oneture_db.nsdl.draft_RegisteredOffice (
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_ForeignOffice;
+-- DROP TABLE nsdl.audit_ForeignOffice;
 
-CREATE TABLE oneture_db.nsdl.audit_ForeignOffice (
+CREATE TABLE nsdl.audit_ForeignOffice (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	ForeignFlatNum nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -298,13 +298,13 @@ CREATE TABLE oneture_db.nsdl.audit_ForeignOffice (
 );
 
 
--- oneture_db.nsdl.ForeignOffice definition
+-- nsdl.ForeignOffice definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.ForeignOffice;
+-- DROP TABLE nsdl.ForeignOffice;
 
-CREATE TABLE oneture_db.nsdl.ForeignOffice (
+CREATE TABLE nsdl.ForeignOffice (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	ForeignFlatNum nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -322,13 +322,13 @@ CREATE TABLE oneture_db.nsdl.ForeignOffice (
 );
 
 
--- oneture_db.nsdl.draft_ForeignOffice definition
+-- nsdl.draft_ForeignOffice definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_ForeignOffice;
+-- DROP TABLE nsdl.draft_ForeignOffice;
 
-CREATE TABLE oneture_db.nsdl.draft_ForeignOffice (
+CREATE TABLE nsdl.draft_ForeignOffice (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	ForeignFlatNum nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -346,13 +346,13 @@ CREATE TABLE oneture_db.nsdl.draft_ForeignOffice (
 );
 
 
--- oneture_db.nsdl.audit_OfficeInIndia definition
+-- nsdl.audit_OfficeInIndia definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_OfficeInIndia;
+-- DROP TABLE nsdl.audit_OfficeInIndia;
 
-CREATE TABLE oneture_db.nsdl.audit_OfficeInIndia (
+CREATE TABLE nsdl.audit_OfficeInIndia (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	OfficeInIndiaRadio bit NULL,
@@ -372,13 +372,13 @@ CREATE TABLE oneture_db.nsdl.audit_OfficeInIndia (
 );
 
 
--- oneture_db.nsdl.OfficeInIndia definition
+-- nsdl.OfficeInIndia definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.OfficeInIndia;
+-- DROP TABLE nsdl.OfficeInIndia;
 
-CREATE TABLE oneture_db.nsdl.OfficeInIndia (
+CREATE TABLE nsdl.OfficeInIndia (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	OfficeInIndiaRadio bit NULL,
@@ -397,13 +397,13 @@ CREATE TABLE oneture_db.nsdl.OfficeInIndia (
 );
 
 
--- oneture_db.nsdl.draft_OfficeInIndia definition
+-- nsdl.draft_OfficeInIndia definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_OfficeInIndia;
+-- DROP TABLE nsdl.draft_OfficeInIndia;
 
-CREATE TABLE oneture_db.nsdl.draft_OfficeInIndia (
+CREATE TABLE nsdl.draft_OfficeInIndia (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	OfficeInIndiaRadio bit NULL,
@@ -422,15 +422,15 @@ CREATE TABLE oneture_db.nsdl.draft_OfficeInIndia (
 );
 
 
--- oneture_db.nsdl.OfficeInIndia foreign keys
+-- nsdl.OfficeInIndia foreign keys
 
--- oneture_db.nsdl.audit_ContactDetails definition
+-- nsdl.audit_ContactDetails definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_ContactDetails;
+-- DROP TABLE nsdl.audit_ContactDetails;
 
-CREATE TABLE oneture_db.nsdl.audit_ContactDetails (
+CREATE TABLE nsdl.audit_ContactDetails (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	MobileNumber nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -443,13 +443,13 @@ CREATE TABLE oneture_db.nsdl.audit_ContactDetails (
 );
 
 
--- oneture_db.nsdl.audit_ContactInfo definition
+-- nsdl.audit_ContactInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_ContactInfo;
+-- DROP TABLE nsdl.audit_ContactInfo;
 
-CREATE TABLE oneture_db.nsdl.audit_ContactInfo (
+CREATE TABLE nsdl.audit_ContactInfo (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	[Type] nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
@@ -463,13 +463,13 @@ CREATE TABLE oneture_db.nsdl.audit_ContactInfo (
 );
 
 
--- oneture_db.nsdl.ContactDetails definition
+-- nsdl.ContactDetails definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.ContactDetails;
+-- DROP TABLE nsdl.ContactDetails;
 
-CREATE TABLE oneture_db.nsdl.ContactDetails (
+CREATE TABLE nsdl.ContactDetails (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	MobileNumber nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -481,13 +481,13 @@ CREATE TABLE oneture_db.nsdl.ContactDetails (
 );
 
 
--- oneture_db.nsdl.ContactInfo definition
+-- nsdl.ContactInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.ContactInfo;
+-- DROP TABLE nsdl.ContactInfo;
 
-CREATE TABLE oneture_db.nsdl.ContactInfo (
+CREATE TABLE nsdl.ContactInfo (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	[Type] nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
@@ -500,13 +500,13 @@ CREATE TABLE oneture_db.nsdl.ContactInfo (
 );
 
 
--- oneture_db.nsdl.draft_ContactDetails definition
+-- nsdl.draft_ContactDetails definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_ContactDetails;
+-- DROP TABLE nsdl.draft_ContactDetails;
 
-CREATE TABLE oneture_db.nsdl.draft_ContactDetails (
+CREATE TABLE nsdl.draft_ContactDetails (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	MobileNumber nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -518,13 +518,13 @@ CREATE TABLE oneture_db.nsdl.draft_ContactDetails (
 );
 
 
--- oneture_db.nsdl.draft_ContactInfo definition
+-- nsdl.draft_ContactInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_ContactInfo;
+-- DROP TABLE nsdl.draft_ContactInfo;
 
-CREATE TABLE oneture_db.nsdl.draft_ContactInfo (
+CREATE TABLE nsdl.draft_ContactInfo (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	[Type] nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
@@ -541,9 +541,9 @@ CREATE TABLE oneture_db.nsdl.draft_ContactInfo (
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.InvestmentManager;
+-- DROP TABLE nsdl.InvestmentManager;
 
-CREATE TABLE oneture_db.nsdl.InvestmentManager (
+CREATE TABLE nsdl.InvestmentManager (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	NameOfEntity nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -558,13 +558,13 @@ CREATE TABLE oneture_db.nsdl.InvestmentManager (
 );
 
 
--- oneture_db.nsdl.draft_InvestmentManager definition
+-- nsdl.draft_InvestmentManager definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_InvestmentManager;
+-- DROP TABLE nsdl.draft_InvestmentManager;
 
-CREATE TABLE oneture_db.nsdl.draft_InvestmentManager (
+CREATE TABLE nsdl.draft_InvestmentManager (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	NameOfEntity nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -579,16 +579,16 @@ CREATE TABLE oneture_db.nsdl.draft_InvestmentManager (
 );
 
 
--- oneture_db.nsdl.InvestmentManager foreign keys
+-- nsdl.InvestmentManager foreign keys
 
 
--- oneture_db.nsdl.audit_ComplianceOfficerInfo definition
+-- nsdl.audit_ComplianceOfficerInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_ComplianceOfficerInfo;
+-- DROP TABLE nsdl.audit_ComplianceOfficerInfo;
 
-CREATE TABLE oneture_db.nsdl.audit_ComplianceOfficerInfo (
+CREATE TABLE nsdl.audit_ComplianceOfficerInfo (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	ComplianceOfficerInfoName nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -603,13 +603,13 @@ CREATE TABLE oneture_db.nsdl.audit_ComplianceOfficerInfo (
 );
 
 
--- oneture_db.nsdl.ComplianceOfficerInfo definition
+-- nsdl.ComplianceOfficerInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.ComplianceOfficerInfo;
+-- DROP TABLE nsdl.ComplianceOfficerInfo;
 
-CREATE TABLE oneture_db.nsdl.ComplianceOfficerInfo (
+CREATE TABLE nsdl.ComplianceOfficerInfo (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	ComplianceOfficerInfoName nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -623,13 +623,13 @@ CREATE TABLE oneture_db.nsdl.ComplianceOfficerInfo (
 );
 
 
--- oneture_db.nsdl.draft_ComplianceOfficerInfo definition
+-- nsdl.draft_ComplianceOfficerInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_ComplianceOfficerInfo;
+-- DROP TABLE nsdl.draft_ComplianceOfficerInfo;
 
-CREATE TABLE oneture_db.nsdl.draft_ComplianceOfficerInfo (
+CREATE TABLE nsdl.draft_ComplianceOfficerInfo (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	ComplianceOfficerInfoName nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -643,13 +643,13 @@ CREATE TABLE oneture_db.nsdl.draft_ComplianceOfficerInfo (
 );
 
 
--- oneture_db.nsdl.audit_ManagingOfficial definition
+-- nsdl.audit_ManagingOfficial definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_ManagingOfficial;
+-- DROP TABLE nsdl.audit_ManagingOfficial;
 
-CREATE TABLE oneture_db.nsdl.audit_ManagingOfficial (
+CREATE TABLE nsdl.audit_ManagingOfficial (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	GovernmentIdNumber nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
@@ -666,13 +666,13 @@ CREATE TABLE oneture_db.nsdl.audit_ManagingOfficial (
 );
 
 
--- oneture_db.nsdl.ManagingOfficial definition
+-- nsdl.ManagingOfficial definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.ManagingOfficial;
+-- DROP TABLE nsdl.ManagingOfficial;
 
-CREATE TABLE oneture_db.nsdl.ManagingOfficial (
+CREATE TABLE nsdl.ManagingOfficial (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	GovernmentIdNumber nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
@@ -689,13 +689,13 @@ CREATE TABLE oneture_db.nsdl.ManagingOfficial (
 );
 
 
--- oneture_db.nsdl.draft_ManagingOfficial definition
+-- nsdl.draft_ManagingOfficial definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_ManagingOfficial;
+-- DROP TABLE nsdl.draft_ManagingOfficial;
 
-CREATE TABLE oneture_db.nsdl.draft_ManagingOfficial (
+CREATE TABLE nsdl.draft_ManagingOfficial (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	GovernmentIdNumber nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
@@ -712,16 +712,16 @@ CREATE TABLE oneture_db.nsdl.draft_ManagingOfficial (
 );
 
 
--- oneture_db.nsdl.ManagingOfficial foreign keys
+-- nsdl.ManagingOfficial foreign keys
 
 
--- oneture_db.nsdl.audit_IncomeDetails definition
+-- nsdl.audit_IncomeDetails definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_IncomeDetails;
+-- DROP TABLE nsdl.audit_IncomeDetails;
 
-CREATE TABLE oneture_db.nsdl.audit_IncomeDetails (
+CREATE TABLE nsdl.audit_IncomeDetails (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	BusinessCode nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -735,13 +735,13 @@ CREATE TABLE oneture_db.nsdl.audit_IncomeDetails (
 );
 
 
--- oneture_db.nsdl.audit_IncomeSource definition
+-- nsdl.audit_IncomeSource definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_IncomeSource;
+-- DROP TABLE nsdl.audit_IncomeSource;
 
-CREATE TABLE oneture_db.nsdl.audit_IncomeSource (
+CREATE TABLE nsdl.audit_IncomeSource (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	IncomeSourceType int NOT NULL,
@@ -751,13 +751,13 @@ CREATE TABLE oneture_db.nsdl.audit_IncomeSource (
 );
 
 
--- oneture_db.nsdl.IncomeDetails definition
+-- nsdl.IncomeDetails definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.IncomeDetails;
+-- DROP TABLE nsdl.IncomeDetails;
 
-CREATE TABLE oneture_db.nsdl.IncomeDetails (
+CREATE TABLE nsdl.IncomeDetails (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	BusinessCode nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -771,13 +771,13 @@ CREATE TABLE oneture_db.nsdl.IncomeDetails (
 );
 
 
--- oneture_db.nsdl.IncomeSource definition
+-- nsdl.IncomeSource definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.IncomeSource;
+-- DROP TABLE nsdl.IncomeSource;
 
-CREATE TABLE oneture_db.nsdl.IncomeSource (
+CREATE TABLE nsdl.IncomeSource (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	IncomeSourceType int NOT NULL,
@@ -786,13 +786,13 @@ CREATE TABLE oneture_db.nsdl.IncomeSource (
 );
 
 
--- oneture_db.nsdl.draft_IncomeDetails definition
+-- nsdl.draft_IncomeDetails definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_IncomeDetails;
+-- DROP TABLE nsdl.draft_IncomeDetails;
 
-CREATE TABLE oneture_db.nsdl.draft_IncomeDetails (
+CREATE TABLE nsdl.draft_IncomeDetails (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	BusinessCode nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -806,13 +806,13 @@ CREATE TABLE oneture_db.nsdl.draft_IncomeDetails (
 );
 
 
--- oneture_db.nsdl.draft_IncomeSource definition
+-- nsdl.draft_IncomeSource definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_IncomeSource;
+-- DROP TABLE nsdl.draft_IncomeSource;
 
-CREATE TABLE oneture_db.nsdl.draft_IncomeSource (
+CREATE TABLE nsdl.draft_IncomeSource (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	IncomeSourceType int NOT NULL,
@@ -823,13 +823,13 @@ CREATE TABLE oneture_db.nsdl.draft_IncomeSource (
 
 
 
--- oneture_db.nsdl.audit_ApplicantType definition
+-- nsdl.audit_ApplicantType definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_ApplicantType;
+-- DROP TABLE nsdl.audit_ApplicantType;
 
-CREATE TABLE oneture_db.nsdl.audit_ApplicantType (
+CREATE TABLE nsdl.audit_ApplicantType (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	ApplicantTypeName nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -841,13 +841,13 @@ CREATE TABLE oneture_db.nsdl.audit_ApplicantType (
 );
 
 
--- oneture_db.nsdl.ApplicantType definition
+-- nsdl.ApplicantType definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.ApplicantType;
+-- DROP TABLE nsdl.ApplicantType;
 
-CREATE TABLE oneture_db.nsdl.ApplicantType (
+CREATE TABLE nsdl.ApplicantType (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	ApplicantTypeName nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -858,13 +858,13 @@ CREATE TABLE oneture_db.nsdl.ApplicantType (
 );
 
 
--- oneture_db.nsdl.draft_ApplicantType definition
+-- nsdl.draft_ApplicantType definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_ApplicantType;
+-- DROP TABLE nsdl.draft_ApplicantType;
 
-CREATE TABLE oneture_db.nsdl.draft_ApplicantType (
+CREATE TABLE nsdl.draft_ApplicantType (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	ApplicantTypeName nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -877,9 +877,9 @@ CREATE TABLE oneture_db.nsdl.draft_ApplicantType (
 
 
 
--- DROP TABLE oneture_db.nsdl.RegistrationForm;
+-- DROP TABLE nsdl.RegistrationForm;
 
-CREATE TABLE oneture_db.nsdl.RegistrationForm (
+CREATE TABLE nsdl.RegistrationForm (
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	ProvidedValidForm bit NULL,
 	RegulatoryAuthorityName nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -899,13 +899,13 @@ CREATE TABLE oneture_db.nsdl.RegistrationForm (
 );
 
 
--- oneture_db.nsdl.audit_RegistrationForm definition
+-- nsdl.audit_RegistrationForm definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_RegistrationForm;
+-- DROP TABLE nsdl.audit_RegistrationForm;
 
-CREATE TABLE oneture_db.nsdl.audit_RegistrationForm (
+CREATE TABLE nsdl.audit_RegistrationForm (
 	AuditId int IDENTITY(1,1) NOT NULL,
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	ProvidedValidForm bit NULL,
@@ -927,13 +927,13 @@ CREATE TABLE oneture_db.nsdl.audit_RegistrationForm (
 );
 
 
--- oneture_db.nsdl.draft_RegistrationForm definition
+-- nsdl.draft_RegistrationForm definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_RegistrationForm;
+-- DROP TABLE nsdl.draft_RegistrationForm;
 
-CREATE TABLE oneture_db.nsdl.draft_RegistrationForm (
+CREATE TABLE nsdl.draft_RegistrationForm (
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	ProvidedValidForm bit NULL,
 	RegulatoryAuthorityName nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -953,13 +953,13 @@ CREATE TABLE oneture_db.nsdl.draft_RegistrationForm (
 );
 
 
--- oneture_db.nsdl.ThroughGlobalCustodian definition
+-- nsdl.ThroughGlobalCustodian definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.ThroughGlobalCustodian;
+-- DROP TABLE nsdl.ThroughGlobalCustodian;
 
-CREATE TABLE oneture_db.nsdl.ThroughGlobalCustodian (
+CREATE TABLE nsdl.ThroughGlobalCustodian (
 	ApplicationId int NOT NULL,
 	ThroughGlobalCustodianRadio nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	ThroughGlobalCustodianName nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -972,13 +972,13 @@ CREATE TABLE oneture_db.nsdl.ThroughGlobalCustodian (
 );
 
 
--- oneture_db.nsdl.audit_ThroughGlobalCustodian definition
+-- nsdl.audit_ThroughGlobalCustodian definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_ThroughGlobalCustodian;
+-- DROP TABLE nsdl.audit_ThroughGlobalCustodian;
 
-CREATE TABLE oneture_db.nsdl.audit_ThroughGlobalCustodian (
+CREATE TABLE nsdl.audit_ThroughGlobalCustodian (
 	AuditId int IDENTITY(1,1) NOT NULL,
 	ApplicationId int NULL,
 	ThroughGlobalCustodianRadio nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -993,13 +993,13 @@ CREATE TABLE oneture_db.nsdl.audit_ThroughGlobalCustodian (
 );
 
 
--- oneture_db.nsdl.draft_ThroughGlobalCustodian definition
+-- nsdl.draft_ThroughGlobalCustodian definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_ThroughGlobalCustodian;
+-- DROP TABLE nsdl.draft_ThroughGlobalCustodian;
 
-CREATE TABLE oneture_db.nsdl.draft_ThroughGlobalCustodian (
+CREATE TABLE nsdl.draft_ThroughGlobalCustodian (
 	ApplicationId int NOT NULL,
 	ThroughGlobalCustodianRadio nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	ThroughGlobalCustodianName nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1011,13 +1011,13 @@ CREATE TABLE oneture_db.nsdl.draft_ThroughGlobalCustodian (
 	CONSTRAINT PK__draft_Th__C93A4C99C3B2D079 PRIMARY KEY (ApplicationId)
 );
 
--- oneture_db.nsdl.DesignatedBank definition
+-- nsdl.DesignatedBank definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.DesignatedBank;
+-- DROP TABLE nsdl.DesignatedBank;
 
-CREATE TABLE oneture_db.nsdl.DesignatedBank (
+CREATE TABLE nsdl.DesignatedBank (
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	DesignatedBankAddress nvarchar(500) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	CreatedAt datetime DEFAULT getdate() NULL,
@@ -1026,13 +1026,13 @@ CREATE TABLE oneture_db.nsdl.DesignatedBank (
 );
 
 
--- oneture_db.nsdl.DesignatedBankName definition
+-- nsdl.DesignatedBankName definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.DesignatedBankName;
+-- DROP TABLE nsdl.DesignatedBankName;
 
-CREATE TABLE oneture_db.nsdl.DesignatedBankName (
+CREATE TABLE nsdl.DesignatedBankName (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1044,13 +1044,13 @@ CREATE TABLE oneture_db.nsdl.DesignatedBankName (
 );
 
 
--- oneture_db.nsdl.audit_DesignatedBank definition
+-- nsdl.audit_DesignatedBank definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_DesignatedBank;
+-- DROP TABLE nsdl.audit_DesignatedBank;
 
-CREATE TABLE oneture_db.nsdl.audit_DesignatedBank (
+CREATE TABLE nsdl.audit_DesignatedBank (
 	AuditId int IDENTITY(1,1) NOT NULL,
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	DesignatedBankAddress nvarchar(500) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1061,13 +1061,13 @@ CREATE TABLE oneture_db.nsdl.audit_DesignatedBank (
 );
 
 
--- oneture_db.nsdl.audit_DesignatedBankName definition
+-- nsdl.audit_DesignatedBankName definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_DesignatedBankName;
+-- DROP TABLE nsdl.audit_DesignatedBankName;
 
-CREATE TABLE oneture_db.nsdl.audit_DesignatedBankName (
+CREATE TABLE nsdl.audit_DesignatedBankName (
 	AuditId int IDENTITY(1,1) NOT NULL,
 	Id int NULL,
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1081,13 +1081,13 @@ CREATE TABLE oneture_db.nsdl.audit_DesignatedBankName (
 );
 
 
--- oneture_db.nsdl.draft_DesignatedBank definition
+-- nsdl.draft_DesignatedBank definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_DesignatedBank;
+-- DROP TABLE nsdl.draft_DesignatedBank;
 
-CREATE TABLE oneture_db.nsdl.draft_DesignatedBank (
+CREATE TABLE nsdl.draft_DesignatedBank (
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	DesignatedBankAddress nvarchar(500) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	CreatedAt datetime DEFAULT getdate() NULL,
@@ -1096,13 +1096,13 @@ CREATE TABLE oneture_db.nsdl.draft_DesignatedBank (
 );
 
 
--- oneture_db.nsdl.draft_DesignatedBankName definition
+-- nsdl.draft_DesignatedBankName definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_DesignatedBankName;
+-- DROP TABLE nsdl.draft_DesignatedBankName;
 
-CREATE TABLE oneture_db.nsdl.draft_DesignatedBankName (
+CREATE TABLE nsdl.draft_DesignatedBankName (
 	Id int IDENTITY(1,1) NOT NULL,
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1113,13 +1113,13 @@ CREATE TABLE oneture_db.nsdl.draft_DesignatedBankName (
 	CONSTRAINT PK__draft_De__3214EC0768A0964B PRIMARY KEY (Id)
 );
 
--- oneture_db.nsdl.PriorAssociation definition
+-- nsdl.PriorAssociation definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.PriorAssociation;
+-- DROP TABLE nsdl.PriorAssociation;
 
-CREATE TABLE oneture_db.nsdl.PriorAssociation (
+CREATE TABLE nsdl.PriorAssociation (
 	ApplicationId int NOT NULL,
 	PriorAssociationRadio bit NOT NULL,
 	CreatedAt datetime DEFAULT getdate() NULL,
@@ -1128,13 +1128,13 @@ CREATE TABLE oneture_db.nsdl.PriorAssociation (
 );
 
 
--- oneture_db.nsdl.PriorAssociationRow definition
+-- nsdl.PriorAssociationRow definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.PriorAssociationRow;
+-- DROP TABLE nsdl.PriorAssociationRow;
 
-CREATE TABLE oneture_db.nsdl.PriorAssociationRow (
+CREATE TABLE nsdl.PriorAssociationRow (
 	ApplicationId int NOT NULL,
 	SebiRegNumber nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	EntityName nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1147,13 +1147,13 @@ CREATE TABLE oneture_db.nsdl.PriorAssociationRow (
 );
 
 
--- oneture_db.nsdl.audit_PriorAssociation definition
+-- nsdl.audit_PriorAssociation definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_PriorAssociation;
+-- DROP TABLE nsdl.audit_PriorAssociation;
 
-CREATE TABLE oneture_db.nsdl.audit_PriorAssociation (
+CREATE TABLE nsdl.audit_PriorAssociation (
 	AuditId int IDENTITY(1,1) NOT NULL,
 	ApplicationId int NULL,
 	PriorAssociationRadio bit NOT NULL,
@@ -1164,13 +1164,13 @@ CREATE TABLE oneture_db.nsdl.audit_PriorAssociation (
 );
 
 
--- oneture_db.nsdl.audit_PriorAssociationRow definition
+-- nsdl.audit_PriorAssociationRow definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_PriorAssociationRow;
+-- DROP TABLE nsdl.audit_PriorAssociationRow;
 
-CREATE TABLE oneture_db.nsdl.audit_PriorAssociationRow (
+CREATE TABLE nsdl.audit_PriorAssociationRow (
 	AuditId int IDENTITY(1,1) NOT NULL,
 	ApplicationId int NULL,
 	SebiRegNumber nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1185,13 +1185,13 @@ CREATE TABLE oneture_db.nsdl.audit_PriorAssociationRow (
 );
 
 
--- oneture_db.nsdl.draft_PriorAssociation definition
+-- nsdl.draft_PriorAssociation definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_PriorAssociation;
+-- DROP TABLE nsdl.draft_PriorAssociation;
 
-CREATE TABLE oneture_db.nsdl.draft_PriorAssociation (
+CREATE TABLE nsdl.draft_PriorAssociation (
 	ApplicationId int NOT NULL,
 	PriorAssociationRadio bit NOT NULL,
 	CreatedAt datetime DEFAULT getdate() NULL,
@@ -1200,13 +1200,13 @@ CREATE TABLE oneture_db.nsdl.draft_PriorAssociation (
 );
 
 
--- oneture_db.nsdl.draft_PriorAssociationRow definition
+-- nsdl.draft_PriorAssociationRow definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_PriorAssociationRow;
+-- DROP TABLE nsdl.draft_PriorAssociationRow;
 
-CREATE TABLE oneture_db.nsdl.draft_PriorAssociationRow (
+CREATE TABLE nsdl.draft_PriorAssociationRow (
 	ApplicationId int NOT NULL,
 	SebiRegNumber nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	EntityName nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1218,13 +1218,13 @@ CREATE TABLE oneture_db.nsdl.draft_PriorAssociationRow (
 	CONSTRAINT PK__draft_Pr__4DD9F5E009CFAC99 PRIMARY KEY (ApplicationId,SebiRegNumber,RegistrationStart)
 );
 
--- oneture_db.nsdl.HasPan definition
+-- nsdl.HasPan definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.HasPan;
+-- DROP TABLE nsdl.HasPan;
 
-CREATE TABLE oneture_db.nsdl.HasPan (
+CREATE TABLE nsdl.HasPan (
 	ApplicationId int NOT NULL,
 	HasPanRadio bit NOT NULL,
 	HasPanNumber nvarchar(20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1234,13 +1234,13 @@ CREATE TABLE oneture_db.nsdl.HasPan (
 );
 
 
--- oneture_db.nsdl.audit_HasPan definition
+-- nsdl.audit_HasPan definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_HasPan;
+-- DROP TABLE nsdl.audit_HasPan;
 
-CREATE TABLE oneture_db.nsdl.audit_HasPan (
+CREATE TABLE nsdl.audit_HasPan (
 	AuditId int IDENTITY(1,1) NOT NULL,
 	ApplicationId int NULL,
 	HasPanRadio bit NOT NULL,
@@ -1252,13 +1252,13 @@ CREATE TABLE oneture_db.nsdl.audit_HasPan (
 );
 
 
--- oneture_db.nsdl.draft_HasPan definition
+-- nsdl.draft_HasPan definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_HasPan;
+-- DROP TABLE nsdl.draft_HasPan;
 
-CREATE TABLE oneture_db.nsdl.draft_HasPan (
+CREATE TABLE nsdl.draft_HasPan (
 	ApplicationId int NOT NULL,
 	HasPanRadio bit NOT NULL,
 	HasPanNumber nvarchar(20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1267,13 +1267,13 @@ CREATE TABLE oneture_db.nsdl.draft_HasPan (
 	CONSTRAINT PK__draft_Ha__C93A4C99069B5062 PRIMARY KEY (ApplicationId)
 );
 
--- oneture_db.nsdl.DisciplinaryHistory definition
+-- nsdl.DisciplinaryHistory definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.DisciplinaryHistory;
+-- DROP TABLE nsdl.DisciplinaryHistory;
 
-CREATE TABLE oneture_db.nsdl.DisciplinaryHistory (
+CREATE TABLE nsdl.DisciplinaryHistory (
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	DisciplinaryHistoryRadio bit NOT NULL,
 	DisciplinaryHistoryText nvarchar(1000) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1283,13 +1283,13 @@ CREATE TABLE oneture_db.nsdl.DisciplinaryHistory (
 );
 
 
--- oneture_db.nsdl.audit_DisciplinaryHistory definition
+-- nsdl.audit_DisciplinaryHistory definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_DisciplinaryHistory;
+-- DROP TABLE nsdl.audit_DisciplinaryHistory;
 
-CREATE TABLE oneture_db.nsdl.audit_DisciplinaryHistory (
+CREATE TABLE nsdl.audit_DisciplinaryHistory (
 	AuditId int IDENTITY(1,1) NOT NULL,
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	DisciplinaryHistoryRadio bit NOT NULL,
@@ -1301,13 +1301,13 @@ CREATE TABLE oneture_db.nsdl.audit_DisciplinaryHistory (
 );
 
 
--- oneture_db.nsdl.draft_DisciplinaryHistory definition
+-- nsdl.draft_DisciplinaryHistory definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_DisciplinaryHistory;
+-- DROP TABLE nsdl.draft_DisciplinaryHistory;
 
-CREATE TABLE oneture_db.nsdl.draft_DisciplinaryHistory (
+CREATE TABLE nsdl.draft_DisciplinaryHistory (
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	DisciplinaryHistoryRadio bit NOT NULL,
 	DisciplinaryHistoryText nvarchar(1000) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1316,13 +1316,13 @@ CREATE TABLE oneture_db.nsdl.draft_DisciplinaryHistory (
 	CONSTRAINT PK__draft_Di__C93A4C99EE748B6C PRIMARY KEY (ApplicationId)
 );
 
--- oneture_db.nsdl.DdpInfo definition
+-- nsdl.DdpInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.DdpInfo;
+-- DROP TABLE nsdl.DdpInfo;
 
-CREATE TABLE oneture_db.nsdl.DdpInfo (
+CREATE TABLE nsdl.DdpInfo (
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	Value int NULL,
@@ -1334,13 +1334,13 @@ CREATE TABLE oneture_db.nsdl.DdpInfo (
 );
 
 
--- oneture_db.nsdl.DpInfo definition
+-- nsdl.DpInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.DpInfo;
+-- DROP TABLE nsdl.DpInfo;
 
-CREATE TABLE oneture_db.nsdl.DpInfo (
+CREATE TABLE nsdl.DpInfo (
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	Value int NOT NULL,
@@ -1352,13 +1352,13 @@ CREATE TABLE oneture_db.nsdl.DpInfo (
 );
 
 
--- oneture_db.nsdl.audit_DdpInfo definition
+-- nsdl.audit_DdpInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_DdpInfo;
+-- DROP TABLE nsdl.audit_DdpInfo;
 
-CREATE TABLE oneture_db.nsdl.audit_DdpInfo (
+CREATE TABLE nsdl.audit_DdpInfo (
 	AuditId int IDENTITY(1,1) NOT NULL,
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1372,13 +1372,13 @@ CREATE TABLE oneture_db.nsdl.audit_DdpInfo (
 );
 
 
--- oneture_db.nsdl.audit_DpInfo definition
+-- nsdl.audit_DpInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_DpInfo;
+-- DROP TABLE nsdl.audit_DpInfo;
 
-CREATE TABLE oneture_db.nsdl.audit_DpInfo (
+CREATE TABLE nsdl.audit_DpInfo (
 	AuditId int IDENTITY(1,1) NOT NULL,
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1392,13 +1392,13 @@ CREATE TABLE oneture_db.nsdl.audit_DpInfo (
 );
 
 
--- oneture_db.nsdl.draft_DdpInfo definition
+-- nsdl.draft_DdpInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_DdpInfo;
+-- DROP TABLE nsdl.draft_DdpInfo;
 
-CREATE TABLE oneture_db.nsdl.draft_DdpInfo (
+CREATE TABLE nsdl.draft_DdpInfo (
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	Value int NULL,
@@ -1410,13 +1410,13 @@ CREATE TABLE oneture_db.nsdl.draft_DdpInfo (
 );
 
 
--- oneture_db.nsdl.draft_DpInfo definition
+-- nsdl.draft_DpInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_DpInfo;
+-- DROP TABLE nsdl.draft_DpInfo;
 
-CREATE TABLE oneture_db.nsdl.draft_DpInfo (
+CREATE TABLE nsdl.draft_DpInfo (
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	Value int NOT NULL,
@@ -1427,13 +1427,13 @@ CREATE TABLE oneture_db.nsdl.draft_DpInfo (
 	CONSTRAINT PK__draft_Dp__C93A4C99C5C456CD PRIMARY KEY (ApplicationId)
 );
 
--- oneture_db.nsdl.CustodianInfo definition
+-- nsdl.CustodianInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.CustodianInfo;
+-- DROP TABLE nsdl.CustodianInfo;
 
-CREATE TABLE oneture_db.nsdl.CustodianInfo (
+CREATE TABLE nsdl.CustodianInfo (
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	Value int NULL,
@@ -1444,13 +1444,13 @@ CREATE TABLE oneture_db.nsdl.CustodianInfo (
 );
 
 
--- oneture_db.nsdl.audit_CustodianInfo definition
+-- nsdl.audit_CustodianInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.audit_CustodianInfo;
+-- DROP TABLE nsdl.audit_CustodianInfo;
 
-CREATE TABLE oneture_db.nsdl.audit_CustodianInfo (
+CREATE TABLE nsdl.audit_CustodianInfo (
 	AuditId int IDENTITY(1,1) NOT NULL,
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -1463,13 +1463,13 @@ CREATE TABLE oneture_db.nsdl.audit_CustodianInfo (
 );
 
 
--- oneture_db.nsdl.draft_CustodianInfo definition
+-- nsdl.draft_CustodianInfo definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_CustodianInfo;
+-- DROP TABLE nsdl.draft_CustodianInfo;
 
-CREATE TABLE oneture_db.nsdl.draft_CustodianInfo (
+CREATE TABLE nsdl.draft_CustodianInfo (
 	ApplicationId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	Value int NULL,
@@ -1479,13 +1479,13 @@ CREATE TABLE oneture_db.nsdl.draft_CustodianInfo (
 	CONSTRAINT PK__draft_Cu__C93A4C99E2A3142E PRIMARY KEY (ApplicationId)
 );
 
--- oneture_db.nsdl.DeclarationAndUndertakingForm definition
+-- nsdl.DeclarationAndUndertakingForm definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.DeclarationAndUndertakingForm;
+-- DROP TABLE nsdl.DeclarationAndUndertakingForm;
 
-CREATE TABLE oneture_db.nsdl.DeclarationAndUndertakingForm (
+CREATE TABLE nsdl.DeclarationAndUndertakingForm (
 	ApplicationId int NOT NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	Capacity nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
@@ -1501,13 +1501,13 @@ CREATE TABLE oneture_db.nsdl.DeclarationAndUndertakingForm (
 );
 
 
--- oneture_db.nsdl.draft_DeclarationAndUndertakingForm definition
+-- nsdl.draft_DeclarationAndUndertakingForm definition
 
 -- Drop table
 
--- DROP TABLE oneture_db.nsdl.draft_DeclarationAndUndertakingForm;
+-- DROP TABLE nsdl.draft_DeclarationAndUndertakingForm;
 
-CREATE TABLE oneture_db.nsdl.draft_DeclarationAndUndertakingForm (
+CREATE TABLE nsdl.draft_DeclarationAndUndertakingForm (
 	ApplicationId int NOT NULL,
 	Name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	Capacity nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
@@ -1901,15 +1901,15 @@ CREATE TABLE nsdl.draft_Managers (
 );
 
 
-ALTER TABLE oneture_db.nsdl.draft_ContactInfo ALTER COLUMN CountryCode varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL;
-ALTER TABLE oneture_db.nsdl.draft_ContactInfo ALTER COLUMN Number nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL;
-ALTER TABLE oneture_db.nsdl.draft_ContactInfo ALTER COLUMN [Type] nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL;
-ALTER TABLE oneture_db.nsdl.draft_DisciplinaryHistory ALTER COLUMN DisciplinaryHistoryRadio bit NULL;
-ALTER TABLE oneture_db.nsdl.draft_HasPan ALTER COLUMN HasPanRadio bit NULL;
-ALTER TABLE oneture_db.nsdl.draft_PriorAssociation ALTER COLUMN PriorAssociationRadio bit NULL;
-ALTER TABLE oneture_db.nsdl.draft_PriorAssociationRow ALTER COLUMN SebiRegNumber nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL;
-ALTER TABLE oneture_db.nsdl.draft_PriorAssociationRow ALTER COLUMN RegistrationEnd datetime NULL;
-ALTER TABLE oneture_db.nsdl.draft_PriorAssociationRow ALTER COLUMN RegistrationStart datetime NULL;
+ALTER TABLE nsdl.draft_ContactInfo ALTER COLUMN CountryCode varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL;
+ALTER TABLE nsdl.draft_ContactInfo ALTER COLUMN Number nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL;
+ALTER TABLE nsdl.draft_ContactInfo ALTER COLUMN [Type] nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL;
+ALTER TABLE nsdl.draft_DisciplinaryHistory ALTER COLUMN DisciplinaryHistoryRadio bit NULL;
+ALTER TABLE nsdl.draft_HasPan ALTER COLUMN HasPanRadio bit NULL;
+ALTER TABLE nsdl.draft_PriorAssociation ALTER COLUMN PriorAssociationRadio bit NULL;
+ALTER TABLE nsdl.draft_PriorAssociationRow ALTER COLUMN SebiRegNumber nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL;
+ALTER TABLE nsdl.draft_PriorAssociationRow ALTER COLUMN RegistrationEnd datetime NULL;
+ALTER TABLE nsdl.draft_PriorAssociationRow ALTER COLUMN RegistrationStart datetime NULL;
 
 
 
