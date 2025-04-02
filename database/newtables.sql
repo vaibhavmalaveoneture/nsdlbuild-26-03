@@ -100,18 +100,6 @@ CREATE TABLE oneture_db.nsdl.draft_Ekyc (
 );
 
 
--- oneture_db.nsdl.Ekyc foreign keys
-
-ALTER TABLE oneture_db.nsdl.Ekyc ADD CONSTRAINT FK__Eky__Count__5E968D19 FOREIGN KEY (CountryOfIncorporation) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
-ALTER TABLE oneture_db.nsdl.Ekyc ADD CONSTRAINT FK__Eky__Count__5F8AB152 FOREIGN KEY (CountryCodeOfIncorporation) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
-
-
--- oneture_db.nsdl.draft_Ekyc foreign keys
-
-ALTER TABLE oneture_db.nsdl.draft_Ekyc ADD CONSTRAINT FK__draft_Eky__Count__5E968D19 FOREIGN KEY (CountryOfIncorporation) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
-ALTER TABLE oneture_db.nsdl.draft_Ekyc ADD CONSTRAINT FK__draft_Eky__Count__5F8AB152 FOREIGN KEY (CountryCodeOfIncorporation) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
--- oneture_db.nsdl.audit_ApplicantOtherName definition
-
 -- Drop table
 
 -- DROP TABLE oneture_db.nsdl.audit_ApplicantOtherName;
@@ -161,16 +149,6 @@ CREATE TABLE oneture_db.nsdl.draft_ApplicantOtherName (
 	CONSTRAINT PK__draft_Ap__3214EC07495D860D PRIMARY KEY (Id)
 );
 
-
--- oneture_db.nsdl.ApplicantOtherName foreign keys
-
-ALTER TABLE oneture_db.nsdl.ApplicantOtherName ADD CONSTRAINT FK__App__Appli__70B53D54 FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.Ekyc(ApplicationId);
-
-
--- oneture_db.nsdl.draft_ApplicantOtherName foreign keys
-
-ALTER TABLE oneture_db.nsdl.draft_ApplicantOtherName ADD CONSTRAINT FK__draft_App__Appli__70B53D54 FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.draft_Ekyc(ApplicationId);
--- oneture_db.nsdl.audit_TaxResidency definition
 
 -- Drop table
 
@@ -222,16 +200,6 @@ CREATE TABLE oneture_db.nsdl.draft_TaxResidency (
 );
 
 
--- oneture_db.nsdl.TaxResidency foreign keys
-
-ALTER TABLE oneture_db.nsdl.TaxResidency ADD CONSTRAINT FK__Tax__Appli__6AFC63FE FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.Ekyc(ApplicationId);
-ALTER TABLE oneture_db.nsdl.TaxResidency ADD CONSTRAINT FK__Tax__Count__6BF08837 FOREIGN KEY (CountryCode) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
-
-
--- oneture_db.nsdl.draft_TaxResidency foreign keys
-
-ALTER TABLE oneture_db.nsdl.draft_TaxResidency ADD CONSTRAINT FK__draft_Tax__Appli__6AFC63FE FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.draft_Ekyc(ApplicationId);
-ALTER TABLE oneture_db.nsdl.draft_TaxResidency ADD CONSTRAINT FK__draft_Tax__Count__6BF08837 FOREIGN KEY (CountryCode) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
 
 -- oneture_db.nsdl.audit_RegisteredOffice definition
 
@@ -306,18 +274,6 @@ CREATE TABLE oneture_db.nsdl.draft_RegisteredOffice (
 );
 
 
--- oneture_db.nsdl.RegisteredOffice foreign keys
-
-ALTER TABLE oneture_db.nsdl.RegisteredOffice ADD CONSTRAINT FK__Reg__Appli__78565F1C FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.Ekyc(ApplicationId);
-ALTER TABLE oneture_db.nsdl.RegisteredOffice ADD CONSTRAINT FK__Reg__Regis__794A8355 FOREIGN KEY (RegisteredCountryCode) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
-
-
--- oneture_db.nsdl.draft_RegisteredOffice foreign keys
-
-ALTER TABLE oneture_db.nsdl.draft_RegisteredOffice ADD CONSTRAINT FK__draft_Reg__Appli__78565F1C FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.draft_Ekyc(ApplicationId);
-ALTER TABLE oneture_db.nsdl.draft_RegisteredOffice ADD CONSTRAINT FK__draft_Reg__Regis__794A8355 FOREIGN KEY (RegisteredCountryCode) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
-
--- oneture_db.nsdl.audit_ForeignOffice definition
 
 -- Drop table
 
@@ -389,17 +345,6 @@ CREATE TABLE oneture_db.nsdl.draft_ForeignOffice (
 	CONSTRAINT PK__draft_Fo__3214EC07492D2BBA PRIMARY KEY (Id)
 );
 
-
--- oneture_db.nsdl.ForeignOffice foreign keys
-
-ALTER TABLE oneture_db.nsdl.ForeignOffice ADD CONSTRAINT FK__For__Appli__7F035CAB FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.Ekyc(ApplicationId);
-ALTER TABLE oneture_db.nsdl.ForeignOffice ADD CONSTRAINT FK__For__Forei__7FF780E4 FOREIGN KEY (ForeignCountryCode) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
-
-
--- oneture_db.nsdl.draft_ForeignOffice foreign keys
-
-ALTER TABLE oneture_db.nsdl.draft_ForeignOffice ADD CONSTRAINT FK__draft_For__Appli__7F035CAB FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.draft_Ekyc(ApplicationId);
-ALTER TABLE oneture_db.nsdl.draft_ForeignOffice ADD CONSTRAINT FK__draft_For__Forei__7FF780E4 FOREIGN KEY (ForeignCountryCode) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
 
 -- oneture_db.nsdl.audit_OfficeInIndia definition
 
@@ -478,15 +423,6 @@ CREATE TABLE oneture_db.nsdl.draft_OfficeInIndia (
 
 
 -- oneture_db.nsdl.OfficeInIndia foreign keys
-
-ALTER TABLE oneture_db.nsdl.OfficeInIndia ADD CONSTRAINT FK__Off__Appli__05B05A3A FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.Ekyc(ApplicationId);
-ALTER TABLE oneture_db.nsdl.OfficeInIndia ADD CONSTRAINT FK__Off__India__06A47E73 FOREIGN KEY (IndianCountryCode) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
-
-
--- oneture_db.nsdl.draft_OfficeInIndia foreign keys
-
-ALTER TABLE oneture_db.nsdl.draft_OfficeInIndia ADD CONSTRAINT FK__draft_Off__Appli__05B05A3A FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.draft_Ekyc(ApplicationId);
-ALTER TABLE oneture_db.nsdl.draft_OfficeInIndia ADD CONSTRAINT FK__draft_Off__India__06A47E73 FOREIGN KEY (IndianCountryCode) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
 
 -- oneture_db.nsdl.audit_ContactDetails definition
 
@@ -601,28 +537,7 @@ CREATE TABLE oneture_db.nsdl.draft_ContactInfo (
 );
 
 
--- oneture_db.nsdl.ContactDetails foreign keys
 
-ALTER TABLE oneture_db.nsdl.ContactDetails ADD CONSTRAINT FK__Con__Appli__13FE7991 FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.Ekyc(ApplicationId);
-
-
--- oneture_db.nsdl.ContactInfo foreign keys
-
-ALTER TABLE oneture_db.nsdl.ContactInfo ADD CONSTRAINT FK__Con__Appli__0E45A03B FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.Ekyc(ApplicationId);
-ALTER TABLE oneture_db.nsdl.ContactInfo ADD CONSTRAINT FK__Con__Count__0F39C474 FOREIGN KEY (CountryCode) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
-
-
--- oneture_db.nsdl.draft_ContactDetails foreign keys
-
-ALTER TABLE oneture_db.nsdl.draft_ContactDetails ADD CONSTRAINT FK__draft_Con__Appli__13FE7991 FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.draft_Ekyc(ApplicationId);
-
-
--- oneture_db.nsdl.draft_ContactInfo foreign keys
-
-ALTER TABLE oneture_db.nsdl.draft_ContactInfo ADD CONSTRAINT FK__draft_Con__Appli__0E45A03B FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.draft_Ekyc(ApplicationId);
-ALTER TABLE oneture_db.nsdl.draft_ContactInfo ADD CONSTRAINT FK__draft_Con__Count__0F39C474 FOREIGN KEY (CountryCode) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
-
--- oneture_db.nsdl.InvestmentManager definition
 
 -- Drop table
 
@@ -665,15 +580,6 @@ CREATE TABLE oneture_db.nsdl.draft_InvestmentManager (
 
 
 -- oneture_db.nsdl.InvestmentManager foreign keys
-
-ALTER TABLE oneture_db.nsdl.InvestmentManager ADD CONSTRAINT FK__Inv__Appli__1AAB7720 FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.Ekyc(ApplicationId);
-ALTER TABLE oneture_db.nsdl.InvestmentManager ADD CONSTRAINT FK__Inv__Count__1B9F9B59 FOREIGN KEY (CountryCode) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
-
-
--- oneture_db.nsdl.draft_InvestmentManager foreign keys
-
-ALTER TABLE oneture_db.nsdl.draft_InvestmentManager ADD CONSTRAINT FK__draft_Inv__Appli__1AAB7720 FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.draft_Ekyc(ApplicationId);
-ALTER TABLE oneture_db.nsdl.draft_InvestmentManager ADD CONSTRAINT FK__draft_Inv__Count__1B9F9B59 FOREIGN KEY (CountryCode) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
 
 
 -- oneture_db.nsdl.audit_ComplianceOfficerInfo definition
@@ -736,15 +642,6 @@ CREATE TABLE oneture_db.nsdl.draft_ComplianceOfficerInfo (
 	CONSTRAINT PK__draft_Co__3214EC07433C3D08 PRIMARY KEY (Id)
 );
 
-
--- oneture_db.nsdl.ComplianceOfficerInfo foreign keys
-
-ALTER TABLE oneture_db.nsdl.ComplianceOfficerInfo ADD CONSTRAINT FK__Com__Appli__215874AF FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.Ekyc(ApplicationId);
-
-
--- oneture_db.nsdl.draft_ComplianceOfficerInfo foreign keys
-
-ALTER TABLE oneture_db.nsdl.draft_ComplianceOfficerInfo ADD CONSTRAINT FK__draft_Com__Appli__215874AF FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.draft_Ekyc(ApplicationId);
 
 -- oneture_db.nsdl.audit_ManagingOfficial definition
 
@@ -817,16 +714,6 @@ CREATE TABLE oneture_db.nsdl.draft_ManagingOfficial (
 
 -- oneture_db.nsdl.ManagingOfficial foreign keys
 
-ALTER TABLE oneture_db.nsdl.ManagingOfficial ADD CONSTRAINT FK__Man__Appli__383BDA07 FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.Ekyc(ApplicationId);
-ALTER TABLE oneture_db.nsdl.ManagingOfficial ADD CONSTRAINT FK__Man__Natio__3A242279 FOREIGN KEY (Nationality) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
-ALTER TABLE oneture_db.nsdl.ManagingOfficial ADD CONSTRAINT FK__Man__TaxRe__392FFE40 FOREIGN KEY (TaxResidencyJurisdiction) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
-
-
--- oneture_db.nsdl.draft_ManagingOfficial foreign keys
-
-ALTER TABLE oneture_db.nsdl.draft_ManagingOfficial ADD CONSTRAINT FK__draft_Man__Appli__383BDA07 FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.draft_Ekyc(ApplicationId);
-ALTER TABLE oneture_db.nsdl.draft_ManagingOfficial ADD CONSTRAINT FK__draft_Man__Natio__3A242279 FOREIGN KEY (Nationality) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
-ALTER TABLE oneture_db.nsdl.draft_ManagingOfficial ADD CONSTRAINT FK__draft_Man__TaxRe__392FFE40 FOREIGN KEY (TaxResidencyJurisdiction) REFERENCES oneture_db.nsdl.Country_Code_Master(RMC_CODE_SHORT_NAME);
 
 -- oneture_db.nsdl.audit_IncomeDetails definition
 
@@ -934,24 +821,6 @@ CREATE TABLE oneture_db.nsdl.draft_IncomeSource (
 );
 
 
--- oneture_db.nsdl.IncomeDetails foreign keys
-
-ALTER TABLE oneture_db.nsdl.IncomeDetails ADD CONSTRAINT FK__Inc__Appli__2DBE4B94 FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.Ekyc(ApplicationId);
-
-
--- oneture_db.nsdl.IncomeSource foreign keys
-
-ALTER TABLE oneture_db.nsdl.IncomeSource ADD CONSTRAINT FK__Inc__Appli__318EDC78 FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.Ekyc(ApplicationId) ON DELETE CASCADE;
-
-
--- oneture_db.nsdl.draft_IncomeDetails foreign keys
-
-ALTER TABLE oneture_db.nsdl.draft_IncomeDetails ADD CONSTRAINT FK__draft_Inc__Appli__2DBE4B94 FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.draft_Ekyc(ApplicationId);
-
-
--- oneture_db.nsdl.draft_IncomeSource foreign keys
-
-ALTER TABLE oneture_db.nsdl.draft_IncomeSource ADD CONSTRAINT FK__draft_Inc__Appli__318EDC78 FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.draft_Ekyc(ApplicationId) ON DELETE CASCADE;
 
 
 -- oneture_db.nsdl.audit_ApplicantType definition
@@ -1006,18 +875,7 @@ CREATE TABLE oneture_db.nsdl.draft_ApplicantType (
 );
 
 
--- oneture_db.nsdl.ApplicantType foreign keys
 
-ALTER TABLE oneture_db.nsdl.ApplicantType ADD CONSTRAINT FK__App__Appli__27114E05 FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.Ekyc(ApplicationId);
-
-
--- oneture_db.nsdl.draft_ApplicantType foreign keys
-
-ALTER TABLE oneture_db.nsdl.draft_ApplicantType ADD CONSTRAINT FK__draft_App__Appli__27114E05 FOREIGN KEY (ApplicationId) REFERENCES oneture_db.nsdl.draft_Ekyc(ApplicationId);
-
--- oneture_db.nsdl.RegistrationForm definition
-
--- Drop table
 
 -- DROP TABLE oneture_db.nsdl.RegistrationForm;
 
@@ -2049,16 +1907,9 @@ ALTER TABLE oneture_db.nsdl.draft_ContactInfo ALTER COLUMN [Type] nvarchar(50) C
 ALTER TABLE oneture_db.nsdl.draft_DisciplinaryHistory ALTER COLUMN DisciplinaryHistoryRadio bit NULL;
 ALTER TABLE oneture_db.nsdl.draft_HasPan ALTER COLUMN HasPanRadio bit NULL;
 ALTER TABLE oneture_db.nsdl.draft_PriorAssociation ALTER COLUMN PriorAssociationRadio bit NULL;
-ALTER TABLE oneture_db.nsdl.draft_PriorAssociationRow DROP CONSTRAINT PK__draft_Pr__4DD9F5E009CFAC99;
 ALTER TABLE oneture_db.nsdl.draft_PriorAssociationRow ALTER COLUMN SebiRegNumber nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL;
 ALTER TABLE oneture_db.nsdl.draft_PriorAssociationRow ALTER COLUMN RegistrationEnd datetime NULL;
 ALTER TABLE oneture_db.nsdl.draft_PriorAssociationRow ALTER COLUMN RegistrationStart datetime NULL;
-ALTER TABLE oneture_db.nsdl.draft_Ekyc DROP CONSTRAINT FK__draft_Eky__Count__5E968D19;
-ALTER TABLE oneture_db.nsdl.draft_Ekyc DROP CONSTRAINT FK__draft_Eky__Count__5F8AB152;
-ALTER TABLE oneture_db.nsdl.draft_TaxResidency DROP CONSTRAINT FK__draft_Tax__Appli__6AFC63FE;
-ALTER TABLE oneture_db.nsdl.draft_TaxResidency DROP CONSTRAINT FK__draft_Tax__Count__6BF08837;
-
-
 
 
 
