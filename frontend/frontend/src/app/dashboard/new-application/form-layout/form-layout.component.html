@@ -18,7 +18,7 @@
       <app-registration-form [hidden]="currentStep !== 2" [applicationId]="applicationId"  [formGroup]="registartionForm" [masterData]="masterData" [applicationData]="applicationData"></app-registration-form>
       <app-annexure-form [hidden]="currentStep !== 3" [applicationId]="applicationId" [formGroup]="anextureToCafForm" [masterData]="masterData" [applicationData]="applicationData"></app-annexure-form>
       <app-documents-upload [hidden]="currentStep !== 4" [applicationId]="applicationId" [formGroup]="documentUploadForm" [fvciForm]="fvciForm" [masterData]="masterData"></app-documents-upload>
-      <app-declaration-undertaking [hidden]="currentStep !== 5"  [applicationId]="applicationId" [declarationForm]="declarationAndUndertakimgForm"></app-declaration-undertaking>
+      <app-declaration-undertaking [hidden]="currentStep !== 5"  [applicationId]="applicationId" [declarationForm]="declarationAndUndertakimgForm" [applicationData]="applicationData"></app-declaration-undertaking>
       <app-acknowledgement [hidden]="currentStep !== 6" [applicationId]="applicationId"></app-acknowledgement>
     </p-scrollpanel>
   </p-card>

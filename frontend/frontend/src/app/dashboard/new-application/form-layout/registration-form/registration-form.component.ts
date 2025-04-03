@@ -39,6 +39,7 @@ import { Router } from '@angular/router';
 import { FormProgressService } from '../../../../services/form-progress.service';
 import { FormValidationService } from '../../../../services/form-validation.service';
 
+
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
@@ -59,7 +60,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   countryCodes: any[] = [];
   countries_pan: any[] = [];
   countryCodes_pan: any[] = [];
-  countryShortCodes_pan: any[]= [];
+  countryShortCodes_pan: any[] = [];
   ddpOptions!: any[];
   regulatoryAuthorityOptions!: any[];
   custodianOptions!: any[];
@@ -179,9 +180,9 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
         // console.log('PAN Radio changed to:', value);
         if (value === 'throughGlobalCustodianRadioYes') {
           // console.log('SetValidators');
-          this.formGroup
-            .get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')
-            ?.setValidators([Validators.required]);
+          // this.formGroup
+          //   .get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')
+          //   ?.setValidators([Validators.required]);
           this.formGroup
             .get('throughGlobalCustodian.throughGlobalCustodianName')
             ?.setValidators([Validators.required]);
@@ -195,12 +196,12 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
           //   .get('throughGlobalCustodian.throughGlobalCustodianCountry')
           //   ?.setValidators([Validators.required]);
         } else {
-          this.formGroup
-            .get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')
-            ?.clearValidators();
-          this.formGroup
-            .get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')
-            ?.setValue('');
+          // this.formGroup
+          //   .get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')
+          //   ?.clearValidators();
+          // this.formGroup
+          //   .get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')
+          //   ?.setValue('');
           this.formGroup
             .get('throughGlobalCustodian.throughGlobalCustodianName')
             ?.clearValidators();
@@ -227,9 +228,9 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
           //   ?.setValue('');
         }
         // Update validation
-        this.formGroup
-          .get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')
-          ?.updateValueAndValidity();
+        // this.formGroup
+        //   .get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')
+        //   ?.updateValueAndValidity();
         this.formGroup
           .get('throughGlobalCustodian.throughGlobalCustodianName')
           ?.updateValueAndValidity();
@@ -260,92 +261,267 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       // Now you can work with masterData here
       this.initializeMasterData();
     }
-    if(changes['applicationData'] && changes['applicationData'].currentValue){
-      this.initialiseForm()
+    if (changes['applicationData'] && changes['applicationData'].currentValue) {
+      this.initialiseForm();
     }
   }
 
-  initialiseForm(){     
-    this.formGroup.get('providedValidForm')?.setValue(this.applicationData.data?.registrationForm?.providedValidForm)
-    
-    // this.formGroup.get('regulatoryAuthorityName')?.setValue(this.applicationData.data?.registrationForm?.regulatoryAuthorityName)
-    // this.formGroup.get('regulatoryAuthorityCountry')?.setValue(this.applicationData.data?.registrationForm?.regulatoryAuthorityCountry)
-    // this.formGroup.get('regulatoryAuthorityWebsite')?.setValue(this.applicationData.data?.registrationForm?.regulatoryAuthorityWebsite)
-    this.formGroup.get('regulatoryAuthorityRegNumber')?.setValue(this.applicationData.data?.registrationForm?.regulatoryAuthorityRegNumber)
-    this.formGroup.get('regulatoryAuthorityCategory')?.setValue(this.applicationData.data?.registrationForm?.regulatoryAuthorityCategory)
+  initialiseForm() {
+    // Set basic form values
+    this.formGroup
+      .get('providedValidForm')
+      ?.setValue(
+        this.applicationData.data?.registrationForm?.providedValidForm
+      );
+
+      const regularAuthorityObj = this.regulatoryAuthorityOptions.find(
+        (c) => c.name === this.applicationData.data?.registrationForm?.regulatoryAuthorityName
+      );
+      console.log("this.applicationData.data?.registrationForm?.regulatoryAuthorityName", this.applicationData.data.registrationForm.regulatoryAuthorityName)
+      this.formGroup.get('regulatoryAuthorityName')?.setValue(this.applicationData.data?.registrationForm?.regulatoryAuthorityName)
+      this.formGroup.get('regulatoryAuthorityCountry')?.setValue(this.applicationData.data?.registrationForm?.regulatoryAuthorityCountry)
+      this.formGroup.get('regulatoryAuthorityWebsite')?.setValue(this.applicationData.data?.registrationForm?.regulatoryAuthorityWebsite)
+
 
     this.formGroup.get('throughGlobalCustodian.throughGlobalCustodianRadio')?.setValue(this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianRadio)
     this.formGroup.get('throughGlobalCustodian.throughGlobalCustodianName')?.setValue(this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianName)
     this.formGroup.get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')?.setValue(this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianRegulatorName)
     this.formGroup.get('throughGlobalCustodian.throughGlobalCustodianAddress')?.setValue(this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianAddress)
     this.formGroup.get('throughGlobalCustodian.throughGlobalCustodianRegistration')?.setValue(this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianRegistration)
-    const countryObj = this.countries_pan.find(
+    const countryObjg = this.countries_pan.find(
       (c) => c.short_code === this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianCountry.short_code
     );
-    this.formGroup.get('throughGlobalCustodian.throughGlobalCustodianCountry')?.setValue(countryObj)
+    this.formGroup.get('throughGlobalCustodian.throughGlobalCustodianCountry')?.setValue(countryObjg)
 
-    this.formGroup.get('hasPan.hasPanRadio')?.setValue(this.applicationData.data?.registrationForm?.hasPan?.hasPanRadio)
-    this.formGroup.get('hasPan.hasPanNumber')?.setValue(this.applicationData.data?.registrationForm?.hasPan?.hasPanNumber)
+    // Set regulatory authority fields
+    this.formGroup
+      .get('regulatoryAuthorityRegNumber')
+      ?.setValue(
+        this.applicationData.data?.registrationForm
+          ?.regulatoryAuthorityRegNumber
+      );
+    this.formGroup
+      .get('regulatoryAuthorityCategory')
+      ?.setValue(
+        this.applicationData.data?.registrationForm?.regulatoryAuthorityCategory
+      );
 
-    this.formGroup.get('disciplinaryHistory.disciplinaryHistoryRadio')?.setValue(this.applicationData.data?.registrationForm?.disciplinaryHistory?.disciplinaryHistoryRadio)
-    this.formGroup.get('disciplinaryHistory.disciplinaryHistoryText')?.setValue(this.applicationData.data?.registrationForm?.disciplinaryHistory?.disciplinaryHistoryText)
+    // Set throughGlobalCustodian fields
+    this.formGroup
+      .get('throughGlobalCustodian.throughGlobalCustodianRadio')
+      ?.setValue(
+        this.applicationData.data?.registrationForm?.throughGlobalCustodian
+          ?.throughGlobalCustodianRadio
+      );
+    this.formGroup
+      .get('throughGlobalCustodian.throughGlobalCustodianName')
+      ?.setValue(
+        this.applicationData.data?.registrationForm?.throughGlobalCustodian
+          ?.throughGlobalCustodianName
+      );
+    this.formGroup
+      .get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')
+      ?.setValue(
+        this.applicationData.data?.registrationForm?.throughGlobalCustodian
+          ?.throughGlobalCustodianRegulatorName
+      );
+    this.formGroup
+      .get('throughGlobalCustodian.throughGlobalCustodianAddress')
+      ?.setValue(
+        this.applicationData.data?.registrationForm?.throughGlobalCustodian
+          ?.throughGlobalCustodianAddress
+      );
+    this.formGroup
+      .get('throughGlobalCustodian.throughGlobalCustodianRegistration')
+      ?.setValue(
+        this.applicationData.data?.registrationForm?.throughGlobalCustodian
+          ?.throughGlobalCustodianRegistration
+      );
+    const countryObj = this.countries_pan.find(
+      (c) =>
+        c.short_code ===
+        this.applicationData.data?.registrationForm?.throughGlobalCustodian
+          ?.throughGlobalCustodianCountry.short_code
+    );
+    this.formGroup
+      .get('throughGlobalCustodian.throughGlobalCustodianCountry')
+      ?.setValue(countryObj);
 
-  //   this.formGroup.get('priorAssociation.priorAssociationRadio')?.setValue(this.applicationData.data?.registrationForm?.priorAssociation?.priorAssociationRadio)
-  //   if (this.applicationData.data?.registrationForm?.priorAssiciationRows &&
-  //     this.applicationData.data?.registrationForm?.priorAssociationRadio) {
-  //   this.patchPriorAssociation(this.applicationData.data.registrationForm.priorAssiciationRows);
-  // }
+    // Set PAN fields
+    this.formGroup
+      .get('hasPan.hasPanRadio')
+      ?.setValue(
+        this.applicationData.data?.registrationForm?.hasPan?.hasPanRadio
+      );
+    this.formGroup
+      .get('hasPan.hasPanNumber')
+      ?.setValue(
+        this.applicationData.data?.registrationForm?.hasPan?.hasPanNumber
+      );
 
-  const priorAssociationRadio = this.applicationData.data?.registrationForm?.priorAssociation?.priorAssociationRadio;
-  this.formGroup.get('priorAssociation.priorAssociationRadio')?.setValue(priorAssociationRadio);
-  
-  // Check for prior association rows
-  const priorAssociationRows = this.applicationData.data?.registrationForm?.priorAssiciationRows;
-  
-  // Log for debugging
-  console.log('Prior Association Rows:', priorAssociationRows);
-  
-  // Only patch if radio is true and we have rows data
-  if (priorAssociationRadio === true && priorAssociationRows && Array.isArray(priorAssociationRows) && priorAssociationRows.length > 0) {
-    this.patchPriorAssociation(priorAssociationRows);
-  }
+    // Set disciplinary history fields
+    this.formGroup
+      .get('disciplinaryHistory.disciplinaryHistoryRadio')
+      ?.setValue(
+        this.applicationData.data?.registrationForm?.disciplinaryHistory
+          ?.disciplinaryHistoryRadio
+      );
+    this.formGroup
+      .get('disciplinaryHistory.disciplinaryHistoryText')
+      ?.setValue(
+        this.applicationData.data?.registrationForm?.disciplinaryHistory
+          ?.disciplinaryHistoryText
+      );
 
-    // this.patchPriorAssociation(this.applicationData.data?.registrationForm?.priorAssiciationRows);
-    // this.formGroup.get('lei')?.setValue(this.applicationData.data?.ekycForm?.lei)    
-    // const taxResidancyData = this.applicationData.data?.ekycForm?.taxResidencyRows;
-    // console.log("taxResidancyData.length", taxResidancyData.length)
-    // if(taxResidancyData.length>0){
-    //   this.taxResidencyRows.clear();
-    // taxResidancyData.forEach((leiDetail :{ id?: number; trcNo?: string; country?: string }) => {
-    //   const countryObj = this.countries.find(
-    //     (c) => c.name === leiDetail.country
-    //   );
-    //   this.addRow();
-    //   const lastRow = this.taxResidencyRows.at(this.taxResidencyRows.length - 1);
-    //   lastRow.patchValue({
-    //     id: leiDetail.id ?? this.taxResidencyRows.length + 1,
-    //     trcNo: leiDetail.trcNo ?? '',
-    //     country: countryObj ? countryObj.name : null,
-    //   });
-    // });
-    // }
+    // Set prior association radio
+    const priorAssociationRadio =
+      this.applicationData.data?.registrationForm?.priorAssociation
+        ?.priorAssociationRadio;
+    this.formGroup
+      .get('priorAssociation.priorAssociationRadio')
+      ?.setValue(priorAssociationRadio);
+
+    // Load master data and then set select dropdown values
+    this.loadMasterData().then(() => {
+      // Set DDP field
+      if (this.applicationData.data?.registrationForm?.ddpName) {
+        const ddpName =
+          typeof this.applicationData.data.registrationForm.ddpName === 'object'
+            ? this.applicationData.data.registrationForm.ddpName.name
+            : this.applicationData.data.registrationForm.ddpName;
+
+        const ddpOption = this.ddpOptions.find((opt) => opt.name === ddpName);
+        if (ddpOption) {
+          this.formGroup.get('ddpName')?.setValue(ddpOption);
+          this.formGroup
+            .get('ddpRegistrationNumber')
+            ?.setValue(
+              this.applicationData.data.registrationForm
+                .ddpRegistrationNumber ||
+                ddpOption.registrationNumber ||
+                ''
+            );
+        }
+      }
+
+      // Set Custodian field
+      if (this.applicationData.data?.registrationForm?.custodianName) {
+        const custodianName =
+          typeof this.applicationData.data.registrationForm.custodianName ===
+          'object'
+            ? this.applicationData.data.registrationForm.custodianName.name
+            : this.applicationData.data.registrationForm.custodianName;
+
+        const custodianOption = this.custodianOptions.find(
+          (opt) => opt.name === custodianName
+        );
+        if (custodianOption) {
+          this.formGroup.get('custodianName')?.setValue(custodianOption);
+          this.formGroup
+            .get('custodianRegistrationNumber')
+            ?.setValue(
+              this.applicationData.data.registrationForm
+                .custodianRegistrationNumber ||
+                custodianOption.registrationNumber ||
+                ''
+            );
+        }
+      }
+
+      // Set DP field
+      if (this.applicationData.data?.registrationForm?.dpName) {
+        const dpName =
+          typeof this.applicationData.data.registrationForm.dpName === 'object'
+            ? this.applicationData.data.registrationForm.dpName.name
+            : this.applicationData.data.registrationForm.dpName;
+
+        const dpOption = this.ddpOptions.find((opt) => opt.name === dpName);
+        if (dpOption) {
+          this.formGroup.get('dpName')?.setValue(dpOption);
+          this.formGroup
+            .get('dpRegistrationNumber')
+            ?.setValue(
+              this.applicationData.data.registrationForm.dpRegistrationNumber ||
+                dpOption.registrationNumber ||
+                ''
+            );
+        }
+      }
+
+      // Set Bank fields
+      if (this.applicationData.data?.registrationForm?.designatedBank) {
+        const bankData =
+          this.applicationData.data.registrationForm.designatedBank;
+        let bankOption;
+
+        if (bankData.designatedBankName) {
+          const bankName =
+            typeof bankData.designatedBankName === 'object'
+              ? bankData.designatedBankName.name
+              : bankData.designatedBankName;
+
+          bankOption = this.bankOptions.find((opt) => opt.name === bankName);
+        }
+
+        if (bankOption) {
+          this.formGroup
+            .get('designatedBank.designatedBankName')
+            ?.setValue(bankOption);
+          this.formGroup
+            .get('designatedBank.designatedBankAddress')
+            ?.setValue(
+              bankOption.address || bankData.designatedBankAddress || ''
+            );
+        } else if (
+          bankData.designatedBankName ||
+          bankData.designatedBankAddress
+        ) {
+          const tempBankOption = {
+            name:
+              typeof bankData.designatedBankName === 'object'
+                ? bankData.designatedBankName.name
+                : bankData.designatedBankName,
+            address: bankData.designatedBankAddress,
+            value: null,
+          };
+          this.formGroup
+            .get('designatedBank.designatedBankName')
+            ?.setValue(tempBankOption);
+          this.formGroup
+            .get('designatedBank.designatedBankAddress')
+            ?.setValue(bankData.designatedBankAddress || '');
+        }
+      }
+
+      // Handle prior association rows
+      const priorAssociationRows =
+        this.applicationData.data?.registrationForm?.priorAssiciationRows;
+      if (
+        priorAssociationRadio === true &&
+        priorAssociationRows &&
+        Array.isArray(priorAssociationRows) &&
+        priorAssociationRows.length > 0
+      ) {
+        this.patchPriorAssociation(priorAssociationRows);
+      }
+    });
   }
 
   // private patchPriorAssociation(data: any[]): void {
   //   if (!data || data.length === 0) return;
-    
+
   //   const priorAssociationArray = this.priorAssiciationRows;
   //   // Clear any existing rows
   //   priorAssociationArray.clear();
-    
+
   //   // Add a row for each item in the data
   //   data.forEach(item => {
   //     // Create a new row
   //     this.addPriorAssociationRow();
-      
+
   //     // Get the last row (the one we just added)
   //     const lastRow = priorAssociationArray.at(priorAssociationArray.length - 1);
-      
+
   //     // Patch the form values
   //     lastRow.patchValue({
   //       entityName: item.entityName || '',
@@ -358,34 +534,36 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
 
   private patchPriorAssociation(data: any[]): void {
     if (!data || data.length === 0) return;
-    
+
     const priorAssociationArray = this.priorAssiciationRows;
     // Clear any existing rows
     priorAssociationArray.clear();
-    
+
     // Add a row for each item in the data
-    data.forEach(item => {
+    data.forEach((item) => {
       // Create a new row
       this.addPriorAssociationRow();
-      
+
       // Get the last row (the one we just added)
-      const lastRow = priorAssociationArray.at(priorAssociationArray.length - 1);
-      
+      const lastRow = priorAssociationArray.at(
+        priorAssociationArray.length - 1
+      );
+
       // Convert registration period string dates to Date objects if needed
       let registrationPeriod = item.registrationPeriod;
       if (registrationPeriod && Array.isArray(registrationPeriod)) {
         // Convert ISO strings to Date objects
-        registrationPeriod = registrationPeriod.map(date => 
+        registrationPeriod = registrationPeriod.map((date) =>
           typeof date === 'string' ? new Date(date) : date
         );
       }
-      
+
       // Patch the form values
       lastRow.patchValue({
         entityName: item.entityName || '',
         registrationType: item.registrationType || '',
         sebiRegNumber: item.sebiRegNumber || '',
-        registrationPeriod: registrationPeriod
+        registrationPeriod: registrationPeriod,
       });
     });
   }
@@ -414,20 +592,22 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
           ddpId: ddp.ddp_id,
         }));
       }
-      if(Array.isArray(this.masterData.country_pan)){
-      this.countries_pan = this.masterData.country_pan.map((country: any) => ({
-        name: country.country_name,
-        code: country.country_code.toString(),
-        short_code: country.country_short_code,
-        id: country.country_id,
-      }));
-      this.countryCodes_pan = this.countries_pan
-        .map(({ code }) => ({ code }))
-        .filter((item) => item.code != null && item.code !== '');
-      this.countryShortCodes_pan = this.countries_pan
-        .map(({ short_code }) => ({ short_code }))
-        .filter((item) => item.short_code != null && item.short_code !== '');
-    }
+      if (Array.isArray(this.masterData.country_pan)) {
+        this.countries_pan = this.masterData.country_pan.map(
+          (country: any) => ({
+            name: country.country_name,
+            code: country.country_code.toString(),
+            short_code: country.country_short_code,
+            id: country.country_id,
+          })
+        );
+        this.countryCodes_pan = this.countries_pan
+          .map(({ code }) => ({ code }))
+          .filter((item) => item.code != null && item.code !== '');
+        this.countryShortCodes_pan = this.countries_pan
+          .map(({ short_code }) => ({ short_code }))
+          .filter((item) => item.short_code != null && item.short_code !== '');
+      }
       if (Array.isArray(this.masterData.custodian)) {
         this.custodianOptions = this.masterData.custodian.map(
           (custodian: any) => ({
@@ -687,15 +867,22 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   }
 
   onRegulatoryAuthoritySelected(event: any): void {
-    const selectedAuthority = event.value;
-    console.log('asdasdasdasdasd', selectedAuthority, event);
-
+    console.log("regulatoryAuthorityOptions", this.regulatoryAuthorityOptions)
+    const regulatoryAuthObject = this.regulatoryAuthorityOptions.find(
+      (c) => c.name === event.value
+    );
+    // const selectedAuthority = event.value;
+    // console.log('asdasdasdasdasd', selectedAuthority, event);
+    // const countries_panObj = this.countries_pan.find(
+    //   (c) => c.name === regulatoryAuthObject.country
+    // );
+    // console.log()
     this.formGroup
       .get('regulatoryAuthorityCountry')
-      ?.patchValue(selectedAuthority.country || 'dd');
+      ?.patchValue(regulatoryAuthObject.country || null);
     this.formGroup
       .get('regulatoryAuthorityWebsite')
-      ?.patchValue(selectedAuthority.website || 'dd');
+      ?.patchValue(regulatoryAuthObject.website || 'dd');
   }
 
   onDdpSelected(event: any, index: number): void {
@@ -921,4 +1108,26 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       this.priorAssiciationRows.at(rowIndex).get('details') as FormGroup
     ).get(fieldId) as FormControl;
   }
+
+  handlePanInput(event: KeyboardEvent, inputElement: HTMLInputElement): void {
+    const allowedPattern = /^[A-Z]{0,5}[0-9]{0,4}[A-Z]?$/;
+    
+    // Get current value + the new character
+    const currentValue = inputElement.value.toUpperCase(); // convert to uppercase
+    const newChar = (event.key || '').toUpperCase();
+
+    // Allow navigation keys (e.g., arrows, backspace)
+    const navigationKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab', 'Delete'];
+    if (navigationKeys.includes(event.key)) return;
+
+    const proposedValue = currentValue + newChar;
+
+    // Prevent input if the pattern doesn't match or length exceeds 10
+    if (!allowedPattern.test(proposedValue) || proposedValue.length > 10) {
+        event.preventDefault();
+    } else {
+        // Apply uppercase immediately
+        inputElement.value = currentValue;
+    }
+}
 }

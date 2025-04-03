@@ -204,6 +204,7 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
       placeOfIncorporation: formData.placeOfIncorporation,
       legalForm: formData.legalForm,
       lei: formData.lei,
+      // typeOfApplicants: formData.typeOfApplicants,
       typeOfEntity: formData.typeOfEntity,
       proofOfIdentity: formData.proofOfIdentity,
       proofOfAddress: formData.proofOfAddress,
@@ -211,6 +212,7 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
       relatedToPoliticallyExposed: formData.relatedToPoliticallyExposed,
       communicationAddress: formData.communicationAddress,
       ultimateBeneficialOwner: formData.ultimateBeneficialOwner,
+      ultimateBeneficialOwnerHolding: formData.ultimateBeneficialOwnerHolding,
       beneficialOwnership: formData.beneficialOwnership
     });
   
@@ -220,8 +222,16 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
     // this.patchNestedGroup('foreignOffice', formData.foreignOffice);
     // this.patchNestedGroup('OfficeInIndia', formData.OfficeInIndia);
     // this.patchNestedGroup('contactDetails', formData.contactDetails);
-    // this.patchNestedGroup('investmentManager', formData.investmentManager);
-    // this.patchNestedGroup('complianceOfficerInfo', formData.complianceOfficerInfo);
+    this.patchNestedGroup('investmentManager', formData.investmentManager);
+    const investmentManagerObj = this.applicationData.data?.ekycForm?.investmentManager?.country;
+
+    const immatchedCountry = this.countries_pan.find(
+      (c) => c.short_code === investmentManagerObj?.short_code
+    );
+
+    this.formGroup.get('investmentManager.country')?.setValue(immatchedCountry)
+    
+    this.patchNestedGroup('complianceOfficerInfo', formData.complianceOfficerInfo);
     // this.patchNestedGroup('incomeDetails', formData.incomeDetails);
     // this.patchNestedGroup('applicantType', formData.applicantType);
   
@@ -229,7 +239,11 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
     // this.patchCountryControl('countryOfIncorporation', formData.countryOfIncorporation);
     // this.patchCountryControl('registeredOffice.registeredCountryName', formData.registeredOffice?.registeredCountryName);
     // this.patchCountryControl('foreignOffice.foreignCountryName', formData.foreignOffice?.foreignCountryName);
-    // this.patchCountryControl('OfficeInIndia.indianCountryName', formData.OfficeInIndia?.indianCountryName);
+    // this.patchCountryControl('typeOfApplicants', formData.typeOfApplicants);
+  
+    this.formGroup.get("applicantType.applicantTypeName")?.setValue(this.applicationData.data?.ekycForm?.applicantType?.applicantTypeName);
+
+    this.formGroup.get("applicantType.applicantTypeOtherEntity")?.setValue(this.applicationData.data?.ekycForm?.applicantType?.applicantTypeOtherEntity);
 
     const taxResidancyData = this.applicationData.data?.ekycForm?.taxResidencyRows;
     console.log("taxResidancyData.length", taxResidancyData.length)
@@ -346,8 +360,10 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
 
     /////fax
     const ffocountryValue = this.applicationData.data?.ekycForm?.contactDetails?.registeredFax.countryCode;
+
     const ffomatchedCountry = this.countries_pan.find(
       (c) => c.short_code === ffocountryValue?.short_code
+
     );
     console.log("ffomatchedCountry", ffomatchedCountry)
     this.formGroup.get('contactDetails.registeredFax.countryCode')?.setValue(ffomatchedCountry)
@@ -355,8 +371,10 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
     this.formGroup.get('contactDetails.registeredFax.number')?.setValue(this.applicationData.data?.ekycForm?.contactDetails?.registeredFax.number)
   
     const fciocountryValue = this.applicationData.data?.ekycForm?.contactDetails?.officeFax.countryCode;
+
     const fciomatchedCountry = this.countries_pan.find(
       (c) => c.short_code === fciocountryValue?.short_code
+
     );
     console.log("fciomatchedCountry", fciomatchedCountry)
     this.formGroup.get('contactDetails.officeFax.countryCode')?.setValue(fciomatchedCountry)
@@ -364,15 +382,20 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
     this.formGroup.get('contactDetails.officeFax.number')?.setValue(this.applicationData.data?.ekycForm?.contactDetails?.officeFax.number)
   
     const fiocountryValue = this.applicationData.data?.ekycForm?.contactDetails?.indianOfficeFax.countryCode;
+
     const fiomatchedCountry = this.countries_pan.find(
       (c) => c.short_code === fiocountryValue?.short_code
+
     );
     console.log("matchedCountry", fiomatchedCountry)
     this.formGroup.get('contactDetails.indianOfficeFax.countryCode')?.setValue(fiomatchedCountry)
     this.formGroup.get('contactDetails.indianOfficeFax.areaCode')?.setValue(this.applicationData.data?.ekycForm?.contactDetails?.indianOfficeFax.areaCode)
+
+    this.formGroup.get('contactDetails.indianOfficeFax.number')?.setValue(this.applicationData.data?.ekycForm?.contactDetails?.indianOfficeFax.number)
     this.formGroup.get('contactDetails.mobileNumber')?.setValue(this.applicationData.data?.ekycForm?.contactDetails?.mobileNumber)
     this.formGroup.get('contactDetails.emailId')?.setValue(this.applicationData.data?.ekycForm?.contactDetails?.emailId)
     this.formGroup.get('contactDetails.website')?.setValue(this.applicationData.data?.ekycForm?.contactDetails?.website)
+
     // // Dynamic arrays
     // this.initializeTaxResidencyRows(formData.taxResidencyRows);
     this.initializeManagingOfficials(formData.managingOfficialRows);
@@ -422,6 +445,9 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
   }
   
   private initializeManagingOfficials(rows: any[]) {
+    if(rows.length==0){
+      return
+    }
     this.managingOfficialRows.clear();
     rows?.forEach(row => {
       const newRow = this.createManagingOfficialRow();
@@ -430,7 +456,7 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
           ...row.details,
           dateOfBirth: row.details?.dateOfBirth ? new Date(row.details.dateOfBirth) : null,
           taxResidencyJurisdiction: this.countries_pan.find(c => c.short_code === row.details?.taxResidencyJurisdiction.short_code),
-          nationality: this.countries.find(c => c.short_code === row.details?.nationality.short_code)
+          nationality: this.countries_pan.find(c => c.short_code === row.details?.nationality.short_code)
         }
       });
       this.managingOfficialRows.push(newRow);
@@ -464,7 +490,8 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
       );
       businessCodeControl?.setValue(businessCode);
     }
-  
+    this.formGroup.get('incomeDetails.annualIncome')?.setValue(incomeDetails.annualIncome);
+    this.formGroup.get('incomeDetails.assetLess')?.setValue(incomeDetails.assetLess);
     // 3. Asset Date (Date Field)
     const asOnDateControl = this.formGroup.get('incomeDetails.asOnDate');
     if (incomeDetails.asOnDate) {

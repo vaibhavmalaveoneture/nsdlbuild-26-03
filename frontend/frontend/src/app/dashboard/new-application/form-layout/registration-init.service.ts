@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { City } from "../data";
-import { priorAssociationRowsRequiredValidator,hasPanConditionalValidator,disciplinaryHistoryConditionalValidator,   urlValidator } from './form-layout.validators';
+import { priorAssociationRowsRequiredValidator,hasPanConditionalValidator,disciplinaryHistoryConditionalValidator,   panValidator } from './form-layout.validators';
 
 
 @Injectable({ providedIn: 'root' })
@@ -29,8 +29,8 @@ createRegistrationForm(): FormGroup {
       priorAssiciationRows: new FormArray<FormGroup>([], priorAssociationRowsRequiredValidator()),
       hasPan: new FormGroup({
         hasPanRadio: new FormControl(null, Validators.required),
-        hasPanNumber: new FormControl(null),
-      }, {validators:hasPanConditionalValidator()}),
+        hasPanNumber: new FormControl(null, panValidator()),
+      }, {validators:[hasPanConditionalValidator()]}),
       disciplinaryHistory: new FormGroup({
         disciplinaryHistoryRadio: new FormControl(null, Validators.required),
         disciplinaryHistoryText: new FormControl('')

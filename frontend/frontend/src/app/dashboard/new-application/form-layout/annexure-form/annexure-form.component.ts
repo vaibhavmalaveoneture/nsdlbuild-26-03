@@ -302,7 +302,7 @@ export class AnnexureFormComponent implements OnInit {
         }
       } else if (value === true) {
         entityHoldingControl?.clearValidators();
-        entityHoldingControl?.reset();
+        // entityHoldingControl?.reset();
         noentityHoldingControl?.enable();
         noentityHoldingControl?.setValidators([
           Validators.required,
@@ -320,9 +320,9 @@ export class AnnexureFormComponent implements OnInit {
         }
       } else {
         noentityHoldingControl?.clearValidators();
-        noentityHoldingControl?.reset();
+        // noentityHoldingControl?.reset();
         entityHoldingControl?.clearValidators();
-        entityHoldingControl?.reset();
+        // entityHoldingControl?.reset();
       }
       entityHoldingControl?.updateValueAndValidity();
       noentityHoldingControl?.updateValueAndValidity();
@@ -517,15 +517,21 @@ export class AnnexureFormComponent implements OnInit {
       'materialShareholderRows'
     ) as FormArray;
     shareholderArray.clear();
+    
     data?.forEach((item) => {
       const group = this.createShareholderFormGroup();
+      console.log("item.countryOfIncorporationOrnationality item", item)
+      console.log("item.countryOfIncorporationOrnationality", item.countryOfIncorporationOrNationality)
+      console.log("patchMaterialShareholders---",  item.countryOfIncorporationOrNationality)
+      const cp = this.countries_pan.find(
+        (c) => c.short_code ===  item.countryOfIncorporationOrNationality?.short_code
+      );
+      console.log("cppppppp", cp)
       group.patchValue({
         nameOfBeneficialOwner: item.nameOfBeneficialOwner,
         directIndirectStake: item.directIndirectStake,
         nameOfEntities: item.nameOfEntities,
-        countryOfIncorporationOrnationality: this.findCountry(
-          item.countryOfIncorporationOrnationality
-        ),
+        countryOfIncorporationOrnationality: cp,
         percentageStakeHeld: item.percentageStakeHeld,
         individualOrNonIndividual: item.individualOrNonIndividual,
       });
@@ -550,15 +556,18 @@ export class AnnexureFormComponent implements OnInit {
   }
 
   private findCountry(countryValue: any): any {
+    console.log("patchMaterialShareholders", countryValue)
     if (!countryValue) return null;
-
+    console.log("patchMaterialShareholders", countryValue)
+    console.log("patchMaterialShareholders", countryValue.short_code)
     if (countryValue.short_code) {
+      console.log("patchMaterialShareholders", countryValue.short_code)
       return this.countries_pan.find(
         (c) => c.short_code === countryValue.short_code
       );
     }
 
-    return this.countries_pan.find((c) => c.name === countryValue);
+    return this.countries_pan.find((c) => c.short_code === countryValue);
   }
 
   initializeMasterData(): void {
@@ -1129,5 +1138,61 @@ export class AnnexureFormComponent implements OnInit {
       });
     }
   }
+
+
+  allowPANEntry(event: KeyboardEvent, inputValue: string) {
+    const key = event.key;
+
+    // Allow backspace, delete, arrow keys, and tab for usability
+    if (
+      ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(key)
+    ) {
+      return;
+    }
+
+    // Enforce PAN format structure: AAAAA9999A
+    if (inputValue.length < 5) {
+      // First 5 characters must be uppercase letters
+      if (!/^[A-Z]$/.test(key)) {
+        event.preventDefault();
+      }
+    } else if (inputValue.length < 9) {
+      // Next 4 characters must be numbers
+      if (!/^[0-9]$/.test(key)) {
+        event.preventDefault();
+      }
+    } else if (inputValue.length === 9) {
+      // Last character must be an uppercase letter
+      if (!/^[A-Z]$/.test(key)) {
+        event.preventDefault();
+      }
+    } else {
+      // Prevent input if length exceeds 10
+      event.preventDefault();
+    }
+  }
+
+
+  handlePanInput(event: KeyboardEvent, inputElement: HTMLInputElement): void {
+    const allowedPattern = /^[A-Z]{0,5}[0-9]{0,4}[A-Z]?$/;
+    
+    // Get current value + the new character
+    const currentValue = inputElement.value.toUpperCase(); // convert to uppercase
+    const newChar = (event.key || '').toUpperCase();
+
+    // Allow navigation keys (e.g., arrows, backspace)
+    const navigationKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab', 'Delete'];
+    if (navigationKeys.includes(event.key)) return;
+
+    const proposedValue = currentValue + newChar;
+
+    // Prevent input if the pattern doesn't match or length exceeds 10
+    if (!allowedPattern.test(proposedValue) || proposedValue.length > 10) {
+        event.preventDefault();
+    } else {
+        // Apply uppercase immediately
+        inputElement.value = currentValue;
+    }
+}
 
 }

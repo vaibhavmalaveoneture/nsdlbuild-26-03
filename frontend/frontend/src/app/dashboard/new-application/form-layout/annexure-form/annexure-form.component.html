@@ -722,6 +722,7 @@
                               pInputText
                               [placeholder]="field.placeholder"
                               [formControlName]="field.id"
+                              maxlength="10"
                               (input)="
                                 transformToUppercase(
                                   getInformationOfSaSmFvciApplicantFormGroup(
@@ -729,6 +730,8 @@
                                   ).get(field.id)
                                 )
                               "
+                              onkeypress="handlePanInput(event, this)" 
+                              oninput="this.value = this.value.toUpperCase()" 
                               [ngClass]="{
                                 'invalid-field':
                                   getInformationOfSaSmFvciApplicantFormGroup(
@@ -1005,7 +1008,7 @@
                               pInputText
                               [formControlName]="field.id"
                               [placeholder]="field.placeHolder"
-                              (input)="sanitizePercentageInput($event)"
+                              
                               [ngClass]="{
                                 'invalid-field':
                                   getShareholderFormGroup(i).get(field.id)
@@ -1208,7 +1211,7 @@
                                 (getBeneficialOwnerFormGroup(i).get(field.id)?.touched ||
                                 getBeneficialOwnerFormGroup(i).touched)
                             }"
-                             (input)="sanitizePercentageInput($event)"
+                            
                           />
 
 <!-- Special input for percentage field -->

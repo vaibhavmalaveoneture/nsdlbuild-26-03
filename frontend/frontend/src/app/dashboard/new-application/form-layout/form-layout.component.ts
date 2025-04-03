@@ -163,9 +163,22 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
   }
 
   async onButtonClick(): Promise<void> {
-    await firstValueFrom(
+    const response = await firstValueFrom(
       this.fvciService.apiFvciapplicationSaveOrUpdateApplicationPost()
     );
+    if(response.success){
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Application saved successfully.',
+      });
+    }else{
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to save application. Please try again.',
+      });
+    }
   }
 
   async fetchApplicationData(){
@@ -360,6 +373,20 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
       if (response && response.applicationId && !this.applicationId) {
         this.applicationId = response.applicationId;
       }
+
+      if(response.success){
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Application saved successfully.',
+      });
+    }else{
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to save application. Please try again.',
+      });
+    }
     } catch (error) {
       console.error('Error saving application data:', error);
     } finally {

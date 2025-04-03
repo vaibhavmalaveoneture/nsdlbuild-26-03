@@ -276,7 +276,7 @@ export const panValidator = (): ValidatorFn => {
     if (!value) return null; 
 
     // PAN regex: 10 alphanumeric characters
-    const panRegex = /^[A-Za-z0-9]{10}$/;
+    const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]$/;
 
     if (!panRegex.test(value)) {
       return { invalidPan: true };
@@ -313,6 +313,39 @@ export const percentageValidator = (): ValidatorFn => {
 
     return null;
   };
+
+};
+
+export function allowPANEntry(event: KeyboardEvent, inputValue: string) {
+  const key = event.key;
+
+  // Allow backspace, delete, arrow keys, and tab for usability
+  if (
+    ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(key)
+  ) {
+    return;
+  }
+
+  // Enforce PAN format structure: AAAAA9999A
+  if (inputValue.length < 5) {
+    // First 5 characters must be uppercase letters
+    if (!/^[A-Z]$/.test(key)) {
+      event.preventDefault();
+    }
+  } else if (inputValue.length < 9) {
+    // Next 4 characters must be numbers
+    if (!/^[0-9]$/.test(key)) {
+      event.preventDefault();
+    }
+  } else if (inputValue.length === 9) {
+    // Last character must be an uppercase letter
+    if (!/^[A-Z]$/.test(key)) {
+      event.preventDefault();
+    }
+  } else {
+    // Prevent input if length exceeds 10
+    event.preventDefault();
+  }
 };
 
 

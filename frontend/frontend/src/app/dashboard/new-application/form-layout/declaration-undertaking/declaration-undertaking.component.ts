@@ -1,10 +1,11 @@
 import {
   Component,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
+  SimpleChanges,
   ViewEncapsulation,
-  SimpleChanges
 } from '@angular/core';
 import {
   DraftFvciApplicationDto,
@@ -24,14 +25,16 @@ import { MessageService } from 'primeng/api';
   styleUrl: './declaration-undertaking.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class DeclarationUndertakingComponent implements OnInit, OnDestroy {
+export class DeclarationUndertakingComponent
+  implements OnInit, OnChanges, OnDestroy
+{
   @Input() applicationId: string | undefined;
-  @Input() applicationData: DraftFvciApplicationDto | null = null;
+  @Input() applicationData!: any;
   @Input() previewMode: boolean = false;
   @Input() declarationForm!: FormGroup;
+  @Input() formGroup!: FormGroup;
   currentDate: Date = new Date();
 
-  // declarationForm!: FormGroup;
   showLoader: boolean = false;
   saveSubscription!: Subscription;
   maxDate: Date = new Date();
@@ -69,19 +72,19 @@ export class DeclarationUndertakingComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-
-    console.log("======",this.declarationForm)
+    console.log('======', this.declarationForm);
 
     // Handle both direct applicationData (for preview) and fetching
     if (this.previewMode && this.applicationData) {
       // We already have application data for preview
-      this.populateFormWithApplicationData();
+      // this.populateFormWithApplicationData();
       // Disable the form for preview mode
       this.declarationForm.disable();
     } else {
       // Normal case - fetch from API
       this.fetchDeclarationDetails();
     }
+
     if (!this.previewMode) {
       this.saveSubscription =
         this.saveApplicationService.saveTrigger$.subscribe(() => {
@@ -90,33 +93,11 @@ export class DeclarationUndertakingComponent implements OnInit, OnDestroy {
     }
   }
 
-    ngOnChanges(changes: SimpleChanges): void {
-     
-      if(changes['applicationData'] && changes['applicationData'].currentValue){
-        
-        this.populateFormWithApplicationData();
-      }
-    }
+  
 
-  // New method to populate form with application data
-  private populateFormWithApplicationData(): void {
-    const appData = this.applicationData?this.applicationData : null;
-
-    if (appData?.declarationUndertakingDetails) {
-      const details = appData.declarationUndertakingDetails;
-      this.declarationForm.patchValue({
-        name: details.name,
-        capacity: details.capacity,
-        place: details.place,
-        // Convert the date strings to Date objects:
-        date: details.date ? new Date(details.date) : this.currentDate,
-        nameOfSignatory: details.nameOfSignatory,
-        designationOfSignatory: details.designationOfSignatory,
-        dateOfSignature: details.dateOfSignature
-          ? new Date(details.dateOfSignature)
-          : this.currentDate,
-        signature: details.signature,
-      });
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['applicationData'] && changes['applicationData'].currentValue) {
+      this.initializeForm();
     }
   }
 
@@ -127,19 +108,52 @@ export class DeclarationUndertakingComponent implements OnInit, OnDestroy {
   }
 
   initializeForm(): void {
-    // this.declarationForm.get('date')?.disable();
-    // this.declarationForm.get('dateOfSignature')?.disable();
-    this.declarationForm.updateValueAndValidity();
-  }
+    // This function now populates the form based on the applicationData
+    if (!this.applicationData || !this.applicationData.data) return;
 
-  // onFormDataChange(): void {
-  //   // Update progress or local state as needed.
-  //   this.progressService.updateComponentProgress(
-  //     'declarationUndertaking',
-  //     this.declarationForm.value,
-  //     this.requiredMapping
-  //   );
-  // }
+    const declarationData =
+      this.applicationData.data.declarationUndertakingDetails ||
+      this.applicationData.data.declarationAndUndertakingForm;
+
+    if (declarationData) {
+      const date = declarationData.date ? new Date(declarationData.date) : null;
+      const dateOfSignature = declarationData.dateOfSignature
+        ? new Date(declarationData.dateOfSignature)
+        : null;
+
+      // First try to use formGroup if available
+      if (this.formGroup) {
+        this.formGroup.patchValue({
+          name: declarationData.name || '',
+          capacity: declarationData.capacity || '',
+          place: declarationData.place || '',
+          nameOfSignatory: declarationData.nameOfSignatory || '',
+          designationOfSignatory: declarationData.designationOfSignatory || '',
+          signature: declarationData.signature || '',
+          date: date,
+          dateOfSignature: dateOfSignature,
+        });
+      }
+
+      // Also update declarationForm for consistency
+      if (this.declarationForm) {
+        this.declarationForm.patchValue({
+          name: declarationData.name || '',
+          capacity: declarationData.capacity || '',
+          place: declarationData.place || '',
+          nameOfSignatory: declarationData.nameOfSignatory || '',
+          designationOfSignatory: declarationData.designationOfSignatory || '',
+          signature: declarationData.signature || '',
+          date: date,
+          dateOfSignature: dateOfSignature,
+        });
+      }
+    }
+
+    // Make sure to update validity
+    if (this.formGroup) this.formGroup.updateValueAndValidity();
+    if (this.declarationForm) this.declarationForm.updateValueAndValidity();
+  }
 
   async fetchDeclarationDetails(): Promise<void> {
     if (!this.applicationId) {
@@ -155,30 +169,35 @@ export class DeclarationUndertakingComponent implements OnInit, OnDestroy {
 
       if (response?.success && response.data) {
         const appData: DraftFvciApplicationDto = response.data;
-        // If the declaration details exist, patch the form with their values.
 
+        // Store the fetched data in applicationData for future reference
+        this.applicationData = response;
+
+        // If the declaration details exist, patch the form with their values.
         if (appData.declarationUndertakingDetails) {
           const details = appData.declarationUndertakingDetails;
 
-          this.declarationForm.patchValue({
-            name: details.name,
-            capacity: details.capacity,
-            place: details.place,
-            // Convert the date strings to Date objects:
-            date: details.date ? new Date(details.date) : null,
-            nameOfSignatory: details.nameOfSignatory,
-            designationOfSignatory: details.designationOfSignatory,
-            dateOfSignature: details.dateOfSignature
-              ? new Date(details.dateOfSignature)
-              : null,
-            signature: details.signature,
-          });
+          if (this.declarationForm) {
+            this.declarationForm.patchValue({
+              name: details.name || '',
+              capacity: details.capacity || '',
+              place: details.place || '',
+              // Convert the date strings to Date objects:
+              date: details.date ? new Date(details.date) : null,
+              nameOfSignatory: details.nameOfSignatory || '',
+              designationOfSignatory: details.designationOfSignatory || '',
+              dateOfSignature: details.dateOfSignature
+                ? new Date(details.dateOfSignature)
+                : null,
+              signature: details.signature || '',
+            });
+          }
         }
       }
 
       this.progressService.updateComponentProgress(
         'declarationUndertaking',
-        this.declarationForm.value,
+        this.declarationForm?.value || {},
         this.requiredMapping
       );
     } catch (error) {
@@ -197,6 +216,18 @@ export class DeclarationUndertakingComponent implements OnInit, OnDestroy {
       });
       return;
     }
+
+    // Use the appropriate form based on what's available
+    const formToUse = this.formGroup || this.declarationForm;
+    if (!formToUse || formToUse.invalid) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Please fill all required fields correctly.',
+      });
+      return;
+    }
+
     this.showLoader = true;
     try {
       // Fetch the current application first
@@ -212,31 +243,37 @@ export class DeclarationUndertakingComponent implements OnInit, OnDestroy {
         });
         return;
       }
+
       const existingApp: DraftFvciApplicationDto = existingAppResponse.data;
-      existingApp.incomeDetails = this.prepareIncomeDataForSave(existingAppResponse.data)
+
+      // Keep income details as they are
+      if (existingApp.incomeDetails) {
+        existingApp.incomeDetails = this.prepareIncomeDataForSave(
+          existingAppResponse.data
+        );
+      }
+
       // Build the updated declaration details object from the form values
       const updatedDeclaration: DraftFvciDeclarationUndertakingDetailsDto = {
         id: existingApp.declarationUndertakingDetails
           ? existingApp.declarationUndertakingDetails.id
           : 0,
         fvciApplicationId: this.applicationId,
-        name: this.declarationForm.value.name,
-        capacity: this.declarationForm.value.capacity,
-        date: new Date(),
-        place: this.declarationForm.value.place,
-        nameOfSignatory: this.declarationForm.value.nameOfSignatory,
-        designationOfSignatory:
-          this.declarationForm.value.designationOfSignatory,
-        dateOfSignature: new Date(),
-        signature: '',
+        name: formToUse.value.name,
+        capacity: formToUse.value.capacity,
+        date: formToUse.value.date || new Date(),
+        place: formToUse.value.place,
+        nameOfSignatory: formToUse.value.nameOfSignatory,
+        designationOfSignatory: formToUse.value.designationOfSignatory,
+        dateOfSignature: formToUse.value.dateOfSignature || new Date(),
+        signature: formToUse.value.signature || '',
       };
-     
+
       // Update only the declarationUndertakingDetails field, leaving other fields intact.
       const updatedApp: DraftFvciApplicationDto = {
         ...existingApp,
         declarationUndertakingDetails: updatedDeclaration,
       };
-     
 
       const response = await this.saveApplicationService.saveData(updatedApp);
       if (response) {
@@ -245,6 +282,9 @@ export class DeclarationUndertakingComponent implements OnInit, OnDestroy {
           summary: 'Success',
           detail: response.Message || 'Declaration updated successfully!',
         });
+
+        // After successful save, refetch the data to ensure we have the latest
+        await this.fetchDeclarationDetails();
       } else {
         this.messageService.add({
           severity: 'error',
@@ -265,20 +305,42 @@ export class DeclarationUndertakingComponent implements OnInit, OnDestroy {
   }
 
   prepareIncomeDataForSave(incomeDetailsData: any): DraftFvciIncomeDetailsDto {
-        
-    
-        // Extract selected sources of income (as an array of strings)
-        const selectedSources: string[] = incomeDetailsData.incomeDetails.sourceOfIncome.split(',');
-    
-        // Prepare the single DTO object
-        const incomeDetails: DraftFvciIncomeDetailsDto = {
-          fvciApplicationId: this.applicationId,
-          sourceOfIncome: selectedSources, // Now storing as an array
-          codeOfBusiness: incomeDetailsData.incomeDetails.businessCode,
-          grossAnnualIncome: Number(incomeDetailsData.incomeDetails.annualIncome),
-          netWorth: Number(incomeDetailsData.incomeDetails.assetLess),
-        };
-    
-        return incomeDetails;
-      }
+    if (!incomeDetailsData || !incomeDetailsData.incomeDetails) {
+      return {
+        fvciApplicationId: this.applicationId,
+        sourceOfIncome: [],
+        codeOfBusiness: '',
+        grossAnnualIncome: 0,
+        netWorth: 0,
+      };
+    }
+
+    // Extract selected sources of income (as an array of strings)
+    const selectedSources: string[] =
+      typeof incomeDetailsData.incomeDetails.sourceOfIncome === 'string'
+        ? incomeDetailsData.incomeDetails.sourceOfIncome.split(',')
+        : incomeDetailsData.incomeDetails.sourceOfIncome || [];
+
+    // Prepare the single DTO object
+    const incomeDetails: DraftFvciIncomeDetailsDto = {
+      fvciApplicationId: this.applicationId,
+      sourceOfIncome: selectedSources, // Now storing as an array
+      codeOfBusiness:
+        incomeDetailsData.incomeDetails.businessCode ||
+        incomeDetailsData.incomeDetails.codeOfBusiness ||
+        '',
+      grossAnnualIncome: Number(
+        incomeDetailsData.incomeDetails.annualIncome ||
+          incomeDetailsData.incomeDetails.grossAnnualIncome ||
+          0
+      ),
+      netWorth: Number(
+        incomeDetailsData.incomeDetails.assetLess ||
+          incomeDetailsData.incomeDetails.netWorth ||
+          0
+      ),
+    };
+
+    return incomeDetails;
+  }
 }

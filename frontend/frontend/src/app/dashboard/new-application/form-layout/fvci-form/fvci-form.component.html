@@ -931,7 +931,7 @@
             <td>Office Address</td>
             <td formGroupName="office">
               <p-select id="officeCountryCode" formControlName="countryCode" placeholder="Enter Country Code"
-                [options]="countryCodes_pan" optionLabel="code" [filterBy]="'code'" class="full-width" [filter]="true"
+                [options]="countries_pan" optionLabel="code" [filterBy]="'code'" class="full-width" [filter]="true"
                 [showClear]="true" appendTo="body" [ngClass]="{
                   'invalid-field':
                     formGroup.get('contactDetails.office.countryCode')?.invalid &&
@@ -1364,7 +1364,7 @@
         <label for="ultimateBeneficialOwnerNo" class="sub-labels" style="margin-left: 1rem">
           We declare that there is no natural person/individual who are
           ultimately holding >=
-          <input type="number" pInputText id="ultimateBeneficialOwnerNo" formControlName="ultimateBeneficialOwner"
+          <input type="number" pInputText id="ultimateBeneficialOwnerNo" formControlName="ultimateBeneficialOwnerHolding"
             [style]="{
                   'border-top': 'none',
                   'border-left': 'none',

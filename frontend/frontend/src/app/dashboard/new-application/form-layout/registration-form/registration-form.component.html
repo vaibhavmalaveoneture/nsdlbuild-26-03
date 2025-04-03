@@ -95,6 +95,7 @@
                 placeholder="{{ item.placeholder }}"
                 [options]="regulatoryAuthorityOptions"
                 optionLabel="name"
+                optionValue="name"
                 class="full-width"
                 [filter]="true"
                 [filterBy]="'name'"
@@ -109,6 +110,28 @@
                 formControlName="regulatoryAuthorityCountry"
                 placeholder="{{ item.placeholder }}"
               />
+              <!-- <p-select
+              *ngIf="i === 1 && item.type === 'text'"
+              formControlName="regulatoryAuthorityCountry"
+              placeholder="Enter country"
+              [options]="countries_pan"
+              optionLabel="name"
+              class="full-width"
+              [filter]="true"
+              [filterBy]="'name'"
+              [showClear]="true"
+              appendTo="body"
+              [ngClass]="{
+                'invalid-field':
+                  formGroup.get(
+                    'regulatoryAuthorityCountry'
+                  )?.invalid &&
+                  (formGroup.get(
+                    'regulatoryAuthorityCountry'
+                  )?.touched ||
+                    formGroup.touched)
+              }"
+            ></p-select> -->
               <input
                 *ngIf="i === 2 && item.type === 'text'"
                 type="text"
@@ -265,7 +288,7 @@
               This field is required.
             </div>
           </div>
-          <div class="input-item">
+          <!-- <div class="input-item">
             <label for="throughGlobalCustodianRegulatorName" class="sub-labels">
               Name of Regulator <span>*</span>
             </label>
@@ -300,7 +323,7 @@
             >
               This field is required.
             </div>
-          </div>
+          </div> -->
           <div class="input-item">
             <label for="throughGlobalCustodianCountry" class="sub-labels">
               Country of Regulator <span>*</span>
@@ -884,6 +907,8 @@
           pInputText
           formControlName="hasPanNumber"
           placeholder="Enter PAN"
+          onkeypress="handlePanInput(event, this)" 
+          maxlength="10"
           class="full-width"
           [ngClass]="{
             'invalid-field':
