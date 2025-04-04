@@ -245,7 +245,7 @@ export class DocumentsUploadComponent implements OnInit {
       console.error("No file selected for upload");
       return;
     }
-
+    this.showLoader = true;
     console.log("Uploading file:", this.selectedFixedFile);
     console.log("applicationId", this.selectedFixedDocType)
     const formData = new FormData();
@@ -258,6 +258,19 @@ export class DocumentsUploadComponent implements OnInit {
 
     try {
       const response = await firstValueFrom(this.saveApplicationService.uploadFile(formData));
+      if(response.success){
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'File uploaded successfully.',
+        });
+      }else{
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to upload file. Please try again.',
+        });
+      }
       console.log("Upload response:", response);
       const parsedData = JSON.parse(response.data);
 
@@ -265,7 +278,7 @@ export class DocumentsUploadComponent implements OnInit {
       parsedData.forEach((doc: any) => {
         console.log("Document Type:", doc.DocumentType);
         console.log("Document Path:", doc.DocumentPath);
-        this.kycDocuments = response.data.map((doc: any) => ({
+        this.kycDocuments = parsedData.map((doc: any) => ({
           documentType: doc.documentType,
           documentIdentifier: this.proofOfAddressOptions.find((cc) => cc.code === doc.documentIdentifier)?.name || doc.documentIdentifier, // Use the existing value if not found
           documentPath: doc.documentPath || '',
@@ -273,7 +286,7 @@ export class DocumentsUploadComponent implements OnInit {
         }));
       });
 
-
+      this.showLoader = false;
       // this.kycDocuments = response.data.map((doc: any) => ({
       //   documentType: doc.documentType,
       //   documentIdentifier: this.proofOfAddressOptions.find((cc) => cc.code === doc.documentIdentifier)?.name || doc.documentIdentifier, // Use the existing value if not found

@@ -41,6 +41,7 @@ export class FormCompletionService {
       fvciForm.get('foreignOffice'),
       fvciForm.get('OfficeInIndia')
     ];
+    console.log("this required fields", this.getInvalidRequiredFieldNames(annexureForm))
     let validCount = allRequired.filter(control => control.valid).length;
     const totalRequired = allRequired.length + groupErrorCount;
     return totalRequired === 0 ? 0 : Math.floor((validCount / totalRequired) * 100);

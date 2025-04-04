@@ -240,7 +240,7 @@
               <button *ngIf="fpi.status == 'Draft'" pButton type="button" icon="pi pi-pencil"
                 pTooltip="Edit Application" tooltipPosition="bottom" class="p-button-rounded p-button-text"
                 (click)="onEdit(fpi)"></button>
-                <button *ngIf="fpi?.isVerify == 0  " pButton type="button" icon="pi pi-user" pTooltip="Esign" tooltipPosition="bottom"
+                <button *ngIf="fpi?.isVerify == 0" pButton type="button" icon="pi pi-user" pTooltip="Esign" tooltipPosition="bottom"
                 class="p-button-rounded p-button-text" (click)="enableSocketConn(fpi.applicationId)"></button>
                 <button *ngIf="fpi?.status == 'REGISTERED'  " pButton type="button" icon="pi pi-file-export" pTooltip="Download certificate" tooltipPosition="bottom"
                 class="p-button-rounded p-button-text" (click)="downloadcert(fpi.applicationId)"></button>
