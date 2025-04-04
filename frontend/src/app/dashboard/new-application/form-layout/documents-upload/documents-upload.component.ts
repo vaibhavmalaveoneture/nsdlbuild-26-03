@@ -259,14 +259,27 @@ export class DocumentsUploadComponent implements OnInit {
     try {
       const response = await firstValueFrom(this.saveApplicationService.uploadFile(formData));
       console.log("Upload response:", response);
+      const parsedData = JSON.parse(response.data);
+
+      // Now you can access the array of objects
+      parsedData.forEach((doc: any) => {
+        console.log("Document Type:", doc.DocumentType);
+        console.log("Document Path:", doc.DocumentPath);
+        this.kycDocuments = response.data.map((doc: any) => ({
+          documentType: doc.documentType,
+          documentIdentifier: this.proofOfAddressOptions.find((cc) => cc.code === doc.documentIdentifier)?.name || doc.documentIdentifier, // Use the existing value if not found
+          documentPath: doc.documentPath || '',
+          status: doc.status ?? 0, // Use nullish coalescing to default status to 0
+        }));
+      });
 
 
-      this.kycDocuments = response.data.map((doc: any) => ({
-        documentType: doc.documentType,
-        documentIdentifier: this.proofOfAddressOptions.find((cc) => cc.code === doc.documentIdentifier)?.name || doc.documentIdentifier, // Use the existing value if not found
-        documentPath: doc.documentPath || '',
-        status: doc.status ?? 0, // Use nullish coalescing to default status to 0
-      }));
+      // this.kycDocuments = response.data.map((doc: any) => ({
+      //   documentType: doc.documentType,
+      //   documentIdentifier: this.proofOfAddressOptions.find((cc) => cc.code === doc.documentIdentifier)?.name || doc.documentIdentifier, // Use the existing value if not found
+      //   documentPath: doc.documentPath || '',
+      //   status: doc.status ?? 0, // Use nullish coalescing to default status to 0
+      // }));
 
       console.log("=====",this.kycDocuments);
 
