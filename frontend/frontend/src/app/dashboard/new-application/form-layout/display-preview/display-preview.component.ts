@@ -4,10 +4,13 @@ import { FormGroup } from '@angular/forms';
 import {
   DraftFvciApplicationDto,
   FvciApplicationService,
+  CommonService
 } from '../../../../../swagger';
 import { MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+
+import { FvciApplicationSaveService } from '../fvci-application-save.service';
 
 interface AdditionalDocument {
   documentDescription: string;
@@ -39,12 +42,15 @@ export class DisplayPreviewComponent implements OnInit {
   // Document related properties
   kycDocuments: any[] = [];
   additionalDocuments: AdditionalDocument[] = [];
+  masterData: any[] = [];
 
   constructor(
     private readonly saveApplicationService: SaveApplicationService,
     private readonly fvciService: FvciApplicationService,
     private readonly messageService: MessageService,
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+    private fvciApplicationSaveService: FvciApplicationSaveService,
+    private readonly commonService: CommonService,
   ) {}
 
   ngOnInit() {
@@ -52,120 +58,31 @@ export class DisplayPreviewComponent implements OnInit {
     console.log("preview application id", this.applicationId)
   }
 
-  async loadApplicationData() {
-    console.log("preview application id 2", this.applicationId)
-    if (!this.applicationId) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Application ID is missing. Cannot display preview.',
-      });
-      this.onHide();
-      return;
-    }
-
-    this.isLoading = true;
-
-    try {
-      const response =
-        await this.saveApplicationService.fetchExistingApplication(
-          this.applicationId
-        );
-      if (response?.success) {
-        this.applicationData = response.data;
-
-        // Process KYC documents
-        if (
-          this.applicationData?.kycDocuments &&
-          Array.isArray(this.applicationData.kycDocuments)
-        ) {
-          this.kycDocuments = this.applicationData.kycDocuments.map(
-            (doc: any) => ({
-              documentType: doc.documentType,
-              documentIdentifier: doc.documentIdentifier,
-              documentPath: doc.documentPath || '',
-              status: doc.status || 0,
-            })
-          );
-
-          // Extract additional documents
-          this.additionalDocuments = this.kycDocuments
-            .filter((doc) => doc.documentType.toLowerCase() === 'additional')
-            .map((doc) => ({
-              documentDescription: doc.documentIdentifier,
-              documentPath: doc.documentPath,
-              status: doc.status,
-            }));
-        }
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Failed to fetch application data for preview',
-        });
-        this.onHide();
-      }
-    } catch (error) {
-      console.error('Error fetching application data:', error);
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'An error occurred while loading preview data',
-      });
-      this.onHide();
-    } finally {
-      this.isLoading = false;
-    }
+  async fetchApplicationData(){
+    const token = localStorage.getItem('token')?? '';
+    const response = await firstValueFrom(
+      this.fvciApplicationSaveService.getFvciApplicationById(this.applicationId??'', token)
+    );
+    this.applicationData = response;
   }
 
-  // async submitApplication() {
-  //   if (!this.applicationId) {
-  //     this.messageService.add({
-  //       severity: 'error',
-  //       summary: 'Error',
-  //       detail: 'Application ID is missing. Cannot submit application.',
-  //     });
-  //     return;
-  //   }
-
-  //   this.isSubmitting = true;
-
-  //   try {
-  //     const response = await firstValueFrom(
-  //       this.fvciService.apiFvciSubmitApplicationAsyncGet(this.applicationId)
-  //     );
-
-  //     if (response && response.success) {
-  //       this.messageService.add({
-  //         severity: 'success',
-  //         summary: 'Success',
-  //         detail: 'Application submitted successfully.',
-  //       });
-
-  //       // Close the preview dialog after successful submission
-  //       setTimeout(() => {
-  //         this.onHide();
-  //         // Additional actions after submission can be added here
-  //         // For example, navigate to acknowledgement page
-  //       }, 2000);
-  //     } else {
-  //       this.messageService.add({
-  //         severity: 'error',
-  //         summary: 'Error',
-  //         detail: response?.message || 'Failed to submit application. Please try again.',
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error('Error submitting application:', error);
-  //     this.messageService.add({
-  //       severity: 'error',
-  //       summary: 'Error',
-  //       detail: 'An error occurred while submitting the application.',
-  //     });
-  //   } finally {
-  //     this.isSubmitting = false;
-  //   }
-  // }
+  loadData(): void {
+    // this.showLoader = true;
+  
+    this.commonService.apiCommonMastersGet().subscribe({
+      next: (res: any) => {
+        if (res?.success) {
+          this.masterData = res.data;
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching master data:', error);
+      },
+      complete: () => {
+        // this.showLoader = false;
+      }
+    });
+  }
 
   async submitApplication() {
     if (!this.applicationId) {
@@ -298,6 +215,8 @@ export class DisplayPreviewComponent implements OnInit {
 
   // This will be called whenever the dialog becomes visible
   async onShow() {
-    // await this.loadApplicationData();
+    this.loadData()
+   this.fetchApplicationData();
+    
   }
 }

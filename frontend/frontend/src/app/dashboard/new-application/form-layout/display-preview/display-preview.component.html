@@ -11,106 +11,29 @@
 >
   <app-loader *ngIf="isLoading"></app-loader>
 
-  <div *ngIf="!isLoading && applicationData" [appPreviewMode]="true">
+  <div *ngIf="!isLoading" >
     <div class="preview-section">
       <h3>EKYC</h3>
-      <app-fvci-form
-        [applicationId]="applicationId"
-       
-        [previewMode]="false"
-        [formGroup]="fvciForm"
-      >
-      </app-fvci-form>
+      <app-fvci-form  [applicationId]="applicationId"  [formGroup]="fvciForm" [masterData]="masterData" [applicationData]="applicationData"></app-fvci-form>
+      
     </div>
 
     <div class="preview-section">
       <h3>FVCI Registration</h3>
-      <app-registration-form
-        [applicationId]="applicationId"
-        [applicationData]="applicationData"
-        [previewMode]="false"
-        [formGroup]="registartionForm"
-       
-      >
-      </app-registration-form>
+      <app-registration-form  [applicationId]="applicationId"  [formGroup]="registartionForm" [masterData]="masterData" [applicationData]="applicationData"></app-registration-form>
+      
     </div>
 
     <div class="preview-section">
       <h3>Annexure to CAF</h3>
-      <app-annexure-form
-        [applicationId]="applicationId"
-        [applicationData]="applicationData"
-        [previewMode]="false"
-        [formGroup]="anextureToCafForm"
-      >
-      </app-annexure-form>
-    </div>
-
-    <div class="preview-section">
-      <h3>Documents</h3>
-      <!-- Mandatory Documents Table -->
-      <p-table class="preview-table" [value]="['POA', 'POI']" [showGridlines]="true">
-        <ng-template pTemplate="header">
-          <tr>
-            <th scope="col">Document Type</th>
-            <th scope="col">Selected Document</th>
-            <th scope="col">Name</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-docType>
-          <tr>
-            <td>{{ docType }}</td>
-            <td>
-              <span *ngIf="getKycDocument(docType) as document">
-                {{ document.documentIdentifier || "Pending" }}
-              </span>
-            </td>
-            <td>
-              <span *ngIf="getKycDocument(docType) as document">
-                <span *ngIf="document.documentPath">
-                  
-                  {{ document.documentPath.split('/').pop() || "Document" }}
-                </span>
-                <span *ngIf="!document.documentPath">Pending</span>
-              </span>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-
-      <!-- Additional Documents Table -->
-      <h3 class="mt-3">Additional Supporting Documents</h3>
-       <p-table class="preview-table" [value]="additionalDocuments" [showGridlines]="true">
-        <ng-template pTemplate="header">
-          <tr>
-            <th scope="col">Document Description</th>
-            <th scope="col">Name</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-addDoc>
-          <tr>
-            <td>{{ addDoc.documentDescription }}</td>
-            <td>
-              <span *ngIf="addDoc.documentPath">
-                
-                {{ addDoc.documentPath.split('/').pop() || "Document" }}
-              </span>
-              <span *ngIf="!addDoc.documentPath">Pending</span>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
+      <app-annexure-form  [applicationId]="applicationId" [formGroup]="anextureToCafForm" [masterData]="masterData" [applicationData]="applicationData"></app-annexure-form>
+      
     </div>
 
     <div class="preview-section">
       <h3>Declaration and Undertaking</h3>
-      <app-declaration-undertaking
-        [applicationId]="applicationId"
-        [applicationData]="applicationData"
-        [previewMode]="false"
-        [declarationForm]="declarationAndUndertakimgForm"
-      >
-      </app-declaration-undertaking>
+      <!-- <app-documents-upload [hidden]="currentStep !== 4" [applicationId]="applicationId" [formGroup]="documentUploadForm" [fvciForm]="fvciForm" [masterData]="masterData"></app-documents-upload> -->
+      <app-declaration-undertaking   [applicationId]="applicationId" [declarationForm]="declarationAndUndertakimgForm" [applicationData]="applicationData"></app-declaration-undertaking>
     </div>
   </div>
 

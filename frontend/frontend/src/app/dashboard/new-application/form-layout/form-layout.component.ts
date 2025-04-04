@@ -131,7 +131,7 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
   }
 
   updateCurrentStep(step: number): void {
-    this.handleSaveClick()
+    // this.handleSaveClick()
     this.currentStep = step;
     this.saveApplicationService.getSteps().forEach((step) => {
       if (step.step === this.currentStep) {
@@ -187,25 +187,6 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
       this.fvciApplicationSaveService.getFvciApplicationById(this.applicationId??'', token)
     );
     this.applicationData = response;
-    // console.log("response data",response)
-    // console.log("response data",response.data?.ekycForm)
-    
-    // this.fvciForm.patchValue(response.data?.ekycForm);
-    // const dateOfIncorporation = response.data?.ekycForm?.dateOfIncorporation? new Date(response.data?.ekycForm?.dateOfIncorporation) : null;
-    // const dateOfCommencement = response.data?.ekycForm?.dateOfCommencement? new Date(response.data?.ekycForm?.dateOfCommencement) : null;
-    // this.fvciForm.get('dateOfIncorporation')?.setValue(dateOfIncorporation)
-    // this.fvciForm.get('dateOfCommencement')?.setValue(dateOfCommencement)
-    // console.log("response.data?.ekycForm?.countryOfIncorporation", response.data?.ekycForm?.countryOfIncorporation)
-    // // fvciComponent
-    // const countryValue = response.data?.ekycForm?.countryOfIncorporation;
-
-    // const matchedCountry = this.fvciComponent.countries.find(
-    //   (c) => c.short_code === countryValue?.short_code
-    // );
-    // console.log("matchedCountry", matchedCountry)
-    // this.fvciForm.get('countryOfIncorporation')?.setValue(matchedCountry);
-    // // this.fvciForm.get('countryOfIncorporation')?.setValue(response.data?.ekycForm?.countryOfIncorporation)
-
   }
 
 

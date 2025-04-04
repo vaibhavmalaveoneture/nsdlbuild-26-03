@@ -1,6 +1,2 @@
-ALTER TABLE nsdl.dbodraft_AnextureForm ALTER COLUMN NoEntityHolding varchar(255) NULL;
-ALTER TABLE nsdl.dbodraft_AnextureForm ALTER COLUMN EntityHolding varchar(255) NULL;
-ALTER TABLE nsdl.dboAnextureForm ALTER COLUMN NoEntityHolding varchar(255) NULL;
-ALTER TABLE nsdl.dboAnextureForm ALTER COLUMN EntityHolding varchar(255) NULL;
-ALTER TABLE nsdl.dboaudit_AnextureForm ALTER COLUMN NoEntityHolding varchar(255) NULL;
-ALTER TABLE nsdl.dboaudit_AnextureForm ALTER COLUMN EntityHolding varchar(255) NULL;
+ALTER TABLE nsdlcaf.dbo.HasPan ALTER COLUMN HasPanRadio bit NULL;
+ALTER TABLE nsdlcaf.dbo.DisciplinaryHistory ALTER COLUMN DisciplinaryHistoryRadio bit NULL;

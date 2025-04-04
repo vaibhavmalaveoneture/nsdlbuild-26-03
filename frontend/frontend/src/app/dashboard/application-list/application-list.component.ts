@@ -508,7 +508,7 @@ export class ApplicationListComponent {
 
   onView(fpi: any): void {
     if (fpi?.applicationId) {
-      const registrationNumber = fpi.fvciRegistrationNumber || 'Draft Pending';
+      const registrationNumber = fpi.fvciRegistrationNumber || 'NA';
       const fpiName = fpi.name || 'N/A';
       const formattedCreatedAt = fpi.createdAt
         ? this.datePipe.transform(fpi.createdAt, 'dd/MM/yyyy')

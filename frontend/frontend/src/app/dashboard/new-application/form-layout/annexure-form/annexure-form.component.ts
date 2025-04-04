@@ -73,6 +73,7 @@ export class AnnexureFormComponent implements OnInit {
   signatoryData = [...signatoryData];
   segregatedPortfolioData = segregatedPortfolio;
   authorizedSignatoryData = [...signatoryData];
+  isInitializing = false;
 
   readonly ownerFields = [
     {
@@ -225,6 +226,7 @@ export class AnnexureFormComponent implements OnInit {
 
     // 2
     bdRadioControl?.valueChanges.subscribe((value) => {
+      if (this.isInitializing) return;
       if (value === 'bank_with_office') {
         bdRextControl?.setValidators(Validators.required);
       } else {
@@ -244,6 +246,7 @@ export class AnnexureFormComponent implements OnInit {
 
     // 3
     consentRadioControl?.valueChanges.subscribe((value) => {
+      if (this.isInitializing) return;
       if (value === true) {
         consentEmail1Control?.setValidators([
           Validators.required,
@@ -278,6 +281,7 @@ export class AnnexureFormComponent implements OnInit {
     ) as FormArray;
 
     intermediateMaterialControl?.valueChanges.subscribe((value) => {
+      if (this.isInitializing) return;
       console.log('materialShareholderRows', materialShareholderRows);
       if (value === false) {
         entityHoldingControl?.enable();
@@ -302,7 +306,7 @@ export class AnnexureFormComponent implements OnInit {
         }
       } else if (value === true) {
         entityHoldingControl?.clearValidators();
-        // entityHoldingControl?.reset();
+        entityHoldingControl?.reset();
         noentityHoldingControl?.enable();
         noentityHoldingControl?.setValidators([
           Validators.required,
@@ -311,7 +315,7 @@ export class AnnexureFormComponent implements OnInit {
         ]);
         entityHoldingControl?.disable();
 
-        for (let i = 0; i < beneficialOwnersArray.length; i++) {
+        for (let i = 0; i < materialShareholderRows.length; i++) {
           const group = materialShareholderRows.at(i) as FormGroup;
           Object.keys(group.controls).forEach((key) => {
             group.get(key)?.clearValidators();
@@ -405,67 +409,94 @@ export class AnnexureFormComponent implements OnInit {
   }
 
   initialiseForm() {
-    const annexureData = this.applicationData.data?.anextureForm;
+    this.isInitializing = true;
+  
+    const annexureData = JSON.parse(JSON.stringify(this.applicationData.data?.anextureForm));
     if (!annexureData) return;
-
+  
     this.formGroup.patchValue({
       name: annexureData.name,
       intermediateMaterial: annexureData.intermediateMaterial,
-      noentityHolding: annexureData.noentityHolding,
+      noentityHolding: annexureData.noEntityHolding,
       entityHolding: annexureData.entityHolding,
       beneficialOwnership: annexureData.beneficialOwnership,
     });
-
+  
     this.patchSegregatedPortfolio(annexureData.seggregatedPortfolio);
+    this.patchSegregatedPortfolio2(annexureData.signatoryRows); // 🛠️ Now using a safe clone
+  
     this.patchBankDeclaration(annexureData.bankDeclaration);
     this.patchConsentIntermediary(annexureData.consentIntermediary);
-    this.patchInformationOfSaSmApplicant(
-      annexureData.informationOfSaSmFvciApplicant
-    );
+    this.patchInformationOfSaSmApplicant(annexureData.informationOfSaSmFvciApplicant);
     this.patchMaterialShareholders(annexureData.materialShareholderRows);
     this.patchBeneficialOwners(annexureData.beneficialOwners);
+  
+    this.formGroup.get('seggregatedPortfolio.seggregatedPortfolioRadio')?.setValue(
+      annexureData.seggregatedPortfolio?.seggregatedPortfolioRadio,
+      { emitEvent: false }
+    );
+  
+    this.isInitializing = false;
   }
+  
 
   private patchSegregatedPortfolio(data: any) {
+    console.log("started signatory------------------", data)
     const segGroup = this.formGroup.get('seggregatedPortfolio') as FormGroup;
     if (!data) return;
-
+  
     segGroup.patchValue({
       seggregatedPortfolioRadio: data.seggregatedPortfolioRadio,
     });
 
-    if (data.seggregatedPortfolioRadio && data.signatoryRows) {
+    console.log("ended signatory")
+  }
+
+  private patchSegregatedPortfolio2(data: any) {
+    console.log("segregated data", data)
+    if (data) {
       const signatoryArray = this.formGroup.get('signatoryRows') as FormArray;
-      signatoryArray.clear();
-      data.signatoryRows.forEach((row: any) => {
+      console.log("started signatory group 1", signatoryArray)
+      signatoryArray.clear(); // Reset existing
+  
+      data.forEach((row: any) => {
         const group = this.createSignatoryFormGroup();
-        group.patchValue({
-          details: row.details,
+        console.log("group 2", group)
+  
+        // Patch "details" array (array of strings)
+        const detailsFormArray = group.get('details') as FormArray;
+        detailsFormArray.clear();
+        row.details.forEach((detail: string) => {
+          console.log("group 3", detail)
+          detailsFormArray.push(new FormControl(detail, Validators.required));
         });
-        if (row.ownerDetails) {
-          const ownerDetailsArray = group.get('ownerDetails') as FormArray;
-          ownerDetailsArray.clear();
-          row.ownerDetails.forEach((owner: any) => {
-            ownerDetailsArray.push(
-              this.fb.group({
-                nameAddressOfBo: owner.nameAddressOfBo,
-                dateOfBirthOfBo: owner.dateOfBirthOfBo
-                  ? new Date(owner.dateOfBirthOfBo)
-                  : null,
-                taxResidencyJuridiction: owner.taxResidencyJuridiction,
-                nationality: this.findCountry(owner.nationality),
-                actingAloneOrMoreNaturalPerson:
-                  owner.actingAloneOrMoreNaturalPerson,
-                boGroupPercentageShareHolding:
-                  owner.boGroupPercentageShareHolding,
-                identityDocument: owner.identityDocument,
-              })
-            );
-          });
-        }
+  
+        // Patch "ownerDetails" array (array of objects)
+        const ownerDetailsArray = group.get('ownerDetails') as FormArray;
+        ownerDetailsArray.clear();
+        console.log("row.ownerDetailsrow.ownerDetails", row.ownerDetails)
+        row.ownerDetails.forEach((owner: any) => {
+          console.log("group 4", owner)
+          ownerDetailsArray.push(
+            this.fb.group({
+              nameAddressOfBo: [owner.nameAddressOfBo, Validators.required],
+              dateOfBirthOfBo: owner.dateOfBirthOfBo
+                ? new Date(owner.dateOfBirthOfBo)
+                : null,
+              taxResidencyJuridiction: this.findCountry(owner.taxResidencyJuridiction),
+              nationality: this.findCountry(owner.nationality),
+              actingAloneOrMoreNaturalPerson: owner.actingAloneOrMoreNaturalPerson,
+              boGroupPercentageShareHolding: owner.boGroupPercentageShareHolding,
+              identityDocument: owner.identityDocument,
+            })
+          );
+          console.log("group 5", ownerDetailsArray)
+        });
+        console.log("started signatory group", group)
         signatoryArray.push(group);
       });
     }
+    console.log("ended signatory")
   }
 
   private patchBankDeclaration(data: any) {
@@ -520,8 +551,6 @@ export class AnnexureFormComponent implements OnInit {
     
     data?.forEach((item) => {
       const group = this.createShareholderFormGroup();
-      console.log("item.countryOfIncorporationOrnationality item", item)
-      console.log("item.countryOfIncorporationOrnationality", item.countryOfIncorporationOrNationality)
       console.log("patchMaterialShareholders---",  item.countryOfIncorporationOrNationality)
       const cp = this.countries_pan.find(
         (c) => c.short_code ===  item.countryOfIncorporationOrNationality?.short_code
@@ -534,7 +563,7 @@ export class AnnexureFormComponent implements OnInit {
         countryOfIncorporationOrnationality: cp,
         percentageStakeHeld: item.percentageStakeHeld,
         individualOrNonIndividual: item.individualOrNonIndividual,
-      });
+      },{ emitEvent: false });
       shareholderArray.push(group);
     });
   }
@@ -555,13 +584,21 @@ export class AnnexureFormComponent implements OnInit {
     });
   }
 
+  private patchsignatory(data: any[]) {
+    const signatoryRowsArray = this.formGroup.get('signatoryRows') as FormArray;
+    if(signatoryRowsArray.length==0){
+      return
+    }
+    // signatoryRowsArray.clear();
+    data?.forEach((item) => {
+      signatoryRowsArray.push(this.createSignatoryFormGroup());
+      // signatoryRowsArray.push(group);
+    });
+  }
+
   private findCountry(countryValue: any): any {
-    console.log("patchMaterialShareholders", countryValue)
     if (!countryValue) return null;
-    console.log("patchMaterialShareholders", countryValue)
-    console.log("patchMaterialShareholders", countryValue.short_code)
     if (countryValue.short_code) {
-      console.log("patchMaterialShareholders", countryValue.short_code)
       return this.countries_pan.find(
         (c) => c.short_code === countryValue.short_code
       );
@@ -608,6 +645,7 @@ export class AnnexureFormComponent implements OnInit {
     segGroup
       .get('seggregatedPortfolioRadio')
       ?.valueChanges.subscribe((value: boolean) => {
+        if (this.isInitializing) return;
         console.log('Segregated Portfolio selection changed:', value);
         const signatoryRowsArray = this.formGroup.get(
           'signatoryRows'

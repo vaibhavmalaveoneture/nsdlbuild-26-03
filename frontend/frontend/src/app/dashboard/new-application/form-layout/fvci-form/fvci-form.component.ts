@@ -106,6 +106,11 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
       this.addManagingOfficialRow();
     }
     this.formGroup.get('registeredOffice')?.updateValueAndValidity();
+    // if(this.previewMode == false){
+    //   console.log("000000000000000000000000000000000000000000000000")
+    //   this.initialiseForm()
+    //   this.initializeMasterData()
+    // }
    
   }
 
@@ -114,11 +119,12 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['masterData'] && changes['masterData'].currentValue) {
+      console.log("intinalise mastererere")
       // Now you can work with masterData here
       this.initializeMasterData();
     }
     if(changes['applicationData'] && changes['applicationData'].currentValue){
-      console.log("asdasdasdasd")
+      console.log("asdasdasdasd lkjhghjklkjhghjk")
       this.initialiseForm()
     }
   }
@@ -405,11 +411,11 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
     
   
     // Trigger value changes for conditional logic
-    setTimeout(() => {
-      this.formGroup.get('applicantOtherName.otherNameRadio')?.updateValueAndValidity();
-      this.formGroup.get('sameAsAbove')?.updateValueAndValidity();
-      this.formGroup.get('OfficeInIndia.OfficeInIndiaRadio')?.updateValueAndValidity();
-    });
+    // setTimeout(() => {
+    //   this.formGroup.get('applicantOtherName.otherNameRadio')?.updateValueAndValidity();
+    //   this.formGroup.get('sameAsAbove')?.updateValueAndValidity();
+    //   this.formGroup.get('OfficeInIndia.OfficeInIndiaRadio')?.updateValueAndValidity();
+    // });
   }
   
   private patchNestedGroup(path: string, data: any) {
