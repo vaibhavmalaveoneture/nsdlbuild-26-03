@@ -1,50 +1,4 @@
-ALTER PROCEDURE sp_getPDFDatabyAppId
-    @ApplicationId NVARCHAR(255)
-AS
-BEGIN
-    SET NOCOUNT ON;
-    -- Temporary variable to store the concatenated address
-    DECLARE @Address NVARCHAR(MAX);
-    -- Get the formatted address
-    SELECT
-        @Address = STRING_AGG(
-            CONCAT(fad.RegisteredFlatNum, ' ',
-                   fad.RegisteredBuildingName, ' ',
-                   fad.RegisteredRoadName , ' ',
-                   fad.RegisteredAreaName , ' ',
-                   fad.RegisteredTownName , ' ',
-                   fad.RegisteredStateName , ' ',
-                   fad.RegisteredZipName, ' ',
-                   ccm.RMC_CODE_NAME), ', ')
-    FROM nsdlcaf.dbo.RegisteredOffice fad
-    INNER JOIN nsdlcaf.dbo.Country_Code_Master ccm
-        ON ccm.RMC_CODE_ID = fad.RegisteredCountryCode
-    WHERE fad.ApplicationId  = @ApplicationId;
-    -- Main query with multiple rows for signatories
-    SELECT
-        fkd.Name AS Username,
-        fa.fvci_registration_number AS FvciRegNo,
-        @Address AS Address,
-        dfdud.Place AS Place,
-        CONVERT(VARCHAR, dfdud.[Date], 23) AS Date,
-        sab.AMT_SIGN_NAME AS AtsName,              -- New field for signatory details
-        sab.certificate_name AS CertName,
-        CONVERT(VARCHAR, sab.Modified_dtm, 120) AS SignedDate -- Format date properly
-        -- sab.reason AS Reason,
-        -- sab.ats_designation AS AtsDesignation
-    FROM nsdlcaf.dbo.fvci_applications fa
-    INNER JOIN nsdlcaf.dbo.Ekyc fkd
-        ON fa.application_id = fkd.ApplicationId
-    INNER JOIN nsdlcaf.dbo.DeclarationAndUndertakingForm dfdud
-        ON dfdud.ApplicationId = fa.application_id
-    LEFT JOIN nsdlcaf.dbo.SELECTED_ATS_BYDDP sab
-        ON sab.APPLICATION_ID = fa.application_id
-    WHERE
-        fa.application_id = @ApplicationId;
-END
-GO
-
-CREATE PROCEDURE sp_getapplications
+ATER PROCEDURE sp_getapplications
                             @rolecode NVARCHAR(50),
                             @userid INT
                         AS
@@ -134,8 +88,38 @@ CREATE PROCEDURE sp_getapplications
                                     on sm.StatusID= fa.status
         ORDER BY fa.created_at DESC; 
                             end
-                            else if @rolecode IN ('DDPMaker', 'DDPChecker')
+                            else if @rolecode IN ('DDPMaker')
      begin
+	     						SELECT @ddpid = dp_id  
+                                FROM nsdlcaf.dbo.users 
+                                WHERE user_id = @userid;
+                                SELECT 
+                                    fa.user_id AS UserId,
+                                    fkd.Name AS Name,
+                                    fa.application_id AS ApplicationId,
+                                    fa.fvci_registration_number AS FvciRegistrationNumber,
+                                    fa.created_at AS CreatedAt,
+                                    fa.updated_at AS UpdatedAt,
+                                    sm.StatusName AS Status,
+                                    sabd.IS_VERIFY as isVerify,
+                                    atsmaster.AMT_EmailID as EmailId
+                                FROM nsdlcaf.dbo.fvci_applications fa 
+                                INNER JOIN nsdlcaf.dbo.Ekyc fkd 
+                                    ON fa.application_id = fkd.ApplicationId and fa.status >= 2
+                                INNER JOIN nsdlcaf.dbo.users u 
+                                    on u.user_id = fa.user_id and u.dp_id = @ddpid
+                                INNER JOIN nsdlcaf.dbo.status_master sm
+                                    on sm.StatusID= fa.status
+                                    left join nsdlcaf.dbo.SELECTED_ATS_BYDDP sabd on fa.application_id = sabd.APPLICATION_ID
+                                    left join nsdlcaf.dbo.ATS_MSTR_TBL atsmaster on sabd.AMT_ASM_ID  =  atsmaster.AMT_ASM_ID
+                                ORDER BY fa.created_at DESC; 
+                            end
+                            -- If rolecode is anything else, return unauthorized message
+                            ELSE if @rolecode IN ( 'DDPChecker')
+     begin
+	     						SELECT @ddpid = dp_id  
+                                FROM nsdlcaf.dbo.users 
+                                WHERE user_id = @userid;
                                 SELECT 
                                     fa.user_id AS UserId,
                                     fkd.Name AS Name,
@@ -150,7 +134,7 @@ CREATE PROCEDURE sp_getapplications
                                 INNER JOIN nsdlcaf.dbo.Ekyc fkd 
                                     ON fa.application_id = fkd.ApplicationId and fa.status >= 3
                                 INNER JOIN nsdlcaf.dbo.users u 
-                                    on u.user_id = fa.user_id and u.dp_id = 4
+                                    on u.user_id = fa.user_id and u.dp_id = @ddpid
                                 INNER JOIN nsdlcaf.dbo.status_master sm
                                     on sm.StatusID= fa.status
                                     left join nsdlcaf.dbo.SELECTED_ATS_BYDDP sabd on fa.application_id = sabd.APPLICATION_ID
