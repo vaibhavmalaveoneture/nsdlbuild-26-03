@@ -62,7 +62,7 @@
                               )
                             "
                             [tabindex]="0"
-                          ></p-radiobutton>
+                            autocomplete="off"></p-radiobutton>
                           <label for="fpiApplicant" class="radio-label"
                             >FPI Applicant</label
                           >
@@ -81,6 +81,7 @@
                               )
                             "
                             [tabindex]="0"
+                            autocomplete="off"
                           ></p-radiobutton>
                           <label for="globalCustodian" class="radio-label"
                             >Global Custodian</label
@@ -133,6 +134,7 @@
                                   handleRadioKeydown($event, 'yes', 'fpiType')
                                 "
                                 [tabindex]="0"
+                                autocomplete="off"
                               ></p-radiobutton>
                               <label for="fpiTypeYes" class="radio-label"
                                 >Yes</label
@@ -148,6 +150,7 @@
                                   handleRadioKeydown($event, 'no', 'fpiType')
                                 "
                                 [tabindex]="0"
+                                autocomplete="off"
                               ></p-radiobutton>
                               <label for="fpiTypeNo" class="radio-label"
                                 >No</label
@@ -194,6 +197,7 @@
                                         organizationName.dirty)
                                   }"
                                   disabled
+                                  autocomplete="off"
                                 />
                                 <p
                                   *ngIf="
@@ -229,6 +233,7 @@
                                       userNameFPI.invalid &&
                                       (userNameFPI.touched || userNameFPI.dirty)
                                   }"
+                                  autocomplete="off"
                                 />
                                 <p
                                   *ngIf="
@@ -266,6 +271,7 @@
                                       (authorityIssuedIdentifier.touched ||
                                         authorityIssuedIdentifier.dirty)
                                   }"
+                                  autocomplete="off"
                                 ></p-select>
                                 <p
                                   *ngIf="
@@ -309,6 +315,7 @@
                                         (authorityIssuedOther.touched ||
                                           authorityIssuedOther.dirty)
                                     }"
+                                    autocomplete="off"
                                   />
                                 </p-floatlabel>
                                 <p
@@ -347,6 +354,7 @@
                                       (numberIdentifier.touched ||
                                         numberIdentifier.dirty)
                                   }"
+                                  autocomplete="off"
                                 />
                                 <p
                                   *ngIf="
@@ -378,11 +386,13 @@
                                   [(ngModel)]="userRegistration.dob"
                                   #dateOfBirth="ngModel"
                                   required
+                                  variant="filled"
                                   [ngClass]="{
-                                    'ng-dirty ng-invalid':
+                                    'ng-invalid ng-dirty':
                                       dateOfBirth.invalid &&
                                       (dateOfBirth.touched || dateOfBirth.dirty)
                                   }"
+                                  autocomplete="off"
                                 ></p-datepicker>
                                 <p
                                   *ngIf="
@@ -425,6 +435,7 @@
                                       (organisationName.touched ||
                                         organisationName.dirty)
                                   }"
+                                  autocomplete="off"
                                 />
                                 <p
                                   *ngIf="
@@ -461,6 +472,7 @@
                                       (userNameNonFPI.touched ||
                                         userNameNonFPI.dirty)
                                   }"
+                                  autocomplete="off"
                                 />
                                 <p
                                   *ngIf="
@@ -501,6 +513,7 @@
                                       (residencyRegNumber.touched ||
                                         residencyRegNumber.dirty)
                                   }"
+                                  autocomplete="off"
                                 ></p-select>
                                 <p
                                   *ngIf="
@@ -543,6 +556,7 @@
                                         (residencyOther.touched ||
                                           residencyOther.dirty)
                                     }"
+                                    autocomplete="off"
                                   />
                                 </p-floatlabel>
                                 <p
@@ -582,6 +596,7 @@
                                       (numberIdentifierNonFPI.touched ||
                                         numberIdentifierNonFPI.dirty)
                                   }"
+                                  autocomplete="off"
                                 />
                                 <p
                                   *ngIf="
@@ -630,6 +645,7 @@
                                   gcName.invalid &&
                                   (gcName.touched || gcName.dirty)
                               }"
+                              autocomplete="off"
                             />
                             <p
                               *ngIf="
@@ -668,6 +684,7 @@
                                   gcRegNo.invalid &&
                                   (gcRegNo.touched || gcRegNo.dirty)
                               }"
+                              autocomplete="off"
                             />
                             <p
                               *ngIf="
@@ -706,6 +723,7 @@
                                   gcUserName.invalid &&
                                   (gcUserName.touched || gcUserName.dirty)
                               }"
+                              autocomplete="off"
                             />
                             <p
                               *ngIf="
@@ -754,6 +772,7 @@
                             'ng-dirty':
                               city.invalid && (city.touched || city.dirty)
                           }"
+                          autocomplete="off"
                         />
                         <p
                           *ngIf="city.invalid && (city.touched || city.dirty)"
@@ -784,6 +803,7 @@
                             'ng-dirty':
                               state.invalid && (state.touched || state.dirty)
                           }"
+                          autocomplete="off"
                         />
                         <p
                           *ngIf="
@@ -819,6 +839,7 @@
                           }"
                           style="width: 100%"
                           type="text"
+                          autocomplete="off"
                         />
                         <p
                           *ngIf="
@@ -858,6 +879,7 @@
                               country.invalid &&
                               (country.touched || country.dirty)
                           }"
+                          autocomplete="off"
                         ></p-select>
                         <p
                           *ngIf="
@@ -929,6 +951,7 @@
                                 mno.invalid && (mno.touched || mno.dirty)
                             }"
                             type="text"
+                            autocomplete="off"
                           />
                         </div>
                         <p
@@ -965,6 +988,7 @@
                               area.invalid && (area.touched || area.dirty)
                           }"
                           type="text"
+                          autocomplete="off"
                         />
                         <p
                           *ngIf="area.invalid && (area.touched || area.dirty)"
@@ -1008,6 +1032,7 @@
                               emailCtrl.invalid &&
                               (emailCtrl.touched || emailCtrl.dirty)
                           }"
+                          autocomplete="off"
                         />
                         <p
                           *ngIf="
@@ -1048,6 +1073,8 @@
                                 passwordCtrl.invalid &&
                                 (passwordCtrl.touched || passwordCtrl.dirty)
                             }"
+                            autocomplete="off"
+                            autocomplete="new-password"
                           ></p-password>
                           <ng-template #tooltipContent>
                             <div class="validation-messages">
@@ -1175,6 +1202,8 @@
                                 (confirmPasswordCtrl.touched ||
                                   confirmPasswordCtrl.dirty)
                             }"
+                            autocomplete="off"
+                            autocomplete="new-password"
                           ></p-password>
                           <small
                             class="p-error error-text"
@@ -1218,6 +1247,8 @@
                               (captchaInputCtrl.touched ||
                                 captchaInputCtrl.dirty)
                           }"
+                          autocomplete="off"
+                          autocomplete="new-password"
                         />
                         <p
                           *ngIf="

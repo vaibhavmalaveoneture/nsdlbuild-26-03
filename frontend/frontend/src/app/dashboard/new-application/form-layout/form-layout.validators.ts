@@ -14,19 +14,6 @@ export const atLeastTwoFieldsRequiredValidator = (): ValidatorFn => {
         if (buildingName && buildingName.trim() !== '') filledCount++;
         if (roadName && roadName.trim() !== '') filledCount++;
         if (areaName && areaName.trim() !== '') filledCount++;
-        // const notApplicable = group.get('notApplicableResidence')?.value;
-        // const zip = group.get('registeredZipName');
-
-        // if (notApplicable) {
-        //   zip?.clearValidators(); // make it optional
-        //   zip?.setValue('N/A');
-        //   zip?.disable();
-          
-        // } else {
-        //   zip?.setValidators([Validators.required]);
-        //   zip?.setValue('');
-        // }
-        // zip?.updateValueAndValidity({ onlySelf: true });
         
         return filledCount >= 2 ? null : { atLeastTwoFieldsRequired: true };
       };
@@ -45,20 +32,6 @@ export const atLeastTwoFieldsRequiredValidator = (): ValidatorFn => {
         if (buildingName && buildingName.trim() !== '') filledCount++;
         if (roadName && roadName.trim() !== '') filledCount++;
         if (areaName && areaName.trim() !== '') filledCount++;
-
-        // const notApplicable = group.get('notApplicableIndOffice')?.value;
-        // const zip = group.get('indianZipName');
-
-        // if (notApplicable) {
-        //   zip?.clearValidators(); // make it optional
-        //   zip?.setValue('N/A');
-        //   zip?.disable();
-          
-        // } else {
-        //   zip?.setValidators([Validators.required]);
-        //   zip?.setValue('');
-        // }
-        // zip?.updateValueAndValidity({ onlySelf: true });
   
         return filledCount >= 2 ? null : { atLeastTwoFieldsRequiredF: true };
       };

@@ -51,7 +51,7 @@
           required
           autocomplete="off"
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-        />
+          autocomplete="new-password" autocomplete="off"/>
         <!-- </p-floatLabel> -->
         <small
           *ngIf="email.invalid && (email.dirty || email.touched)"
@@ -73,12 +73,11 @@
           id="password"
           name="password"
           size="large"
-          autocomplete="current-password"
           [(ngModel)]="login.password"
           #password="ngModel"
           required
           class="password-field"
-        ></p-password>
+          autocomplete="new-password" autocomplete="off"></p-password>
 
         <!-- </p-floatLabel> -->
         <small

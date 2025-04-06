@@ -1,4 +1,4 @@
-ATER PROCEDURE sp_getapplications
+CREATE PROCEDURE sp_getapplications
                             @rolecode NVARCHAR(50),
                             @userid INT
                         AS
@@ -20,10 +20,10 @@ ATER PROCEDURE sp_getapplications
 						            dfa.updated_at AS UpdatedAt,
 						            sm.StatusName AS Status,
 						            2 AS Priority  -- Lower priority for draft
-						        FROM nsdlcaf.dbo.draft_fvci_applications dfa 
-						        INNER JOIN nsdlcaf.dbo.draft_Ekyc dfkd 
+						        FROM nsdlcaf.dbodraft_fvci_applications dfa 
+						        INNER JOIN nsdlcaf.dbodraft_Ekyc dfkd 
 						            ON dfa.application_id = dfkd.ApplicationId 
-						        INNER JOIN nsdlcaf.dbo.status_master sm
+						        INNER JOIN nsdlcaf.dbostatus_master sm
 						            ON sm.StatusID = dfa.status
 						        WHERE dfa.user_id = @UserId
 						
@@ -39,10 +39,10 @@ ATER PROCEDURE sp_getapplications
 						            fa.updated_at AS UpdatedAt,
 						            sm.StatusName AS Status,
 						            1 AS Priority  -- Higher priority for final
-						        FROM nsdlcaf.dbo.fvci_applications fa 
-						        INNER JOIN nsdlcaf.dbo.Ekyc fkd 
+						        FROM nsdlcaf.dbofvci_applications fa 
+						        INNER JOIN nsdlcaf.dboEkyc fkd 
 						            ON fa.application_id = fkd.ApplicationId
-						        INNER JOIN nsdlcaf.dbo.status_master sm
+						        INNER JOIN nsdlcaf.dbostatus_master sm
 						            ON sm.StatusID = fa.status
 						        WHERE fa.user_id = @UserId
 						    )
@@ -68,7 +68,7 @@ ATER PROCEDURE sp_getapplications
                             else if @rolecode = 'DDPAdmin'
                             begin
                                 SELECT @ddpid = dp_id  
-                                FROM nsdlcaf.dbo.users 
+                                FROM nsdlcaf.dbousers 
                                 WHERE user_id = @userid;
                                 
                                 SELECT 
@@ -79,19 +79,19 @@ ATER PROCEDURE sp_getapplications
                                     fa.created_at AS CreatedAt,
                                     fa.updated_at AS UpdatedAt,
                                     sm.StatusName AS Status
-                                FROM nsdlcaf.dbo.fvci_applications fa 
-                                INNER JOIN nsdlcaf.dbo.Ekyc fkd 
+                                FROM nsdlcaf.dbofvci_applications fa 
+                                INNER JOIN nsdlcaf.dboEkyc fkd 
                                     ON fa.application_id = fkd.ApplicationId
-                                INNER JOIN nsdlcaf.dbo.users u 
+                                INNER JOIN nsdlcaf.dbousers u 
                                     on u.user_id = fa.user_id and u.dp_id = @ddpid
-                                INNER JOIN nsdlcaf.dbo.status_master sm
+                                INNER JOIN nsdlcaf.dbostatus_master sm
                                     on sm.StatusID= fa.status
         ORDER BY fa.created_at DESC; 
                             end
                             else if @rolecode IN ('DDPMaker')
      begin
 	     						SELECT @ddpid = dp_id  
-                                FROM nsdlcaf.dbo.users 
+                                FROM nsdlcaf.dbousers 
                                 WHERE user_id = @userid;
                                 SELECT 
                                     fa.user_id AS UserId,
@@ -103,22 +103,22 @@ ATER PROCEDURE sp_getapplications
                                     sm.StatusName AS Status,
                                     sabd.IS_VERIFY as isVerify,
                                     atsmaster.AMT_EmailID as EmailId
-                                FROM nsdlcaf.dbo.fvci_applications fa 
-                                INNER JOIN nsdlcaf.dbo.Ekyc fkd 
+                                FROM nsdlcaf.dbofvci_applications fa 
+                                INNER JOIN nsdlcaf.dboEkyc fkd 
                                     ON fa.application_id = fkd.ApplicationId and fa.status >= 2
-                                INNER JOIN nsdlcaf.dbo.users u 
+                                INNER JOIN nsdlcaf.dbousers u 
                                     on u.user_id = fa.user_id and u.dp_id = @ddpid
-                                INNER JOIN nsdlcaf.dbo.status_master sm
+                                INNER JOIN nsdlcaf.dbostatus_master sm
                                     on sm.StatusID= fa.status
-                                    left join nsdlcaf.dbo.SELECTED_ATS_BYDDP sabd on fa.application_id = sabd.APPLICATION_ID
-                                    left join nsdlcaf.dbo.ATS_MSTR_TBL atsmaster on sabd.AMT_ASM_ID  =  atsmaster.AMT_ASM_ID
+                                    left join nsdlcaf.dboSELECTED_ATS_BYDDP sabd on fa.application_id = sabd.APPLICATION_ID
+                                    left join nsdlcaf.dboATS_MSTR_TBL atsmaster on sabd.AMT_ASM_ID  =  atsmaster.AMT_ASM_ID
                                 ORDER BY fa.created_at DESC; 
                             end
                             -- If rolecode is anything else, return unauthorized message
                             ELSE if @rolecode IN ( 'DDPChecker')
      begin
 	     						SELECT @ddpid = dp_id  
-                                FROM nsdlcaf.dbo.users 
+                                FROM nsdlcaf.dbousers 
                                 WHERE user_id = @userid;
                                 SELECT 
                                     fa.user_id AS UserId,
@@ -130,15 +130,15 @@ ATER PROCEDURE sp_getapplications
                                     sm.StatusName AS Status,
                                     sabd.IS_VERIFY as isVerify,
                                     atsmaster.AMT_EmailID as EmailId
-                                FROM nsdlcaf.dbo.fvci_applications fa 
-                                INNER JOIN nsdlcaf.dbo.Ekyc fkd 
+                                FROM nsdlcaf.dbofvci_applications fa 
+                                INNER JOIN nsdlcaf.dboEkyc fkd 
                                     ON fa.application_id = fkd.ApplicationId and fa.status >= 3
-                                INNER JOIN nsdlcaf.dbo.users u 
+                                INNER JOIN nsdlcaf.dbousers u 
                                     on u.user_id = fa.user_id and u.dp_id = @ddpid
-                                INNER JOIN nsdlcaf.dbo.status_master sm
+                                INNER JOIN nsdlcaf.dbostatus_master sm
                                     on sm.StatusID= fa.status
-                                    left join nsdlcaf.dbo.SELECTED_ATS_BYDDP sabd on fa.application_id = sabd.APPLICATION_ID
-                                    left join nsdlcaf.dbo.ATS_MSTR_TBL atsmaster on sabd.AMT_ASM_ID  =  atsmaster.AMT_ASM_ID
+                                    left join nsdlcaf.dboSELECTED_ATS_BYDDP sabd on fa.application_id = sabd.APPLICATION_ID
+                                    left join nsdlcaf.dboATS_MSTR_TBL atsmaster on sabd.AMT_ASM_ID  =  atsmaster.AMT_ASM_ID
                                 ORDER BY fa.created_at DESC; 
                             end
                             -- If rolecode is anything else, return unauthorized message

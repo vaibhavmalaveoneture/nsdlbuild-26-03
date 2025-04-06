@@ -73,6 +73,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   // Add this line to define the property
   proofOfIdentityOptions!: any[];
   countryShortCodes: any[] = [];
+  gcinitialise: boolean = false;
 
   suppressGlobalCustodianValidation: boolean = false;
 
@@ -157,7 +158,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     this.formGroup
       .get('throughGlobalCustodian.throughGlobalCustodianRadio')
       ?.valueChanges.subscribe((value) => {
-        if(this.suppressGlobalCustodianValidation){return}
+        // if(this.suppressGlobalCustodianValidation){return}
         if (value === 'throughGlobalCustodianRadioYes') {
           this.formGroup
             .get('throughGlobalCustodian.throughGlobalCustodianName')
@@ -168,16 +169,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
           this.formGroup
             .get('throughGlobalCustodian.throughGlobalCustodianRegistration')
             ?.setValidators([Validators.required]);
-          // this.formGroup
-          //   .get('throughGlobalCustodian.throughGlobalCustodianCountry')
-          //   ?.setValidators([Validators.required]);
         } else {
-          // this.formGroup
-          //   .get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')
-          //   ?.clearValidators();
-          // this.formGroup
-          //   .get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')
-          //   ?.setValue('');
           this.formGroup
             .get('throughGlobalCustodian.throughGlobalCustodianName')
             ?.clearValidators();
@@ -196,17 +188,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
           this.formGroup
             .get('throughGlobalCustodian.throughGlobalCustodianRegistration')
             ?.setValue('');
-          // this.formGroup
-          //   .get('throughGlobalCustodian.throughGlobalCustodianCountry')
-          //   ?.clearValidators();
-          // this.formGroup
-          //   .get('throughGlobalCustodian.throughGlobalCustodianCountry')
-          //   ?.setValue('');
         }
-        // Update validation
-        // this.formGroup
-        //   .get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')
-        //   ?.updateValueAndValidity();
         this.formGroup
           .get('throughGlobalCustodian.throughGlobalCustodianName')
           ?.updateValueAndValidity();
@@ -216,9 +198,6 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
         this.formGroup
           .get('throughGlobalCustodian.throughGlobalCustodianRegistration')
           ?.updateValueAndValidity();
-        // this.formGroup
-        //   .get('throughGlobalCustodian.throughGlobalCustodianCountry')
-        //   ?.updateValueAndValidity();
       });
   }
 
@@ -253,32 +232,26 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       // const regularAuthorityObj = this.regulatoryAuthorityOptions.find(
       //   (c) => c.name === this.applicationData.data?.registrationForm?.regulatoryAuthorityName
       // );
+      
      this.formGroup.get('regulatoryAuthorityName')?.setValue(this.applicationData.data?.registrationForm?.regulatoryAuthorityName)
       this.formGroup.get('regulatoryAuthorityCountry')?.setValue(this.applicationData.data?.registrationForm?.regulatoryAuthorityCountry)
       this.formGroup.get('regulatoryAuthorityWebsite')?.setValue(this.applicationData.data?.registrationForm?.regulatoryAuthorityWebsite)
       const custodianGroup = this.formGroup.get('throughGlobalCustodian') as FormGroup;
       this.suppressGlobalCustodianValidation = true;
-    // this.formGroup.get('throughGlobalCustodian.throughGlobalCustodianRadio')?.setValue(this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianRadio)
-    if(this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianRadio == true){
-     
-
-    custodianGroup.patchValue({
-      throughGlobalCustodianName: this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianName || '',
-      throughGlobalCustodianAddress: this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianAddress || '',
-      throughGlobalCustodianRegistration: this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianRegistration || ''
-    });
-      // this.formGroup.get('throughGlobalCustodian.throughGlobalCustodianName')?.setValue(this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianName)
-      // this.formGroup.get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')?.setValue(this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianRegulatorName)
-      // this.formGroup.get('throughGlobalCustodian.throughGlobalCustodianAddress')?.setValue(this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianAddress)
-      // this.formGroup.get('throughGlobalCustodian.throughGlobalCustodianRegistration')?.setValue(this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianRegistration)
-      const countryObjg = this.countries_pan.find(
+      // this.formGroup.get('throughGlobalCustodian.throughGlobalCustodianRadio')?.setValue(this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianRadio)
+    if(this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianRadio == 'throughGlobalCustodianRadioYes'){
+      custodianGroup.patchValue({
+        throughGlobalCustodianName: this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianName || '',
+        throughGlobalCustodianAddress: this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianAddress || '',
+        throughGlobalCustodianRegistration: this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianRegistration || ''
+      });
+     const countryObjg = this.countries_pan.find(
         (c) =>
           c.short_code ===
           this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianCountry?.short_code
       );
       custodianGroup.get('throughGlobalCustodianCountry')?.setValue(countryObjg);
 
-     
     }
     custodianGroup.get('throughGlobalCustodianRadio')?.setValue(this.applicationData.data?.registrationForm?.throughGlobalCustodian?.throughGlobalCustodianRadio);
     this.suppressGlobalCustodianValidation = false;
@@ -295,48 +268,6 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       ?.setValue(
         this.applicationData.data?.registrationForm?.regulatoryAuthorityCategory
       );
-
-    // Set throughGlobalCustodian fields
-    // this.formGroup
-    //   .get('throughGlobalCustodian.throughGlobalCustodianRadio')
-    //   ?.setValue(
-    //     this.applicationData.data?.registrationForm?.throughGlobalCustodian
-    //       ?.throughGlobalCustodianRadio
-    //   );
-    // this.formGroup
-    //   .get('throughGlobalCustodian.throughGlobalCustodianName')
-    //   ?.setValue(
-    //     this.applicationData.data?.registrationForm?.throughGlobalCustodian
-    //       ?.throughGlobalCustodianName
-    //   );
-    // this.formGroup
-    //   .get('throughGlobalCustodian.throughGlobalCustodianRegulatorName')
-    //   ?.setValue(
-    //     this.applicationData.data?.registrationForm?.throughGlobalCustodian
-    //       ?.throughGlobalCustodianRegulatorName
-    //   );
-    // this.formGroup
-    //   .get('throughGlobalCustodian.throughGlobalCustodianAddress')
-    //   ?.setValue(
-    //     this.applicationData.data?.registrationForm?.throughGlobalCustodian
-    //       ?.throughGlobalCustodianAddress
-    //   );
-    // this.formGroup
-    //   .get('throughGlobalCustodian.throughGlobalCustodianRegistration')
-    //   ?.setValue(
-    //     this.applicationData.data?.registrationForm?.throughGlobalCustodian
-    //       ?.throughGlobalCustodianRegistration
-    //   );
-    // const countryObj = this.countries_pan.find(
-    //   (c) =>
-    //     c.short_code ===
-    //     this.applicationData.data?.registrationForm?.throughGlobalCustodian
-    //       ?.throughGlobalCustodianCountry.short_code
-    // );
-    // this.formGroup
-    //   .get('throughGlobalCustodian.throughGlobalCustodianCountry')
-    //   ?.setValue(countryObj);
-
     // Set PAN fields
     this.formGroup
       .get('hasPan.hasPanRadio')
@@ -635,24 +566,14 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     if (!appData) return;
 
     // In preview mode, we need to handle dropdown values differently
-    if (this.previewMode) {
-      // Wait for the master data (dropdown options) to be loaded
-      this.loadMasterData().then(() => {
-        this.mapDesignationDetails(appData);
-        this.mapApplicantDetails(appData);
-        this.mapRegulatoryAuthorityDetails(appData);
-        this.mapIndianMarketAssociations(appData.indianMarketAssocians || []);
-        // Disable the form since we're in preview mode
-        this.formGroup.disable();
-      });
-    } else {
+    
       // Normal case - proceed as before
       this.mapDesignationDetails(appData);
       this.mapApplicantDetails(appData);
       this.mapRegulatoryAuthorityDetails(appData);
       
       this.mapIndianMarketAssociations(appData.indianMarketAssocians || []);
-    }
+    
   }
 
   private mapDesignationDetails(appData: any): void {
@@ -928,88 +849,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     return incomeDetails;
   }
 
-  private getRegistrationDetails(): DraftFvicRegistrationDetailsDto {
-    const custodianGroup = this.formGroup.get(
-      'throughGlobalCustodian'
-    ) as FormGroup;
-    const bankGroup = this.formGroup.get('designatedBank') as FormGroup;
-    const priorAssociationGroup = this.formGroup.get(
-      'priorAssociation'
-    ) as FormGroup;
-    const panGroup = this.formGroup.get('hasPan') as FormGroup;
-    const disciplinaryGroup = this.formGroup.get(
-      'disciplinaryHistory'
-    ) as FormGroup;
-
-    // Handle bank name properly - if it's an object extract the name property
-    let bankName = bankGroup.get('designatedBankName')?.value || '';
-    if (typeof bankName === 'object' && bankName !== null) {
-      bankName = bankName.name || '';
-    }
-
-    return {
-      // Other existing fields remain the same...
-      isProvidedFactaCrsProvided:
-        !!this.formGroup.get('providedValidForm')?.value,
-      isComingFromGlobalCustodian:
-        custodianGroup.get('throughGlobalCustodianRadio')?.value ===
-        'throughGlobalCustodianRadioYes',
-
-      // Extract name property from DDP, Custodian and DP objects
-      ddpName:
-        typeof this.formGroup.get('ddpName')?.value === 'object'
-          ? this.formGroup.get('ddpName')?.value?.name || ''
-          : this.formGroup.get('ddpName')?.value || '',
-      ddpRegistrationNumber:
-        this.formGroup.get('ddpRegistrationNumber')?.value || '',
-      custodianName:
-        typeof this.formGroup.get('custodianName')?.value === 'object'
-          ? this.formGroup.get('custodianName')?.value?.name || ''
-          : this.formGroup.get('custodianName')?.value || '',
-      custodianRegistrationNumber:
-        this.formGroup.get('custodianRegistrationNumber')?.value || '',
-      dpName:
-        typeof this.formGroup.get('dpName')?.value === 'object'
-          ? this.formGroup.get('dpName')?.value?.name || ''
-          : this.formGroup.get('dpName')?.value || '',
-      dpRegistrationNumber:
-        this.formGroup.get('dpRegistrationNumber')?.value || '',
-
-      // Use the properly extracted bank name
-      bankName: bankName,
-      bankAddress: bankGroup.get('designatedBankAddress')?.value || '',
-
-      // The rest remains the same
-      isAssociatedWithSecuritiesMarket:
-        priorAssociationGroup.get('priorAssociationRadio')?.value === true ||
-        priorAssociationGroup.get('priorAssociationRadio')?.value === 'true',
-      detailsOfPriorAssociation:
-        priorAssociationGroup.get('detailsOfPriorAssociation')?.value || '',
-      doesHoldPan:
-        panGroup.get('hasPanRadio')?.value === true ||
-        panGroup.get('hasPanRadio')?.value === 'true',
-      panNumber: panGroup.get('hasPanNumber')?.value || '',
-      isViolatedLaw:
-        disciplinaryGroup.get('disciplinaryHistoryRadio')?.value === true ||
-        disciplinaryGroup.get('disciplinaryHistoryRadio')?.value === 'true',
-    };
-  }
-
-  private getRegulatoryAuthorityDetailsDto(): DraftFvciRegulatoryAuthorityDetailsDto {
-    return {
-      fvciApplicationId: this.applicationId,
-      regulatoryAuthorityName:
-        this.formGroup.get('regulatoryAuthorityName')?.value ?? '',
-      regulatoryAuthorityCountry:
-        this.formGroup.get('regulatoryAuthorityCountry')?.value ?? '',
-      regulatoryAuthorityWebsite:
-        this.formGroup.get('regulatoryAuthorityWebsite')?.value ?? '',
-      regulatoryAuthorityRegNumber:
-        this.formGroup.get('regulatoryAuthorityRegNumber')?.value ?? '',
-      regulatoryAuthorityCategory:
-        this.formGroup.get('regulatoryAuthorityCategory')?.value ?? '',
-    };
-  }
+  
 
   initializePriorAssociationRows(): FormGroup {
     return this.fb.group({

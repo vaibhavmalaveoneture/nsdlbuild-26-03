@@ -84,6 +84,7 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
   declarationAndUndertakimgForm: FormGroup = new FormGroup({});
   masterData!: any[];
   applicationData!: any[];
+  allDocumentsUploaded = false;
 
   showLoader = false;
   formCompletionPercentage = 0;
@@ -225,6 +226,7 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
       this.handleSaveClick();
       this.appMenu.openPreview();
     }
+    // this.appMenu.openPreview();
   }
 
   triggerSetActive(index: number) {
@@ -408,6 +410,7 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
     this.commonService.apiCommonMastersGet().subscribe({
       next: (res: any) => {
         if (res?.success) {
+          console.log("loading masterdata", res.data)
           this.masterData = res.data;
         }
       },
@@ -461,6 +464,15 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
     } finally {
       this.isDownloading = false;
     }
+  }
+
+  documents = [
+    { name: 'Form Upload', type: 'formUpload', status: 'Pending', documentPath: '', fileName: '' },
+    { name: 'Annexure Upload', type: 'annexureUpload', status: 'Pending', documentPath: '', fileName: '' }
+  ];
+  
+  checkAllDocumentsUploaded() {
+    this.allDocumentsUploaded = this.documents.every(doc => doc.documentPath);
   }
 
   

@@ -310,3 +310,8 @@ form {
   cursor: not-allowed;
   pointer-events: none; // optional: disables interaction like dropdown open
 }
+
+
+p-datepicker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext{
+  background-color: #ffe6e6 ;
+}

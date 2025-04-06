@@ -46,6 +46,7 @@ import { FormLayoutComponent } from './new-application/form-layout/form-layout.c
 import { DisplayPreviewComponent } from './new-application/form-layout/display-preview/display-preview.component';
 import { DialogModule } from 'primeng/dialog';
 import { PreviewModeDirective } from './new-application/form-layout/directives/preview-mode.directive';
+import {DateOnlyInputDirective} from './new-application/form-layout/directives/date-only-input.directive'
 
 
 @NgModule({
@@ -99,7 +100,8 @@ import { PreviewModeDirective } from './new-application/form-layout/directives/p
     MultiSelectModule,
     NgCircleProgressModule,
     DialogModule,
-    PreviewModeDirective
+    PreviewModeDirective,
+    
   ],
 })
 export class DashboardModule {}

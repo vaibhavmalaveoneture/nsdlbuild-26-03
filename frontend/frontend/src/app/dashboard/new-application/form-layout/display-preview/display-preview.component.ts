@@ -34,12 +34,13 @@ export class DisplayPreviewComponent implements OnInit {
   @Input() anextureToCafForm!: FormGroup;
   @Input() documentUploadForm!: FormGroup;
   @Input() declarationAndUndertakimgForm!: FormGroup;
+  
+  @Input() applicationData!: any;
   @Output() handleSaveSubmit = new EventEmitter<void>();
   
-  applicationData: DraftFvciApplicationDto | null = null;
   isLoading: boolean = false;
   isSubmitting: boolean = false;
-
+  previewMode: boolean = false;
   // Document related properties
   kycDocuments: any[] = [];
   additionalDocuments: AdditionalDocument[] = [];
@@ -51,6 +52,7 @@ export class DisplayPreviewComponent implements OnInit {
     private readonly fvciService: FvciApplicationService,
     private readonly messageService: MessageService,
     private readonly http: HttpClient,
+   
     private fvciApplicationSaveService: FvciApplicationSaveService,
     private readonly commonService: CommonService,
   ) {}
@@ -207,18 +209,29 @@ export class DisplayPreviewComponent implements OnInit {
   }
 
   onHide() {
+    // this.previewMode = false
     this.visible = false;
     this.visibleChange.emit(this.visible);
-    // Clear data when modal is closed
-    // this.applicationData = null;
-    // this.kycDocuments = [];
-    // this.additionalDocuments = [];
   }
 
   // This will be called whenever the dialog becomes visible
   async onShow() {
-    this.loadData()
-  //  this.fetchApplicationData();
-    
+    // this.previewMode = true    
+
+    this.loadData();
+    this.fetchApplicationData();
+    setTimeout(() => {
+      this.fetchApplicationData()
+    }, 10000);
   }
+
+  async fetchApplicationData(){
+    const token = localStorage.getItem('token')?? '';
+    const response = await firstValueFrom(
+      this.fvciApplicationSaveService.getFvciApplicationById(this.applicationId??'', token)
+    );
+    this.applicationData = response;
+  }
+
+  
 }

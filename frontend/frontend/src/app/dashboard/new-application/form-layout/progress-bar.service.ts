@@ -44,7 +44,7 @@ export class FormCompletionService {
     const validCount = allRequired.filter(control =>
       (control.disabled || control.valid) && control.hasValidator(Validators.required)
     ).length;
-
+    console.log(this.getInvalidRequiredFieldNames(fvciForm))
     const totalRequired = allRequired.length + groupErrorCount;
     return totalRequired === 0 ? 0 : Math.floor((validCount / totalRequired) * 100);
   }

@@ -58,6 +58,7 @@ export class MenuComponent implements OnInit {
   @Input() documentUploadForm!: FormGroup;
   @Input() declarationAndUndertakimgForm!: FormGroup;
   @Input() applicationData!: any;
+  @Input() allDocumentsUploaded: boolean = false;
 
 
   @ViewChild(FvciFormComponent) fvciComponent!: FvciFormComponent;
@@ -78,6 +79,7 @@ export class MenuComponent implements OnInit {
   showButtons: boolean = true;
   showButtonsApprove: boolean = false;
   showButtonsApproveChecker: boolean=false;
+  showMakerDocErrorMessage: boolean= false;
   selectItems: Options[] = [];
   selectedItem: Options | undefined;
 
@@ -211,6 +213,16 @@ export class MenuComponent implements OnInit {
       if (changes['applicationData'] && changes['applicationData'].currentValue) {
         this.updateVisibleButtons();
       }
+      if (changes['allDocumentsUploaded'] && changes['allDocumentsUploaded'].currentValue) {
+        console.log("allDocumentsUploaded", this.allDocumentsUploaded)
+        if(this.allDocumentsUploaded){
+          this.showMakerDocErrorMessage = false;
+        }else{
+          this.showMakerDocErrorMessage = true;
+        }
+        
+      }
+      
     }
 
   isStepAccessible(index: number): boolean {
@@ -224,10 +236,13 @@ export class MenuComponent implements OnInit {
     
     const isSubmitted = this.applicationData?.data?.status > 1;
     this.visibleButtons = isSubmitted ? this.buttons : this.buttons.slice(0, 5);
+    if(this.applicationData?.data?.status >= 2){
+      this.showButtons = true
+    }
     if(this.applicationData?.data?.status == 2){
       this.showButtonsApprove = true
     }
-
+    console.log("")
     if(this.applicationData?.data?.status == 3){
       this.showButtonsApproveChecker = true
     }

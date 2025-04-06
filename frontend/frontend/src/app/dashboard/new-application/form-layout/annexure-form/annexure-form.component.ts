@@ -197,14 +197,17 @@ export class AnnexureFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.addManager();
-    this.addSignatory();
-    this.addShareholder();
-    this.addBeneficialOwner();
-    this.addInformationOfSaSmFvciApplicant();
-    // this.loadData();
-    this.subscribeToSeggregatedPortfolioRadioChanges();
+    
+      this.addManager();
+      this.addSignatory();
+      this.addShareholder();
+      this.addBeneficialOwner();
+      this.addInformationOfSaSmFvciApplicant();
+      // this.loadData();
+      this.subscribeToSeggregatedPortfolioRadioChanges();
 
+   
+    
     const segregatedPortfolioGroup = this.formGroup.get(
       'seggregatedPortfolio'
     ) as FormGroup;
@@ -247,7 +250,7 @@ export class AnnexureFormComponent implements OnInit {
       if (value === true) {
         consentEmail1Control?.setValidators([
           Validators.required,
-          Validators.email,
+          Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{1,20}$/),
         ]);
       } else {
         consentEmail1Control?.clearValidators();
@@ -259,7 +262,7 @@ export class AnnexureFormComponent implements OnInit {
     if (consentRadioControl?.value === true) {
       consentEmail1Control?.setValidators([
         Validators.required,
-        Validators.email,
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{1,20}$/),
       ]);
       consentEmail1Control?.updateValueAndValidity();
     } else {
@@ -414,7 +417,10 @@ export class AnnexureFormComponent implements OnInit {
     });
 
     this.patchSegregatedPortfolio(annexureData.seggregatedPortfolio);
-    this.patchSegregatedPortfolio2(annexureData.signatoryRows);
+    if(annexureData.seggregatedPortfolio.seggregatedPortfolioRadio){
+      this.patchSegregatedPortfolio2(annexureData.signatoryRows);
+    }
+    
     this.patchBankDeclaration(annexureData.bankDeclaration);
     this.patchConsentIntermediary(annexureData.consentIntermediary);
     this.patchInformationOfSaSmApplicant(
@@ -439,13 +445,13 @@ export class AnnexureFormComponent implements OnInit {
   }
 
   private patchSegregatedPortfolio2(data: any) {
+    
     if (data) {
       const signatoryArray = this.formGroup.get('signatoryRows') as FormArray;
       signatoryArray.clear(); // Reset existing
-  
+      
       data.forEach((row: any) => {
         const group = this.createSignatoryFormGroup();
-  
         // Patch "details" array (array of strings)
         const detailsFormArray = group.get('details') as FormArray;
         detailsFormArray.clear();
@@ -471,7 +477,7 @@ export class AnnexureFormComponent implements OnInit {
             })
           );
         });
-        signatoryArray.push(group);
+        this.signatoryRows.push(group);
       });
     }
   }
@@ -560,17 +566,7 @@ export class AnnexureFormComponent implements OnInit {
     });
   }
 
-  private patchsignatory(data: any[]) {
-    const signatoryRowsArray = this.formGroup.get('signatoryRows') as FormArray;
-    if(signatoryRowsArray.length==0){
-      return
-    }
-    // signatoryRowsArray.clear();
-    data?.forEach((item) => {
-      signatoryRowsArray.push(this.createSignatoryFormGroup());
-      // signatoryRowsArray.push(group);
-    });
-  }
+
 
   private findCountry(countryValue: any): any {
     if (!countryValue) return null;
@@ -806,7 +802,7 @@ export class AnnexureFormComponent implements OnInit {
       }
 
       if (field.id === 'email') {
-        validators.push(Validators.email);
+        validators.push(Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{1,20}$/));
       }
 
       group.addControl(field.id, new FormControl(null, validators));
@@ -908,10 +904,8 @@ export class AnnexureFormComponent implements OnInit {
   }
 
   createSignatoryFormGroup(): FormGroup {
-  
     const group = new FormGroup({
       details: new FormArray([
-        // new FormControl(''),
         new FormControl(null, Validators.required),
       ]),
       // accordions: new FormArray([new FormGroup({})]),
@@ -943,7 +937,6 @@ export class AnnexureFormComponent implements OnInit {
         })
       );
     }
-    
     return group;
   }
 

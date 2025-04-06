@@ -92,6 +92,7 @@
                 formGroup.get('seggregatedPortfolio.seggregatedPortfolioRadio')
                   ?.touched
             }"
+            autocomplete="off"
           ></p-radioButton>
           <label for="seggregatedPortfolioRadioYes" class="sub-labels"
             >Yes</label
@@ -107,6 +108,7 @@
                 formGroup.get('seggregatedPortfolio.seggregatedPortfolioRadio')
                   ?.touched
             }"
+            autocomplete="off"
           ></p-radioButton>
           <label for="seggregatedPortfolioRadioNo" class="sub-labels">No</label>
         </div>
@@ -168,6 +170,7 @@
                                 getDetailControl(i, detailIndex).invalid &&
                                 getDetailControl(i, detailIndex).touched
                             }"
+                            autocomplete="off"
                           />
                           <div
                             *ngIf="
@@ -264,17 +267,20 @@
                                                   ?.touched ||
                                                   ownerGroup.touched)
                                             }"
+                                            autocomplete="off"
                                           />
                                           <!-- Date picker -->
                                           <p-datepicker
                                             *ngIf="field.type === 'date'"
                                             dateFormat="dd/mm/yy"
-                                            [placeholder]="field.placeholder"
+                                            placeholder="dd/mm/yyyy"
                                             [style]="{ width: '100%' }"
                                             [formControlName]="field.id"
                                             appendTo="body"
                                             [showIcon]="true"
                                             [maxDate]="maxDate"
+                                            autocomplete="off"
+                                            variant="filled"
                                           ></p-datepicker>
                                           <!-- Dropdown for nationality -->
                                           <p-select
@@ -294,6 +300,7 @@
                                                   ?.touched ||
                                                   ownerGroup.touched)
                                             }"
+                                            autocomplete="off"
                                           ></p-select>
                                           <!-- Error message for required fields -->
                                           <div
@@ -360,7 +367,7 @@
             tooltipPosition="right"
           ></i>
         </label>
-        <input type="hidden" id="bankDeclarationControl" />
+        <input type="hidden" id="bankDeclarationControl" autocomplete="off" />
         <div class="common-text">
           <div class="radio">
             <p-radioButton
@@ -372,7 +379,7 @@
                   formGroup.get('bankDeclaration.bankDeclarationRadio')
                     ?.invalid &&
                   formGroup.get('bankDeclaration.bankDeclarationRadio')?.touched
-              }"
+              }" autocomplete="off"
             ></p-radioButton>
             <label for="notBank" class="sub-labels">
               We are not a bank or a subsidiary of a bank
@@ -390,7 +397,7 @@
                       ?.invalid &&
                     formGroup.get('bankDeclaration.bankDeclarationRadio')
                       ?.touched
-                }"
+                }" autocomplete="off"
               ></p-radioButton>
 
               <label
@@ -421,7 +428,7 @@
                       ?.invalid &&
                     formGroup.get('bankDeclaration.bankDeclarationText')
                       ?.touched
-                }"
+                }" autocomplete="off"
               />
               <div
                 *ngIf="
@@ -446,7 +453,7 @@
                   formGroup.get('bankDeclaration.bankDeclarationRadio')
                     ?.invalid &&
                   formGroup.get('bankDeclaration.bankDeclarationRadio')?.touched
-              }"
+              }" autocomplete="off"
             ></p-radioButton>
             <label for="bankNoIndianOffice" class="sub-labels">
               We are a bank or a subsidiary of a bank and we/group companies do
@@ -488,7 +495,7 @@
                 ?.invalid &&
               formGroup.get('consentIntermediary.consentIntermediaryRadio')
                 ?.touched
-          }"
+          }" autocomplete="off"
         ></p-radioButton>
         <label for="consentIntermediaryRadioYes" class="sub-labels">Yes</label>
         <p-radioButton
@@ -501,7 +508,7 @@
                 ?.invalid &&
               formGroup.get('consentIntermediary.consentIntermediaryRadio')
                 ?.touched
-          }"
+          }" autocomplete="off"
         ></p-radioButton>
         <label for="consentIntermediaryRadioNo" class="sub-labels">No</label>
       </div>
@@ -533,6 +540,7 @@
               pInputText
               placeholder="Enter Other Name"
               id="consentIntermediaryName"
+              autocomplete="off"
             />
             <div
               *ngIf="
@@ -563,6 +571,7 @@
                   formGroup.get('consentIntermediary.consentIntermediaryEmail1')
                     ?.touched
               }"
+              autocomplete="off"
             />
             <div
               *ngIf="
@@ -588,6 +597,7 @@
               pInputText
               placeholder="Enter Other Name"
               id="consentIntermediaryEmail2"
+              autocomplete="off"
             />
             <div
               *ngIf="
@@ -611,6 +621,7 @@
               pInputText
               placeholder="Enter Other Name"
               id="consentIntermediaryEmail3"
+              autocomplete="off"
             />
             <div
               *ngIf="
@@ -636,6 +647,7 @@
               pInputText
               placeholder="Enter Other Name"
               id="consentIntermediaryMobile"
+              autocomplete="off"
             />
             <div
               *ngIf="
@@ -715,6 +727,7 @@
                                       i
                                     ).touched)
                               }"
+                              autocomplete="off"
                             />
                             <input
                               *ngIf="field.type === 'text' && field.id === 'pan'"
@@ -744,6 +757,7 @@
                                       i
                                     ).touched)
                               }"
+                              autocomplete="off"
                             />
                             <!-- Date picker -->
                             <p-datepicker
@@ -757,8 +771,9 @@
                               [style]="{ width: '100%' }"
                               [formControlName]="field.id"
                               [maxDate]="maxDate"
+                              variant="filled"
                               [ngClass]="{
-                                'invalid-field':
+                                'ng-invalid ng-dirty':
                                   getInformationOfSaSmFvciApplicantFormGroup(
                                     i
                                   ).get(field.id)?.invalid &&
@@ -769,6 +784,7 @@
                                       i
                                     ).touched)
                               }"
+                              autocomplete="off"
                             ></p-datepicker>
                             <!-- Dropdown -->
                             <p-select
@@ -794,6 +810,7 @@
                                       i
                                     ).touched)
                               }"
+                              autocomplete="off"
                             ></p-select>
                             <!-- Error message for required fields (1-4) -->
                             <div
@@ -887,6 +904,7 @@
                 formGroup.get('intermediateMaterial')?.invalid &&
                 formGroup.get('intermediateMaterial')?.touched
             }"
+            autocomplete="off"
           >
           </p-radioButton>
           <label for="ownershipInput1" class="sub-labels">
@@ -911,6 +929,7 @@
                 width: '70px',
                 border: '2px dashed'
               }"
+              autocomplete="off"
             />% of ownership/ entitlement through shares/units, economic benefit
             participation etc. including cumulative direct / indirect holding
             held through single or multiple entities.
@@ -927,6 +946,7 @@
                 formGroup.get('intermediateMaterial')?.invalid &&
                 formGroup.get('intermediateMaterial')?.touched
             }"
+            autocomplete="off"
           >
           </p-radioButton>
           <label for="ownershipInput2" class="sub-labels">
@@ -951,6 +971,7 @@
                 width: '70px',
                 border: '2px dashed'
               }"
+              autocomplete="off"
             />% of ownership/ entitlement through shares/units, economic benefit
             participation etc. including cumulative direct / indirect holding
             held through single or multiple entities are provided as under:
@@ -1019,6 +1040,7 @@
                                     ?.touched ||
                                     getShareholderFormGroup(i).touched)
                               }"
+                              autocomplete="off"
                             />
                             <input
                               *ngIf="field.type === 'text' && field.id === 'percentageStakeHeld'"
@@ -1038,6 +1060,7 @@
                                     ?.touched ||
                                     getShareholderFormGroup(i).touched)
                               }"
+                              autocomplete="off"
                             />
                             <!-- Country dropdown -->
                             <p-select
@@ -1061,6 +1084,7 @@
                                     ?.touched ||
                                     getShareholderFormGroup(i).touched)
                               }"
+                              autocomplete="off"
                             ></p-select>
                             <!-- Individual/Non-Individual dropdown -->
                             <p-select
@@ -1082,6 +1106,7 @@
                                     ?.touched ||
                                     getShareholderFormGroup(i).touched)
                               }"
+                              autocomplete="off"
                             ></p-select>
                           </td>
                         </tr>
@@ -1129,6 +1154,7 @@
                 formGroup.get('beneficialOwnership')?.invalid &&
                 formGroup.get('beneficialOwnership')?.touched
             }"
+            autocomplete="off"
           >
           </p-radioButton>
           <label for="beneficialOwnershipYes" class="sub-labels">
@@ -1147,6 +1173,7 @@
                 formGroup.get('beneficialOwnership')?.invalid &&
                 formGroup.get('beneficialOwnership')?.touched
             }"
+            autocomplete="off"
           >
           </p-radioButton>
           <label for="beneficialOwnershipNo" class="sub-labels">
@@ -1213,27 +1240,28 @@
                                 (getBeneficialOwnerFormGroup(i).get(field.id)?.touched ||
                                 getBeneficialOwnerFormGroup(i).touched)
                             }"
-                            
+                            autocomplete="off"
                           />
 
-<!-- Special input for percentage field -->
-<input
-  *ngIf="field.type === 'text' && field.id === 'percentageStakeHeld'"
-  type="number"
-  pInputText
-  [formControlName]="field.id"
-  [placeholder]="field.placeHolder"
-  min="0"
-  max="100"
-  step="0.01"
-  (input)="sanitizePercentageInput($event)"
-  [ngClass]="{
-    'invalid-field':
-      getBeneficialOwnerFormGroup(i).get(field.id)?.invalid &&
-      (getBeneficialOwnerFormGroup(i).get(field.id)?.touched ||
-      getBeneficialOwnerFormGroup(i).touched)
-  }"
-/>
+                          <!-- Special input for percentage field -->
+                          <input
+                            *ngIf="field.type === 'text' && field.id === 'percentageStakeHeld'"
+                            type="number"
+                            pInputText
+                            [formControlName]="field.id"
+                            [placeholder]="field.placeHolder"
+                            min="0"
+                            max="100"
+                            step="0.01"
+                            (input)="sanitizePercentageInput($event)"
+                            [ngClass]="{
+                              'invalid-field':
+                                getBeneficialOwnerFormGroup(i).get(field.id)?.invalid &&
+                                (getBeneficialOwnerFormGroup(i).get(field.id)?.touched ||
+                                getBeneficialOwnerFormGroup(i).touched)
+                            }"
+                            autocomplete="off"
+                          />
                             <!-- Country dropdown -->
                             <p-select
                               *ngIf="
@@ -1255,7 +1283,7 @@
                                   (getBeneficialOwnerFormGroup(i).get(field.id)
                                     ?.touched ||
                                     getBeneficialOwnerFormGroup(i).touched)
-                              }"
+                              }" autocomplete="off"
                             ></p-select>
                             <!-- Individual/Non-Individual dropdown -->
                             <p-select
@@ -1276,7 +1304,7 @@
                                   (getBeneficialOwnerFormGroup(i).get(field.id)
                                     ?.touched ||
                                     getBeneficialOwnerFormGroup(i).touched)
-                              }"
+                              }" autocomplete="off"
                             ></p-select>
                             <!-- Error message for all fields -->
                             <div

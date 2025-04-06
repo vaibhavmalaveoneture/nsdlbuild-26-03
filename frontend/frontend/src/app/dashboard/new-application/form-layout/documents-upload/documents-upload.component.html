@@ -118,71 +118,81 @@
       Document uploads for POA and POI are disabled. Please complete Step 1,
       Question 14 to enable uploads.
     </p>
-    <p-table [value]="documents" class="p-datatable-gridlines p-mt-3">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Document Name</th>
-          <th>File Upload</th>
-          <th>Status</th>
-        </tr>
-      </ng-template>
+    <div *ngIf="showFormUpload >= 2">
+      <h3>Upload signed documents here</h3>
+      <p-table [value]="documents" class="p-datatable-gridlines p-mt-3">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Document Name</th>
+            <th>File Upload</th>
+            <th>Status</th>
+          </tr>
+        </ng-template>
     
-      <ng-template pTemplate="body" let-doc>
-        <tr>
-          <td>{{ doc.name }}</td>
+        <ng-template pTemplate="body" let-doc>
+          <tr>
+            <td>{{ doc.name }}</td>
     
-          <td>
-            <p-fileUpload
-              name="file"
-              [customUpload]="true"
-              [multiple]="false"
-              [auto]="false"
-              mode="advanced"
-              [showUploadButton]="true"
-              [showCancelButton]="true"
-              chooseLabel="Choose"
-              uploadLabel="Upload"
-              cancelLabel="Clear"
-              (uploadHandler)="onAdvancedUpload($event, doc.type)"
-              [disabled]="!!doc.documentPath"
-              [style]="{ width: '100%' }"
-            ></p-fileUpload>
+            <td>
+              <div *ngIf="!doc.documentPath">
+                <p-fileUpload
+                  name="file"
+                  [customUpload]="true"
+                  [multiple]="false"
+                  [auto]="false"
+                  mode="advanced"
+                  [showUploadButton]="true"
+                  [showCancelButton]="true"
+                  chooseLabel="Choose"
+                  uploadLabel="Upload"
+                  cancelLabel="Clear"
+                  (uploadHandler)="onAdvancedUpload($event, doc.type)"
+                  [disabled]="!!doc.documentPath"
+                  [style]="{ width: '100%' }"
+                ></p-fileUpload>
+              </div>
+            
+              <div *ngIf="doc.documentPath" class="mt-2">
+                <div class="button-group">
+                    <button
+                    pButton
+                    type="button"
+                    icon="pi pi-eye"
+                    class="p-button-sm p-button-info"
+                    (click)="viewDocument(doc.documentPath)"
+                  >
+                    View
+                  </button>
+                    <button
+                    *ngIf="showFormUpload == 2"
+                    pButton
+                    type="button"
+                    icon="pi pi-trash"
+                    class="p-button-sm p-button-danger ml-2"
+                    (click)="deleteFixedDocument(doc)"
+                  >
+                    Delete
+                  </button>
+                </div>
+                
+            
+                
+              </div>
+            </td>
     
-            <div *ngIf="doc.documentPath" class="mt-2">
-              <button
-                pButton
-                type="button"
-                icon="pi pi-eye"
-                class="p-button-text p-button-sm mr-2"
-                (click)="onViewFile(doc.documentPath)"
-              >
-                View
-              </button>
-    
-              <button
-                pButton
-                type="button"
-                icon="pi pi-trash"
-                class="p-button-danger p-button-sm"
-                (click)="onDeleteFile(doc)"
-              >
-                Delete
-              </button>
-            </div>
-          </td>
-    
-          <td>
-            <i *ngIf="doc.status === 'Uploaded'" class="pi pi-check-circle text-green-600 mr-2"></i>
-            <i *ngIf="doc.status === 'Pending'" class="pi pi-clock text-gray-500 mr-2"></i>
-            {{ doc.status }}
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-    
+            <td>
+              <i *ngIf="doc.status === 'Uploaded'" class="pi pi-check-circle text-green-600 mr-2"></i>
+              <i *ngIf="doc.status === 'Pending'" class="pi pi-clock text-gray-500 mr-2"></i>
+              {{ doc.status }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
     
     <!-- Additional Supporting Documents Section -->
-    <h3>Additional Supporting Documents</h3>
+    
     <h3>Additional Supporting Documents</h3>
 <p-table [value]="additionalDocuments" [showGridlines]="true">
   <ng-template pTemplate="header">

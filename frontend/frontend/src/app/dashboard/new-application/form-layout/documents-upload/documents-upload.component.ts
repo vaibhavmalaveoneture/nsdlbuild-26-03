@@ -36,6 +36,8 @@ export class DocumentsUploadComponent implements OnInit {
   @Input() masterData!: any;
   @Input() applicationData!: any;
   @Input() viewMode!: string | undefined;
+  @Input() documents: { name: string; type: string; status: string; documentPath: string; fileName: string }[] = [];
+  
   showLoader: boolean = false;
   download: string = '/assets/downloads.png';
   representative: FileData[] = [];
@@ -43,6 +45,7 @@ export class DocumentsUploadComponent implements OnInit {
   files: FileData[] = [];
   POIdocumentIdentifier: string = 'Pending';
   POAdocumentIdentifier: string = 'Pending';
+  showFormUpload: number= 0;
   private saveSubscription!: Subscription;
 
   getUploadControl(docType: string): FormControl {
@@ -143,6 +146,10 @@ export class DocumentsUploadComponent implements OnInit {
     }
     if (changes['applicationData'] && changes['applicationData'].currentValue) {
       // Now you can work with masterData here
+      if(this.applicationData?.data?.status >= 2){
+        this.showFormUpload = this.applicationData?.data?.status
+      }
+      
       this.initializeData();
     }
   }
@@ -200,6 +207,16 @@ export class DocumentsUploadComponent implements OnInit {
         documentDescription: doc.documentIdentifier,
         documentPath: doc.documentPath,
         status: doc.status ?? 1
+      }));
+
+      this.documents = this.applicationData.data.fvciKycDocument
+      .filter((doc: any) => doc.documentType === 'formUpload' || doc.documentType === 'annexureUpload')
+      .map((doc: any) => ({
+        name: doc.documentType === 'formUpload' ? 'Form Upload' : 'Annexure Upload',
+        type: doc.documentType,
+        status: doc.documentPath ? 'Uploaded' : 'Pending',
+        documentPath: doc.documentPath || '',
+        fileName: doc.documentPath ? doc.documentPath : ''
       }));
   
     if (this.viewMode == "true") {
@@ -712,10 +729,10 @@ export class DocumentsUploadComponent implements OnInit {
   }
 
 
-  documents = [
-    { name: 'Form Upload', type: 'formUpload', status: 'Pending', documentPath: '', fileName: '' },
-    { name: 'Annexure Upload', type: 'annexureUpload', status: 'Pending', documentPath: '', fileName: '' }
-  ];
+  // documents = [
+  //   { name: 'Form Upload', type: 'formUpload', status: 'Pending', documentPath: '', fileName: '' },
+  //   { name: 'Annexure Upload', type: 'annexureUpload', status: 'Pending', documentPath: '', fileName: '' }
+  // ];
 
   documentStatus = {
     formUpload: 'Pending',
@@ -723,7 +740,6 @@ export class DocumentsUploadComponent implements OnInit {
   };
 
   async onAdvancedUpload(event: any, type: 'formUpload' | 'annexureUpload') {
-    // Simulate status update after successful upload
     const formData = new FormData();
     formData.append('file', event.files[0]);
     formData.append('docType', type);
@@ -741,17 +757,14 @@ export class DocumentsUploadComponent implements OnInit {
         });
   
         const parsedData = JSON.parse(response.data);
-        // const parsedData = JSON.parse(response.data);
-
-        const docData = parsedData.find((d: any) => d.DocumentType === (type === 'formUpload' ? 'formUpload' : 'annexureUpload'));
-
-        const row = this.documents.find(d => d.type === type);
-        if (row) {
-          row.status = 'Uploaded';
-          row.documentPath = docData?.DocumentPath || '';
-          row.fileName = event.files[0].name;
+        const docData = parsedData.find((d: any) => d.DocumentType === type);
+  
+        const document = this.documents.find(d => d.type === type);
+        if (document) {
+          document.status = 'Uploaded';
+          document.documentPath = docData?.DocumentPath || '';
+          document.fileName = event.files[0].name;
         }
-        
       } else {
         this.messageService.add({
           severity: 'error',
@@ -770,6 +783,8 @@ export class DocumentsUploadComponent implements OnInit {
       this.showLoader = false;
     }
   }
+  
+  
 
   onViewFile(documentPath: string) {
     window.open(documentPath, '_blank');

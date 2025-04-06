@@ -8,10 +8,10 @@
           'invalid-field':
           declarationForm.get('name')?.invalid &&
           declarationForm.get('name')?.touched
-        }"/>
+        }" autocomplete="off"/>
         , the applicant, in the capacity of
         <input type="text" id="capacity" formControlName="capacity" class="input-field"
-          placeholder="Enter Your Capacity" />
+          placeholder="Enter Your Capacity"  autocomplete="off"/>
       </p>
       <p>
         do hereby declare that what is stated in the aforesaid application form
@@ -49,11 +49,11 @@
       <div class="grid-item">
         <div class="sub-grid-item">
           <label for="place">Place:</label>
-          <input type="text" id="place" pInputText formControlName="place" placeholder="Enter place" />
+          <input type="text" id="place" pInputText formControlName="place" placeholder="Enter place" autocomplete="off"/>
         </div>
         <div class="sub-grid-item">
           <label for="date">Date:</label>
-          <p-datepicker id="date" formControlName="date" [showIcon]="true" [appendTo]="'body'" [maxDate]="maxDate" />
+          <p-datepicker id="date" formControlName="date" [showIcon]="true" [appendTo]="'body'" [maxDate]="maxDate" autocomplete="off" variant="filled"/>
         </div>
       </div>
 
@@ -67,12 +67,12 @@
         <div class="sub-grid-item">
           <label for="nameOfSignatory">Name:</label>
           <input type="text" id="nameOfSignatory" pInputText formControlName="nameOfSignatory"
-            placeholder="Enter signatory name" />
+            placeholder="Enter signatory name" autocomplete="off"/>
         </div>
         <div class="sub-grid-item">
           <label for="designationOfSignatory">Designation:</label>
           <input type="text" id="designationOfSignatory" pInputText formControlName="designationOfSignatory"
-            placeholder="Enter designation" />
+            placeholder="Enter designation" autocomplete="off"/>
         </div>
       </div>
 
@@ -80,12 +80,12 @@
         <div class="sub-grid-item">
           <label for="dateOfSignature">Date <span>*</span>:</label>
           <p-datepicker id="dateOfSignature" formControlName="dateOfSignature" [showIcon]="true" [appendTo]="'body'"
-            [maxDate]="maxDate" [disabled]="true"></p-datepicker>
+            [maxDate]="maxDate" [disabled]="true" autocomplete="off"></p-datepicker>
         </div>
         <div class="sub-grid-item">
           <label for="signature">Signature:</label>
           <input type="text" id="signature" pInputText formControlName="signature" placeholder="Enter signature"
-            [disabled]="true" />
+            [disabled]="true" autocomplete="off"/>
         </div>
       </div>
     </div>

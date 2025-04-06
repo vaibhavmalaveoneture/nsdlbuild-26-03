@@ -1,5 +1,5 @@
 <app-menu [applicationId]="applicationId" (stepChanged)="updateCurrentStep($event)"
-  (onButtonClick)="onButtonClick()" (submitClicked)="handleSubmit()"  (saveClicked)="handleSaveClick()" [completionPercentageNew]="formCompletionPercentage" [fvciForm]="fvciForm" [registartionForm]="registartionForm" [anextureToCafForm]="anextureToCafForm"  [documentUploadForm]="documentUploadForm" [declarationAndUndertakimgForm]="declarationAndUndertakimgForm" [applicationData]="applicationData"></app-menu>
+  (onButtonClick)="onButtonClick()" (submitClicked)="handleSubmit()"  (saveClicked)="handleSaveClick()" [completionPercentageNew]="formCompletionPercentage" [fvciForm]="fvciForm" [registartionForm]="registartionForm" [anextureToCafForm]="anextureToCafForm"  [documentUploadForm]="documentUploadForm" [declarationAndUndertakimgForm]="declarationAndUndertakimgForm" [applicationData]="applicationData" [allDocumentsUploaded]="allDocumentsUploaded"></app-menu>
 <div class="card-wrapper">
   <p-card class="annexure-card">
     <div class="form-header">
@@ -17,7 +17,7 @@
       <app-fvci-form [hidden]="currentStep !== 1" [applicationId]="applicationId"  [formGroup]="fvciForm" [masterData]="masterData" [applicationData]="applicationData" [viewMode]="viewMode"></app-fvci-form>
       <app-registration-form [hidden]="currentStep !== 2" [applicationId]="applicationId"  [formGroup]="registartionForm" [masterData]="masterData" [applicationData]="applicationData" [viewMode]="viewMode"></app-registration-form>
       <app-annexure-form [hidden]="currentStep !== 3" [applicationId]="applicationId" [formGroup]="anextureToCafForm" [masterData]="masterData" [applicationData]="applicationData" [viewMode]="viewMode"></app-annexure-form>
-      <app-documents-upload [hidden]="currentStep !== 4" [applicationId]="applicationId" [formGroup]="documentUploadForm" [fvciForm]="fvciForm" [masterData]="masterData" [applicationData]="applicationData" [viewMode]="viewMode"></app-documents-upload>
+      <app-documents-upload [hidden]="currentStep !== 4" [applicationId]="applicationId" [formGroup]="documentUploadForm" [fvciForm]="fvciForm" [masterData]="masterData" [applicationData]="applicationData" [viewMode]="viewMode" [documents]="documents"></app-documents-upload>
       <app-declaration-undertaking [hidden]="currentStep !== 5"  [applicationId]="applicationId" [declarationForm]="declarationAndUndertakimgForm" [applicationData]="applicationData" [viewMode]="viewMode"></app-declaration-undertaking>
       <app-acknowledgement [hidden]="currentStep !== 6" [applicationId]="applicationId"></app-acknowledgement>
     </p-scrollpanel>

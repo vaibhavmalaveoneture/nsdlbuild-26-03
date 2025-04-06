@@ -11,7 +11,7 @@
         </div>
       </div>
       <input id="name" type="text" pInputText formControlName="name" placeholder="Enter Your Name" maxlength="300"
-        [ngClass]="{'invalid-field': formGroup.get('name')?.invalid && formGroup.get('name')?.touched}" />
+        [ngClass]="{'invalid-field': formGroup.get('name')?.invalid && formGroup.get('name')?.touched}" autocomplete="off"/>
       <div *ngIf="formGroup.get('name')?.invalid && formGroup.get('name')?.touched" class="error-message">
         Please enter a valid name.
       </div>
@@ -28,7 +28,7 @@
         <div formGroupName="applicantOtherName" style="display: flex; gap: 3rem">
           <div class="radio">
             <p-radiobutton [value]="true" inputId="otherNameYes" formControlName="otherNameRadio"
-              [ngClass]="{'invalid-field':formGroup.get('applicantOtherName.otherNameRadio')?.invalid &&formGroup.get('applicantOtherName.otherNameRadio')?.touched }"></p-radiobutton>
+              [ngClass]="{'invalid-field':formGroup.get('applicantOtherName.otherNameRadio')?.invalid &&formGroup.get('applicantOtherName.otherNameRadio')?.touched }" autocomplete="off"></p-radiobutton>
             <label for="otherNameYes" class="radio-label">Yes</label>
           </div>
           <div class="radio">
@@ -47,7 +47,7 @@
       <div formGroupName="applicantOtherName">
         <input *ngIf="formGroup.get('applicantOtherName.otherNameRadio')?.value === true" id="otherNameField"
           type="text" pInputText formControlName="otherNameField" placeholder="Enter Other Name" maxlength="75"
-          [ngClass]="{'invalid-field':formGroup.get('applicantOtherName.otherNameField')?.invalid &&formGroup.get('applicantOtherName.otherNameField')?.touched}" />
+          [ngClass]="{'invalid-field':formGroup.get('applicantOtherName.otherNameField')?.invalid &&formGroup.get('applicantOtherName.otherNameField')?.touched}" autocomplete="off"/>
         <div *ngIf="
             formGroup.get('applicantOtherName.otherNameField')?.invalid &&
             formGroup.get('applicantOtherName.otherNameField')?.touched &&
@@ -81,42 +81,55 @@
         <ng-template pTemplate="body">
           <tr>
             <td>1</td>
-            <td>Date of Incorporation</td>
+            <td>Date of Incorporation/ Establishment/ Formation</td>
             <td>
-              <p-datepicker id="dateOfIncorporation" formControlName="dateOfIncorporation" [showIcon]="true"
-                dateFormat="dd/mm/yy" appendTo="body" [maxDate]="maxDate" [ngClass]="{
-                  'invalid-field':
+              <p-datepicker
+                id="dateOfIncorporation"
+                formControlName="dateOfIncorporation"
+                [showIcon]="true"
+                [showButtonBar]="true"
+                dateFormat="dd/mm/yy"
+                appendTo="body"
+                [maxDate]="maxIncorporationDate"
+                autocomplete="off"
+                placeholder="dd/mm/yyyy"
+                [ngClass]="{
+                  'ng-invalid ng-dirty':
                     formGroup.get('dateOfIncorporation')?.invalid &&
                     formGroup.get('dateOfIncorporation')?.touched
-                }"></p-datepicker>
+                }"
+                (onInput)="onDateKeyPress($event)"
+                variant="filled"
+              ></p-datepicker>
+
               <div *ngIf="
                   formGroup.get('dateOfIncorporation')?.invalid &&
                   formGroup.get('dateOfIncorporation')?.touched
                 " class="error-message">
-                Date of Incorporation is required.
+                Date of Incorporation/ Establishment/ Formation is required.
               </div>
             </td>
           </tr>
 
           <tr>
             <td>2</td>
-            <td>Date of Commencement</td>
+            <td>Date of Commencement of Business</td>
             <td>
               <p-datepicker id="dateOfCommencement" formControlName="dateOfCommencement" [showIcon]="true"
                 dateFormat="dd/mm/yy" appendTo="body" [minDate]="minCommencementDate" [maxDate]="maxDate" [ngClass]="{
-                  'invalid-field':
+                  'ng-invalid ng-dirty':
                     formGroup.get('dateOfCommencement')?.invalid &&
                     formGroup.get('dateOfCommencement')?.touched
-                }"></p-datepicker>
+                }" autocomplete="off" variant="filled" placeholder="dd/mm/yyyy"></p-datepicker>
               <div *ngIf="
                   formGroup.get('dateOfCommencement')?.touched &&
                   (formGroup.get('dateOfCommencement')?.invalid || formGroup.hasError('commencementAfterIncorporation'))
                 " class="error-message">
                 <ng-container *ngIf="formGroup.hasError('commencementAfterIncorporation')">
-                  Commencement date cannot be after incorporation date.
+                  Please select Date of Commencement of Business more than or equal to Date of Incorporation / Establishment / Formation.
                 </ng-container>
                 <ng-container *ngIf="formGroup.get('dateOfCommencement')?.hasError('required')">
-                  Date of Commencement is required.
+                  Date of Commencement of Business is required.
                 </ng-container>
               </div>
             </td>
@@ -157,7 +170,7 @@
                   'invalid-field':
                     formGroup.get('placeOfIncorporation')?.invalid &&
                     formGroup.get('placeOfIncorporation')?.touched
-                }" />
+                }" autocomplete="off"/>
               <div *ngIf="
                   formGroup.get('placeOfIncorporation')?.invalid &&
                   formGroup.get('placeOfIncorporation')?.touched
@@ -178,7 +191,7 @@
                   'invalid-field':
                     formGroup.get('countryOfIncorporation')?.invalid &&
                     formGroup.get('countryOfIncorporation')?.touched
-                }"></p-select>
+                }" autocomplete="off"></p-select>
               <div *ngIf="
                   formGroup.get('countryOfIncorporation')?.invalid &&
                   formGroup.get('countryOfIncorporation')?.touched
@@ -191,7 +204,7 @@
           <!-- Row 3: Country Code (Disabled) -->
           <tr>
             <td>3</td>
-            <td>Country Code <span>*</span></td>
+            <td>ISD Country Code <span>*</span></td>
             <td>
               <p-select id="countryCodeOfIncorporation" formControlName="countryCodeOfIncorporation"
                 placeholder="Select code" [options]="countryCodes" optionLabel="code" [filter]="true"
@@ -199,12 +212,12 @@
                   'invalid-field':
                     formGroup.get('countryCodeOfIncorporation')?.invalid &&
                     formGroup.get('countryCodeOfIncorporation')?.touched
-                }"></p-select>
+                }" autocomplete="off"></p-select>
               <div *ngIf="
                   formGroup.get('countryCodeOfIncorporation')?.invalid &&
                   formGroup.get('countryCodeOfIncorporation')?.touched
                 " class="error-message">
-                Country code is required.
+                ISD Country code is required.
               </div>
             </td>
           </tr>
@@ -221,7 +234,7 @@
           <i class="pi pi-info-circle" style="font-size: 14px; color: #748297"></i>
         </div>
       </div>
-      <input id="legalForm" type="text" formControlName="legalForm" pInputText />
+      <input id="legalForm" type="text" formControlName="legalForm" pInputText autocomplete="off"/>
     </div>
 
     <div class="input-group">
@@ -231,12 +244,12 @@
           <i class="pi pi-info-circle" style="font-size: 14px; color: #748297"></i>
         </div>
       </div>
-      <label for="registeredOffice" scope="col" class="sub-labels">a) Registered Address of the Applicant
+      <label for="registeredOffice" scope="col" class="sub-labels">a) Legal Entity Identifier(LEI),if applicable
         <span>*</span></label>
       <input id="lei" type="text" pInputText formControlName="lei" maxlength="20" minlength="20" [ngClass]="{
           'invalid-field':
             formGroup.get('lei')?.invalid && formGroup.get('lei')?.touched
-        }" (keypress)="alphaNumeric($event)"/>
+        }" (keypress)="alphaNumeric($event)" autocomplete="off"/>
       <div *ngIf="formGroup.get('lei')?.invalid && formGroup.get('lei')?.touched" class="error-message">
         Please enter valid Legal Entity Identifier. It should be 20 charcter
         alphanumeric code.
@@ -264,7 +277,7 @@
                   'invalid-field':
                     rowForm.get('trcNo')?.invalid &&
                     rowForm.get('trcNo')?.touched
-                }" />
+                }" autocomplete="off"/>
               <div *ngIf="rowForm.get('trcNo')?.invalid && rowForm.get('trcNo')?.touched" class="error-message">
                 TRC No. is required.
               </div>
@@ -277,7 +290,7 @@
                   'invalid-field':
                     rowForm.hasError('countryRequired') &&
                     rowForm.get('country')?.touched
-                }"></p-select>
+                }" autocomplete="off"></p-select>
               <div *ngIf="rowForm.get('country')?.invalid && rowForm.get('country')?.touched" class="error-message">
                 Country is required.
               </div>
@@ -331,7 +344,7 @@
               formGroup.get('registeredOffice')?.errors?.['atLeastTwoFieldsRequired'] &&
               formGroup.get('registeredOffice.registeredFlatNum')?.value === '' &&
               formGroup.get('registeredOffice')?.touched
-            }" />
+            }" autocomplete="off"/>
           <div
             *ngIf="formGroup.get('registeredOffice')?.errors?.['atLeastTwoFieldsRequired'] && formGroup.get('registeredOffice')?.touched"
             class="error-message">
@@ -347,7 +360,7 @@
               formGroup.get('registeredOffice')?.errors?.['atLeastTwoFieldsRequired'] &&
               formGroup.get('registeredOffice.registeredBuildingName')?.value === '' &&
               formGroup.get('registeredOffice')?.touched
-            }" />
+            }" autocomplete="off"/>
           <div
             *ngIf="formGroup.get('registeredOffice')?.errors?.['atLeastTwoFieldsRequired'] && formGroup.get('registeredOffice')?.touched"
             class="error-message">
@@ -363,7 +376,7 @@
               formGroup.get('registeredOffice')?.errors?.['atLeastTwoFieldsRequired'] &&
               formGroup.get('registeredOffice.registeredRoadName')?.value === '' &&
               formGroup.get('registeredOffice')?.touched
-            }" />
+            }" autocomplete="off"/>
           <div
             *ngIf="formGroup.get('registeredOffice')?.errors?.['atLeastTwoFieldsRequired'] && formGroup.get('registeredOffice')?.touched"
             class="error-message">
@@ -382,7 +395,7 @@
               formGroup.get('registeredOffice')?.errors?.['atLeastTwoFieldsRequired'] &&
               formGroup.get('registeredOffice.registeredAreaName')?.value === '' &&
               formGroup.get('registeredOffice')?.touched
-            }" />
+            }" autocomplete="off"/>
           <div
             *ngIf="formGroup.get('registeredOffice')?.errors?.['atLeastTwoFieldsRequired'] && formGroup.get('registeredOffice')?.touched"
             class="error-message">
@@ -397,7 +410,7 @@
               'invalid-field':
                 formGroup.get('registeredOffice.registeredTownName')?.invalid &&
                 formGroup.get('registeredOffice.registeredTownName')?.touched
-            }" />
+            }" autocomplete="off"/>
           <div *ngIf="
               formGroup.get('registeredOffice.registeredTownName')?.invalid &&
               formGroup.get('registeredOffice.registeredTownName')?.touched
@@ -406,19 +419,19 @@
           </div>
         </div>
         <div class="input-item">
-          <label for="registeredStateName">State</label>
+          <label for="registeredStateName">State/Union Territory</label>
           <input id="registeredStateName" type="text" pInputText formControlName="registeredStateName"
             placeholder="Enter State" [ngClass]="{
               'invalid-field':
                 formGroup.get('registeredOffice.registeredStateName')
                   ?.invalid &&
                 formGroup.get('registeredOffice.registeredStateName')?.touched
-            }" />
+            }" autocomplete="off"/>
           <div *ngIf="
               formGroup.get('registeredOffice.registeredStateName')?.invalid &&
               formGroup.get('registeredOffice.registeredStateName')?.touched
             " class="error-message">
-            State is required.
+            State/Union Territory is required.
           </div>
         </div>
       </div>
@@ -433,7 +446,7 @@
                 formGroup.get('registeredOffice.registeredCountryName')
                   ?.invalid &&
                 formGroup.get('registeredOffice.registeredCountryName')?.touched
-            }"></p-select>
+            }" autocomplete="off"></p-select>
           <div *ngIf="
               formGroup.get('registeredOffice.registeredCountryName')
                 ?.invalid &&
@@ -449,7 +462,7 @@
               'invalid-field':
                 formGroup.get('registeredOffice.registeredZipName')?.invalid &&
                 formGroup.get('registeredOffice.registeredZipName')?.touched
-            }" />
+            }" autocomplete="off"/>
           <div *ngIf="
               formGroup.get('registeredOffice.registeredZipName')?.invalid &&
               formGroup.get('registeredOffice.registeredZipName')?.touched
@@ -459,7 +472,7 @@
         </div>
         <div class="not-applicable">
           <p-check-box [value]="true" binary="true" inputId="notApplicableResidence"
-            formControlName="notApplicableResidence"></p-check-box>
+            formControlName="notApplicableResidence" autocomplete="off"></p-check-box>
           <label for="notApplicableResidence" class="sub-labels">Not applicable?</label>
         </div>
       </div>
@@ -471,7 +484,7 @@
             <i class="pi pi-info-circle" style="font-size: 14px; color: #748297"></i>
           </div>
         </div>
-        <p-checkbox formControlName="sameAsAbove" inputId="sameAsAbove" [binary]="true"></p-checkbox>
+        <p-checkbox formControlName="sameAsAbove" inputId="sameAsAbove" [binary]="true" autocomplete="off"></p-checkbox>
         <label for="sameAsAbove" class="ml-2">Same as residence address</label>
       </div>
 
@@ -484,7 +497,7 @@
               formGroup.get('foreignOffice')?.errors?.['atLeastTwoFieldsRequiredF'] &&
               formGroup.get('foreignOffice.foreignFlatNum')?.value === '' &&
               formGroup.get('foreignOffice')?.touched
-            }" [readonly]="formGroup.get('sameAsAbove')?.value" />
+            }" [readonly]="formGroup.get('sameAsAbove')?.value" autocomplete="off"/>
 
           <div
             *ngIf="formGroup.get('foreignOffice')?.errors?.['atLeastTwoFieldsRequiredF'] && formGroup.get('foreignOffice')?.touched"
@@ -501,7 +514,7 @@
               formGroup.get('foreignOffice')?.errors?.['atLeastTwoFieldsRequiredF'] &&
               formGroup.get('foreignOffice.foreignBuildingName')?.value === '' &&
               formGroup.get('foreignOffice')?.touched
-            }" [readonly]="formGroup.get('sameAsAbove')?.value" />
+            }" [readonly]="formGroup.get('sameAsAbove')?.value" autocomplete="off"/>
           <div
             *ngIf="formGroup.get('foreignOffice')?.errors?.['atLeastTwoFieldsRequiredF'] && formGroup.get('foreignOffice')?.touched"
             class="error-message">
@@ -517,7 +530,7 @@
               formGroup.get('foreignOffice')?.errors?.['atLeastTwoFieldsRequiredF'] &&
               formGroup.get('foreignOffice.foreignRoadName')?.value === '' &&
               formGroup.get('foreignOffice')?.touched
-            }" [readonly]="formGroup.get('sameAsAbove')?.value" />
+            }" [readonly]="formGroup.get('sameAsAbove')?.value" autocomplete="off"/>
           <div
             *ngIf="formGroup.get('foreignOffice')?.errors?.['atLeastTwoFieldsRequiredF'] && formGroup.get('foreignOffice')?.touched"
             class="error-message">
@@ -536,7 +549,7 @@
               formGroup.get('foreignOffice')?.errors?.['atLeastTwoFieldsRequiredF'] &&
               formGroup.get('foreignOffice.foreignAreaName')?.value === '' &&
               formGroup.get('foreignOffice')?.touched
-            }" [readonly]="formGroup.get('sameAsAbove')?.value" />
+            }" [readonly]="formGroup.get('sameAsAbove')?.value" autocomplete="off"/>
           <div
             *ngIf="formGroup.get('foreignOffice')?.errors?.['atLeastTwoFieldsRequiredF'] && formGroup.get('foreignOffice')?.touched"
             class="error-message">
@@ -551,7 +564,7 @@
               'invalid-field':
                 formGroup.get('foreignOffice.foreignTownName')?.invalid &&
                 formGroup.get('foreignOffice.foreignTownName')?.touched
-            }" [readonly]="formGroup.get('sameAsAbove')?.value" />
+            }" [readonly]="formGroup.get('sameAsAbove')?.value" autocomplete="off"/>
           <div *ngIf="
               formGroup.get('foreignOffice.foreignTownName')?.invalid &&
               formGroup.get('foreignOffice.foreignTownName')?.touched
@@ -560,19 +573,19 @@
           </div>
         </div>
         <div class="input-item">
-          <label for="foreignStateName">State </label>
+          <label for="foreignStateName">State/Union Territory </label>
           <input id="foreignStateName" type="text" pInputText formControlName="foreignStateName"
             placeholder="Enter State" [ngClass]="{
               'invalid-field':
                 formGroup.get('foreignOffice.foreignStateName')?.invalid &&
                 formGroup.get('foreignOffice.foreignStateName')?.touched
             }" [readonly]="formGroup.get('sameAsAbove')?.value"
-            [ngClass]="{ 'readonly-style': formGroup.get('sameAsAbove')?.value }" />
+            [ngClass]="{ 'readonly-style': formGroup.get('sameAsAbove')?.value }" autocomplete="off"/>
           <div *ngIf="
               formGroup.get('foreignOffice.foreignStateName')?.invalid &&
               formGroup.get('foreignOffice.foreignStateName')?.touched
             " class="error-message">
-            Zip code is required.
+            State/Union Territory is required.
           </div>
         </div>
       </div>
@@ -587,7 +600,7 @@
                 formGroup.get('foreignOffice.foreignCountryName')?.invalid &&
                 formGroup.get('foreignOffice.foreignCountryName')?.touched
             }" [readonly]="formGroup.get('sameAsAbove')?.value"
-            [ngClass]="{ 'readonly-style': formGroup.get('sameAsAbove')?.value }"></p-select>
+            [ngClass]="{ 'readonly-style': formGroup.get('sameAsAbove')?.value }" autocomplete="off"></p-select>
           <div *ngIf="
               formGroup.get('foreignOffice.foreignCountryName')?.invalid &&
               formGroup.get('foreignOffice.foreignCountryName')?.touched
@@ -604,7 +617,7 @@
                 formGroup.get('foreignOffice.foreignZipName')?.touched
             }" [readonly]="formGroup.get('sameAsAbove')?.value &&
             formGroup.get('foreignOffice.notApplicableForeignOffice')?.value"
-            [ngClass]="{ 'readonly-style': formGroup.get('sameAsAbove')?.value }" />
+            [ngClass]="{ 'readonly-style': formGroup.get('sameAsAbove')?.value }" autocomplete="off"/>
           <div *ngIf="
               formGroup.get('foreignOffice.foreignZipName')?.invalid &&
               formGroup.get('foreignOffice.foreignZipName')?.touched
@@ -615,7 +628,7 @@
         <div class="not-applicable">
           <p-check-box [value]="true" binary="true" inputId="notApplicableForeignOffice"
             formControlName="notApplicableForeignOffice" [readonly]="formGroup.get('sameAsAbove')?.value"
-            [ngClass]="{ 'readonly-style': formGroup.get('sameAsAbove')?.value }"></p-check-box>
+            [ngClass]="{ 'readonly-style': formGroup.get('sameAsAbove')?.value }" autocomplete="off"></p-check-box>
           <label for="notApplicableForeignOffice" class="sub-labels">Not applicable?</label>
         </div>
       </div>
@@ -631,12 +644,12 @@
           <div formGroupName="OfficeInIndia" style="display: flex; gap: 2rem">
             <div style="display: flex; align-items: center">
               <p-radioButton [value]="true" formControlName="OfficeInIndiaRadio"
-                inputId="officeInIndiaYes"></p-radioButton>
+                inputId="officeInIndiaYes" autocomplete="off"></p-radioButton>
               <label for="officeInIndiaYes" class="sub-labels" style="margin-left: 1rem">Yes</label>
             </div>
             <div style="display: flex; align-items: center">
               <p-radioButton [value]="false" formControlName="OfficeInIndiaRadio"
-                inputId="officeInIndiaNo"></p-radioButton>
+                inputId="officeInIndiaNo" autocomplete="off"></p-radioButton>
               <label for="officeInIndiaNo" class="sub-labels" style="margin-left: 1rem">No</label>
             </div>
           </div>
@@ -664,7 +677,7 @@
                 formGroup.get('OfficeInIndia')?.errors?.['atLeastTwoFieldsRequiredI'] &&
                 formGroup.get('OfficeInIndia.indianFlatNum')?.value === '' &&
                 formGroup.get('OfficeInIndia')?.touched
-              }" />
+              }" autocomplete="off"/>
             <div
               *ngIf="formGroup.get('OfficeInIndia')?.errors?.['atLeastTwoFieldsRequiredI'] && formGroup.get('OfficeInIndia')?.touched"
               class="error-message">
@@ -680,7 +693,7 @@
                 formGroup.get('OfficeInIndia')?.errors?.['atLeastTwoFieldsRequiredI'] &&
                 formGroup.get('OfficeInIndia.indianBuildingName')?.value === '' &&
                 formGroup.get('OfficeInIndia')?.touched
-              }" />
+              }" autocomplete="off"/>
             <div
               *ngIf="formGroup.get('OfficeInIndia')?.errors?.['atLeastTwoFieldsRequiredI'] && formGroup.get('OfficeInIndia')?.touched"
               class="error-message">
@@ -696,7 +709,7 @@
                 formGroup.get('OfficeInIndia')?.errors?.['atLeastTwoFieldsRequiredI'] &&
                 formGroup.get('OfficeInIndia.indianRoadName')?.value === '' &&
                 formGroup.get('OfficeInIndia')?.touched
-              }" />
+              }" autocomplete="off"/>
             <div
               *ngIf="formGroup.get('OfficeInIndia')?.errors?.['atLeastTwoFieldsRequiredI'] && formGroup.get('OfficeInIndia')?.touched"
               class="error-message">
@@ -715,7 +728,7 @@
                 formGroup.get('OfficeInIndia')?.errors?.['atLeastTwoFieldsRequiredI'] &&
                 formGroup.get('OfficeInIndia.indianAreaName')?.value === '' &&
                 formGroup.get('OfficeInIndia')?.touched
-              }" />
+              }" autocomplete="off"/>
             <div
               *ngIf="formGroup.get('OfficeInIndia')?.errors?.['atLeastTwoFieldsRequiredI'] && formGroup.get('OfficeInIndia')?.touched"
               class="error-message">
@@ -730,7 +743,7 @@
                 'invalid-field':
                   formGroup.get('OfficeInIndia.indianTownName')?.invalid &&
                   formGroup.get('OfficeInIndia.indianTownName')?.touched
-              }" />
+              }" autocomplete="off"/>
             <div *ngIf="
                 formGroup.get('OfficeInIndia.indianTownName')?.invalid &&
                 formGroup.get('OfficeInIndia.indianTownName')?.touched
@@ -739,18 +752,18 @@
             </div>
           </div>
           <div class="input-item">
-            <label for="indianStateName">State <span>*</span></label>
+            <label for="indianStateName">State/Union Territory <span>*</span></label>
             <input id="indianStateName" type="text" pInputText formControlName="indianStateName"
               placeholder="Enter State" [ngClass]="{
                 'invalid-field':
                   formGroup.get('OfficeInIndia.indianStateName')?.invalid &&
                   formGroup.get('OfficeInIndia.indianStateName')?.touched
-              }" />
+              }" autocomplete="off"/>
             <div *ngIf="
                 formGroup.get('OfficeInIndia.indianStateName')?.invalid &&
                 formGroup.get('OfficeInIndia.indianStateName')?.touched
               " class="error-message">
-              Please enter state name for india address.
+              State/Union Territory is required.
             </div>
           </div>
         </div>
@@ -764,7 +777,7 @@
                 'invalid-field':
                   formGroup.get('OfficeInIndia.indianCountryName')?.invalid &&
                   formGroup.get('OfficeInIndia.indianCountryName')?.touched
-              }"></p-select>
+              }" autocomplete="off"></p-select>
             <div *ngIf="
                 formGroup.get('OfficeInIndia.indianCountryName')?.invalid &&
                 formGroup.get('OfficeInIndia.indianCountryName')?.touched
@@ -773,7 +786,7 @@
             </div>
           </div>
           <div class="input-item">
-            <label for="indianZipName">Pan Code <span>*</span></label>
+            <label for="indianZipName">Pin Code <span>*</span></label>
             <input id="indianZipName" type="text" pInputText formControlName="indianZipName"
               placeholder="Enter Pan Code" [disabled]="
                 formGroup.get('OfficeInIndia.notApplicableIndOffice')?.value
@@ -781,17 +794,17 @@
                 'invalid-field':
                   formGroup.get('OfficeInIndia.indianZipName')?.invalid &&
                   formGroup.get('OfficeInIndia.indianZipName')?.touched
-              }" maxlength="6" (keypress)="allowNumberOnly($event)"/>
+              }" maxlength="6" (keypress)="allowNumberOnly($event)" autocomplete="off"/>
             <div *ngIf="
                 formGroup.get('OfficeInIndia.indianZipName')?.invalid &&
                 formGroup.get('OfficeInIndia.indianZipName')?.touched
               " class="error-message">
-              Zip code is required.
+              Pin Code is required.
             </div>
           </div>
           <div class="not-applicable">
             <p-check-box [value]="true" binary="true" inputId="notApplicableIndOffice"
-              formControlName="notApplicableIndOffice"></p-check-box>
+              formControlName="notApplicableIndOffice" autocomplete="off"></p-check-box>
             <label for="notApplicableIndOffice" class="sub-labels">Not applicable?</label>
           </div>
         </div>
@@ -819,13 +832,13 @@
         <div style="display: flex; gap: 3rem; align-items: center">
           <div class="radio">
             <p-radioButton value="registered" formControlName="communicationAddress"
-              inputId="registeredAddress"></p-radioButton>
+              inputId="registeredAddress" autocomplete="off"></p-radioButton>
             <label for="registeredAddress" class="sub-labels">Registered
             </label>
           </div>
           <div class="radio">
             <p-radioButton value="foreign" formControlName="communicationAddress"
-              inputId="foreignAddress"></p-radioButton>
+              inputId="foreignAddress" autocomplete="off"></p-radioButton>
             <label for="foreignAddress" class="sub-labels">Office Address (Foreign)</label>
           </div>
           <div class="radio" *ngIf="
@@ -886,7 +899,7 @@
                   'invalid-field':
                     formGroup.get('contactDetails.registered.countryCode')?.invalid &&
                     formGroup.get('contactDetails.registered.countryCode')?.touched
-                }">
+                }" autocomplete="off">
                 <ng-template let-country pTemplate="item">
                   {{ country.code }} - ({{ country.name }})
                 </ng-template>
@@ -906,7 +919,7 @@
                   'invalid-field':
                     formGroup.get('contactDetails.registered.areaCode')?.invalid &&
                     formGroup.get('contactDetails.registered.areaCode')?.touched
-                }" />
+                }" autocomplete="off"/>
               <!-- <div *ngIf="
                   formGroup.get('contactDetails.registered.areaCode')
                     ?.invalid &&
@@ -922,7 +935,7 @@
                   'invalid-field':
                     formGroup.get('contactDetails.registered.number')?.invalid &&
                     formGroup.get('contactDetails.registered.number')?.touched
-                }" (keypress)="allowNumberOnly($event)"/>
+                }" (keypress)="allowNumberOnly($event)" autocomplete="off"/>
               <!-- <div *ngIf="
                   formGroup.get('contactDetails.registered.number')?.invalid &&
                   formGroup.get('contactDetails.registered.number')?.touched
@@ -942,7 +955,7 @@
                   'invalid-field':
                     formGroup.get('contactDetails.office.countryCode')?.invalid &&
                     formGroup.get('contactDetails.office.countryCode')?.touched
-                }">
+                }" autocomplete="off">
                 <ng-template let-country pTemplate="item">
                   {{ country.code }} - ({{ country.name }})
                 </ng-template>
@@ -957,7 +970,7 @@
                   'invalid-field':
                     formGroup.get('contactDetails.office.areaCode')?.invalid &&
                     formGroup.get('contactDetails.office.areaCode')?.touched
-                }" />
+                }" autocomplete="off"/>
             </td>
             <td formGroupName="office">
               <input id="officeNumber" type="text" pInputText placeholder="Enter Number" formControlName="number"
@@ -965,7 +978,7 @@
                   'invalid-field':
                     formGroup.get('contactDetails.office.number')?.invalid &&
                     formGroup.get('contactDetails.office.number')?.touched
-                }" (keypress)="allowNumberOnly($event)"/>
+                }" (keypress)="allowNumberOnly($event)" autocomplete="off"/>
             </td>
           </tr>
 
@@ -981,7 +994,7 @@
                   'invalid-field':
                     formGroup.get('contactDetails.indianOffice.countryCode')?.invalid &&
                     formGroup.get('contactDetails.indianOffice.countryCode')?.touched
-                }">
+                }" autocomplete="off">
               <ng-template let-country pTemplate="item">
                 {{ country.code }} - ({{ country.name }})
               </ng-template>
@@ -996,7 +1009,7 @@
                   'invalid-field':
                     formGroup.get('contactDetails.indianOffice.areaCode')?.invalid &&
                     formGroup.get('contactDetails.indianOffice.areaCode')?.touched
-                }" />
+                }" autocomplete="off"/>
             </td>
             <td formGroupName="indianOffice">
               <input id="indianNumber" type="text" pInputText placeholder="Enter Number" formControlName="number"
@@ -1004,7 +1017,7 @@
                   'invalid-field':
                     formGroup.get('contactDetails.indianOffice.number')?.invalid &&
                     formGroup.get('contactDetails.indianOffice.number')?.touched
-                }" (keypress)="allowNumberOnly($event)"/>
+                }" (keypress)="allowNumberOnly($event)" autocomplete="off"/>
             </td>
           </tr>
 
@@ -1031,7 +1044,7 @@
             <td formGroupName="registeredFax">
               <p-select id="registeredFaxCountryCode" formControlName="countryCode" placeholder="Enter Country Code"
                 [options]="countries_pan"  [filterBy]="'code'" class="full-width" [filter]="true"
-                [showClear]="true" appendTo="body">
+                [showClear]="true" appendTo="body" autocomplete="off">
                 <ng-template let-country pTemplate="item">
                   {{ country.code }} - ({{ country.name }})
                 </ng-template>
@@ -1042,11 +1055,11 @@
             </td>
             <td formGroupName="registeredFax">
               <input id="registeredFaxAreaCode" type="text" pInputText placeholder="Enter Area Code"
-                formControlName="areaCode" maxlength="5" />
+                formControlName="areaCode" maxlength="5" autocomplete="off"/>
             </td>
             <td formGroupName="registeredFax">
               <input id="registeredFaxNumber" type="text" pInputText placeholder="Enter Number" formControlName="number"
-                maxlength="15" (keypress)="allowNumberOnly($event)"/>
+                maxlength="15" (keypress)="allowNumberOnly($event)" autocomplete="off"/>
             </td>
           </tr>
 
@@ -1067,11 +1080,11 @@
             </td>
             <td formGroupName="officeFax">
               <input id="officeFaxAreaCode" type="text" pInputText placeholder="Enter Area Code"
-                formControlName="areaCode" maxlength="5" />
+                formControlName="areaCode" maxlength="5" autocomplete="off"/>
             </td>
             <td formGroupName="officeFax">
               <input id="officeFaxNumber" type="text" pInputText placeholder="Enter Number" formControlName="number"
-                maxlength="15" (keypress)="allowNumberOnly($event)"/>
+                maxlength="15" (keypress)="allowNumberOnly($event)" autocomplete="off"/>
             </td>
           </tr>
 
@@ -1083,7 +1096,7 @@
             <td formGroupName="indianOfficeFax">
               <p-select id="indianFaxCountryCode" formControlName="countryCode" placeholder="Enter Country Code"
                 [options]="countries_pan" optionLabel="code" [filterBy]="'code'" class="full-width" [filter]="true"
-                [showClear]="true" appendTo="body">
+                [showClear]="true" appendTo="body" autocomplete="off">
                 <ng-template let-country pTemplate="item">
                   {{ country.code }} - ({{ country.name }})
                 </ng-template>
@@ -1094,11 +1107,11 @@
             </td>
             <td formGroupName="indianOfficeFax">
               <input id="indianFaxAreaCode" type="text" pInputText placeholder="Enter Area Code"
-                formControlName="areaCode" maxlength="5" />
+                formControlName="areaCode" maxlength="5" autocomplete="off"/>
             </td>
             <td formGroupName="indianOfficeFax">
               <input id="indianFaxNumber" type="text" pInputText placeholder="Enter Number" formControlName="number"
-                maxlength="15" (keypress)="allowNumberOnly($event)"/>
+                maxlength="15" (keypress)="allowNumberOnly($event)" autocomplete="off"/>
             </td>
           </tr>
 
@@ -1111,7 +1124,7 @@
                 formControlName="mobileNumber" class="full-width" maxlength="15" [ngClass]="{
                   'invalid-field':
                     formGroup.get('contactDetails.mobileNumber')?.invalid && formGroup.get('contactDetails.mobileNumber')?.touched
-                }" (keypress)="allowNumberOnly($event)"/>
+                }" (keypress)="allowNumberOnly($event)" autocomplete="off"/>
               <div *ngIf="
                   formGroup.get('contactDetails.mobileNumber')
                     ?.invalid &&
@@ -1132,7 +1145,7 @@
                 class="full-width" [ngClass]="{
                   'invalid-field':
                     formGroup.get('contactDetails.emailId')?.invalid && formGroup.get('contactDetails.emailId')?.touched
-                }" />
+                }" autocomplete="off"/>
               <div *ngIf="
                   formGroup.get('contactDetails.emailId')
                     ?.invalid &&
@@ -1153,7 +1166,7 @@
                 class="full-width" [ngClass]="{
                   'invalid-field':
                     formGroup.get('contactDetails.website')?.invalid && formGroup.get('contactDetails.website')?.touched
-                }" />
+                }" autocomplete="off"/>
               <div *ngIf="
                   formGroup.get('contactDetails.website')
                     ?.invalid &&
@@ -1185,7 +1198,7 @@
             placeholder="Enter Name" [ngClass]="{
               'invalid-field':
                 formGroup.get('investmentManager.nameOfEntity')?.invalid && formGroup.get('investmentManager.nameOfEntity')?.touched
-            }" />
+            }" autocomplete="off"/>
           <div *ngIf="
               formGroup.get('investmentManager.nameOfEntity')?.invalid &&
               formGroup.get('investmentManager.nameOfEntity')?.touched
@@ -1199,7 +1212,7 @@
             placeholder="Enter type Of Entity" [ngClass]="{
               'invalid-field':
                 formGroup.get('investmentManager.typeOfEntity')?.invalid && formGroup.get('investmentManager.typeOfEntity')?.touched
-            }" />
+            }" autocomplete="off"/>
           <div *ngIf="
               formGroup.get('investmentManager.typeOfEntity')?.invalid &&
               formGroup.get('investmentManager.typeOfEntity')?.touched
@@ -1225,7 +1238,7 @@
             <div *ngIf="
                 formGroup.get('investmentManager.country')?.invalid &&
                 formGroup.get('investmentManager.country')?.touched
-              " class="error">
+              " class="error" autocomplete="off">
               This field is required.
             </div>
           </div>
@@ -1235,7 +1248,7 @@
               [ngClass]="{
                       'invalid-field':
                         formGroup.get('inverstmentManager.telephoneNumber')?.invalid && formGroup.get('inverstmentManager.telephoneNumber')?.touched
-                    }" (keypress)="allowNumberOnly($event)"/>
+                    }" (keypress)="allowNumberOnly($event)" autocomplete="off"/>
   
             <div *ngIf="
                       formGroup.get('inverstmentManager.telephoneNumber')?.invalid &&
@@ -1254,7 +1267,7 @@
             placeholder="Enter Fax Number" [ngClass]="{
                   'invalid-field':
                     formGroup.get('investmentManager.faxNumber')?.invalid && formGroup.get('investmentManager.faxNumber')?.touched
-                }" (keypress)="allowNumberOnly($event)"/>
+                }" (keypress)="allowNumberOnly($event)" autocomplete="off"/>
           <div *ngIf="
                   formGroup.get('investmentManager.faxNumber')?.invalid &&
                   formGroup.get('investmentManager.faxNumber')?.touched
@@ -1268,7 +1281,7 @@
             [ngClass]="{
                     'invalid-field':
                       formGroup.get('inverstmentManager.emailId')?.invalid && formGroup.get('inverstmentManager.emailId')?.touched
-                  }" />
+                  }" autocomplete="off"/>
 
           <div *ngIf="
                     formGroup.get('inverstmentManager.emailId')?.invalid &&
@@ -1304,7 +1317,7 @@
         placeholder="Enter Name" [ngClass]="{
               'invalid-field':
                 formGroup.get('complianceOfficerInfo.complianceOfficerInfoName')?.invalid && formGroup.get('complianceOfficerInfo.complianceOfficerInfoName')?.touched
-            }" />
+            }" autocomplete="off"/>
       <div *ngIf="
               formGroup.get('complianceOfficerInfo.complianceOfficerInfoName')?.invalid &&
               formGroup.get('complianceOfficerInfo.complianceOfficerInfoName')?.touched
@@ -1318,7 +1331,7 @@
         placeholder="Enter Job Title" [ngClass]="{
               'invalid-field':
                 formGroup.get('complianceOfficerInfo.complianceOfficerInfoJob')?.invalid && formGroup.get('complianceOfficerInfo.complianceOfficerInfoJob')?.touched
-            }" />
+            }" autocomplete="off"/>
       <div *ngIf="
               formGroup.get('complianceOfficerInfo.complianceOfficerInfoJob')?.invalid &&
               formGroup.get('complianceOfficerInfo.complianceOfficerInfoJob')?.touched
@@ -1338,7 +1351,7 @@
           placeholder="Enter Telephone Number" formControlName="complianceOfficerInfoMobile" [ngClass]="{
                 'invalid-field':
                   formGroup.get('complianceOfficerInfo.complianceOfficerInfoMobile')?.invalid && formGroup.get('complianceOfficerInfo.complianceOfficerInfoMobile')?.touched
-              }" (keypress)="allowNumberOnly($event)"/>
+              }" (keypress)="allowNumberOnly($event)" autocomplete="off"/>
         <div *ngIf="
                 formGroup.get('complianceOfficerInfo.complianceOfficerInfoMobile')?.invalid &&
                 formGroup.get('complianceOfficerInfo.complianceOfficerInfoMobile')?.touched
@@ -1352,7 +1365,7 @@
           placeholder="Enter Fax Number" [ngClass]="{
                 'invalid-field':
                   formGroup.get('complianceOfficerInfo.complianceOfficerInfoFax')?.invalid && formGroup.get('complianceOfficerInfo.complianceOfficerInfoFax')?.touched
-              }" (keypress)="allowNumberOnly($event)"/>
+              }" (keypress)="allowNumberOnly($event)" autocomplete="off"/>
         <div *ngIf="
                 formGroup.get('complianceOfficerInfo.complianceOfficerInfoFax')?.invalid &&
                 formGroup.get('complianceOfficerInfo.complianceOfficerInfoFax')?.touched
@@ -1368,7 +1381,7 @@
           placeholder="Enter Email" [ngClass]="{
                 'invalid-field':
                   formGroup.get('complianceOfficerInfo.complianceOfficerInfoEmail')?.invalid && formGroup.get('complianceOfficerInfo.complianceOfficerInfoEmail')?.touched
-              }" />
+              }" autocomplete="off"/>
 
         <div *ngIf="
                 formGroup.get('complianceOfficerInfo.complianceOfficerInfoEmail')?.invalid &&
@@ -1401,7 +1414,7 @@
                 'invalid-field':
                   formGroup.get('ultimateBeneficialOwner')?.invalid &&
                   formGroup.get('ultimateBeneficialOwner')?.touched
-              }"></p-radioButton>
+              }" autocomplete="off"></p-radioButton>
         <label for="ultimateBeneficialOwnerNo" class="sub-labels" style="margin-left: 1rem">
           We declare that there is no natural person/individual who are
           ultimately holding >=
@@ -1420,7 +1433,7 @@
                     formGroup.get('ultimateBeneficialOwnerHolding')?.invalid &&
                     formGroup.get('ultimateBeneficialOwnerHolding')?.touched
                 }"
-                (input)="sanitizePercentageInput($event)"/>% beneficial ownership directly/indirectly into the equity as
+                (input)="sanitizePercentageInput($event)" autocomplete="off"/>% beneficial ownership directly/indirectly into the equity as
           well as on controlling basis for companies, Trust & General
           Partner / Limited Partnership structure. We therefore provide
           details of the senior managing official of the FVCI as under. The
@@ -1435,7 +1448,7 @@
                 'invalid-field':
                   formGroup.get('ultimateBeneficialOwner')?.invalid &&
                   formGroup.get('ultimateBeneficialOwner')?.touched
-              }"></p-radioButton>
+              }" autocomplete="off"></p-radioButton>
         <label for="ultimateBeneficialOwnerYes" class="sub-labels" style="margin-left: 1rem">
           The list of beneficial owners as per materiality threshold is for controlling ownership intrest and / or on
           control basis is provided as under.
@@ -1483,7 +1496,7 @@
                               'invalid-field':
                               rowForm.get('details')?.get('nameAndAddress')?.invalid &&
                               rowForm.get('details')?.get('nameAndAddress')?.touched
-                            }" />
+                            }" autocomplete="off"/>
                         <div *ngIf="
                              rowForm.get('details')?.get('nameAndAddress')?.invalid &&
                              rowForm.get('details')?.get('nameAndAddress')?.touched
@@ -1498,10 +1511,10 @@
                       <td>
                         <p-datepicker formControlName="dateOfBirth" dateFormat="dd/mm/yy" [showIcon]="true"
                           appendTo="body" class="full-width" [maxDate]="maxDate" [ngClass]="{
-                                'invalid-field':
+                                'ng-invalid ng-dirty':
                                 rowForm.get('details')?.get('dateOfBirth')?.invalid &&
                                 rowForm.get('details')?.get('dateOfBirth')?.touched
-                              }"></p-datepicker>
+                              }" autocomplete="off" placeholder="dd/mm/yyyy"></p-datepicker>
                         <div *ngIf="
                              rowForm.get('details')?.get('dateOfBirth')?.invalid &&
                              rowForm.get('details')?.get('dateOfBirth')?.touched
@@ -1527,7 +1540,7 @@
                                 'invalid-field':
                                 rowForm.get('details')?.get('taxResidencyJurisdiction')?.invalid &&
                                 rowForm.get('details')?.get('taxResidencyJurisdiction')?.touched
-                              }"></p-select>
+                              }" autocomplete="off"></p-select>
                         <div *ngIf="
                              rowForm.get('details')?.get('taxResidencyJurisdiction')?.invalid &&
                              rowForm.get('details')?.get('taxResidencyJurisdiction')?.touched
@@ -1547,7 +1560,7 @@
                               'invalid-field':
                               rowForm.get('details')?.get('nationality')?.invalid &&
                             rowForm.get('details')?.get('nationality')?.touched
-                            }"></p-select>
+                            }" autocomplete="off"></p-select>
                         <div *ngIf="
                             rowForm.get('details')?.get('nationality')?.invalid &&
                             rowForm.get('details')?.get('nationality')?.touched
@@ -1573,7 +1586,7 @@
                               'invalid-field':
                               formGroup.get('details.boGroupShareholding')?.invalid &&
                               formGroup.get('details.boGroupShareholding')?.touched
-                            }" (input)="sanitizePercentageInput($event)"/>
+                            }" (input)="sanitizePercentageInput($event)" autocomplete="off"/>
                       </td>
                     </tr>
                     <tr>
@@ -1585,7 +1598,7 @@
                               'invalid-field':
                               formGroup.get('details.governmentIdNumber')?.invalid &&
                               formGroup.get('details.governmentIdNumber')?.touched
-                            }" />
+                            }" autocomplete="off"/>
                       </td>
                     </tr>
                   </tbody>
@@ -1622,7 +1635,7 @@
                   'invalid-field':
                     formGroup.get('beneficialOwnership')?.invalid &&
                     formGroup.get('beneficialOwnership')?.touched
-                }"></p-radioButton>
+                }" autocomplete="off"></p-radioButton>
           <label for="beneficialOwnershipYes" class="sub-labels" style="margin-left: 1rem">Yes</label>
         </div>
         <div style="display: flex; align-items: center">
@@ -1631,7 +1644,7 @@
                   'invalid-field':
                     formGroup.get('beneficialOwnership')?.invalid &&
                     formGroup.get('beneficialOwnership')?.touched
-                }"></p-radioButton>
+                }" autocomplete="off"></p-radioButton>
           <label for="beneficialOwnershipNo" class="sub-labels" style="margin-left: 1rem">No</label>
         </div>
       </div>
@@ -1674,7 +1687,7 @@
                     'invalid-field':
                       formGroup.get('incomeDetails.incomeSource')?.invalid &&
                       formGroup.get('incomeDetails.incomeSource')?.touched
-                  }"></p-multiselect>
+                  }" autocomplete="off"></p-multiselect>
             <div
               *ngIf="formGroup.get('incomeDetails.incomeSource')?.invalid && formGroup.get('incomeDetails.incomeSource')?.touched"
               class="error-message">
@@ -1693,7 +1706,7 @@
                     'invalid-field':
                       formGroup.get('incomeDetails.businessCode')?.invalid &&
                       formGroup.get('incomeDetails.businessCode')?.touched
-                  }"></p-select>
+                  }" autocomplete="off"></p-select>
             <div
               *ngIf="formGroup.get('incomeDetails.businessCode')?.invalid && formGroup.get('incomeDetails.businessCode')?.touched"
               class="error-message">
@@ -1711,7 +1724,7 @@
                     'invalid-field':
                       formGroup.get('incomeDetails.annualIncome')?.invalid &&
                       formGroup.get('incomeDetails.annualIncome')?.touched
-                  }"  (keypress)="incomeDetails($event)"/>
+                  }"  (keypress)="incomeDetails($event)" autocomplete="off"/>
             <div
               *ngIf="formGroup.get('incomeDetails.annualIncome')?.invalid && formGroup.get('incomeDetails.annualIncome')?.touched"
               class="error-message">
@@ -1730,7 +1743,7 @@
                       formGroup.get('incomeDetails')?.errors?.['assetDateMismatch'] &&
                       !formGroup.get('incomeDetails.assetLess')?.value &&
                       formGroup.get('incomeDetails.assetLess')?.touched
-                  }" (keypress)="incomeDetails($event)" />
+                  }" (keypress)="incomeDetails($event)" autocomplete="off"/>
             <div *ngIf="formGroup.get('incomeDetails')?.errors?.['assetDateMismatch'] &&
                             !formGroup.get('incomeDetails.assetLess')?.value &&
                             formGroup.get('incomeDetails.assetLess')?.touched" class="error-message">
@@ -1745,11 +1758,11 @@
           <td>
             <p-datepicker id="asOnDate" formControlName="asOnDate" [showIcon]="true" dateFormat="dd/mm/yy"
               appendTo="body" [maxDate]="maxDate" class="full-width" [ngClass]="{
-                    'invalid-field':
+                    'ng-invalid ng-dirty':
                       formGroup.get('incomeDetails')?.errors?.['assetDateMismatch'] &&
                       !formGroup.get('incomeDetails.asOnDate')?.value &&
                       formGroup.get('incomeDetails.asOnDate')?.touched
-                  }"></p-datepicker>
+                  }" autocomplete="off" placeholder="dd/mm/yyyy"></p-datepicker>
             <div *ngIf="formGroup.get('incomeDetails')?.errors?.['assetDateMismatch'] &&
                             !formGroup.get('incomeDetails.asOnDate')?.value &&
                             formGroup.get('incomeDetails.asOnDate')?.touched" class="error-message">
@@ -1795,7 +1808,7 @@
               'invalid-field':
               formGroup.get('applicantType')?.errors?.['otherRequired'] &&
   formGroup.get('applicantType.applicantTypeOtherEntity')?.touched
-            }" />
+            }" autocomplete="off"/>
       <div *ngIf="formGroup.get('applicantType')?.errors?.['otherRequired'] &&
   formGroup.get('applicantType.applicantTypeOtherEntity')?.touched" class="error-message">
         This field is required.
@@ -1816,7 +1829,7 @@
           'invalid-field':
             formGroup.get('typeOfEntity')?.invalid &&
             formGroup.get('typeOfEntity')?.touched
-        }"></p-select>
+        }" autocomplete="off"></p-select>
   <div *ngIf="
           formGroup.get('typeOfEntity')?.invalid &&
           formGroup.get('typeOfEntity')?.touched
@@ -1854,13 +1867,13 @@
                   'invalid-field':
                     formGroup.get('proofOfIdentity')?.invalid &&
                     formGroup.get('proofOfIdentity')?.touched
-                }"></p-select>
+                }" autocomplete="off"></p-select>
           <div *ngIf="
                   i === 0 &&
                   formGroup.get('proofOfIdentity')?.invalid &&
                   formGroup.get('proofOfIdentity')?.touched
                 " class="error-message">
-            Date of incorporation is required.
+            Please select proof of identity.
           </div>
           <p-select *ngIf="i === 1" id="proofOfAddress" formControlName="proofOfAddress"
             placeholder="{{ item.placeHolder }}" class="full-width" [showClear]="true" [options]="
@@ -1869,13 +1882,13 @@
                   'invalid-field':
                     formGroup.get('proofOfAddress')?.invalid &&
                     formGroup.get('proofOfAddress')?.touched
-                }"></p-select>
+                }" autocomplete="off"></p-select>
           <div *ngIf="
                   i === 1 &&
                   formGroup.get('proofOfAddress')?.invalid &&
                   formGroup.get('proofOfAddress')?.touched
                 " class="error-message">
-            Date of incorporation is required.
+            Please select proof of address is required.
           </div>
         </td>
       </tr>
@@ -1906,7 +1919,7 @@
                   'invalid-field':
                     formGroup.get('politicallyExposed')?.invalid &&
                     formGroup.get('politicallyExposed')?.touched
-                }"></p-radioButton>
+                }" autocomplete="off"></p-radioButton>
           <label for="politicallyExposedYes" class="sub-labels" style="margin-left: 1rem">Yes</label>
         </div>
         <div style="display: flex; align-items: center">
@@ -1915,7 +1928,7 @@
                   'invalid-field':
                     formGroup.get('politicallyExposed')?.invalid &&
                     formGroup.get('politicallyExposed')?.touched
-                }"></p-radioButton>
+                }" autocomplete="off"></p-radioButton>
           <label for="politicallyExposedNo" class="sub-labels" style="margin-left: 1rem">No</label>
         </div>
         <div *ngIf="
@@ -1942,7 +1955,7 @@
                   'invalid-field':
                     formGroup.get('relatedToPoliticallyExposed')?.invalid &&
                     formGroup.get('relatedToPoliticallyExposed')?.touched
-                }"></p-radioButton>
+                }" autocomplete="off"></p-radioButton>
           <label for="relatedToPoliticallyExposedYes" class="sub-labels" style="margin-left: 1rem">Yes</label>
         </div>
         <div style="display: flex; align-items: center">
@@ -1951,7 +1964,7 @@
                   'invalid-field':
                     formGroup.get('relatedToPoliticallyExposed')?.invalid &&
                     formGroup.get('relatedToPoliticallyExposed')?.touched
-                }"></p-radioButton>
+                }" autocomplete="off"></p-radioButton>
           <label for="relatedToPoliticallyExposedNo" class="sub-labels" style="margin-left: 1rem">No</label>
         </div>
         <div *ngIf="

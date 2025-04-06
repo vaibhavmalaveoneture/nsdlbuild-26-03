@@ -64,6 +64,7 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
   detailsData: any = detailsData;
   docData = docData;
   minCommencementDate: Date | null = null;
+  maxIncorporationDate: Date  = new Date();
 
   disabledValues: number[] = [];
 
@@ -99,8 +100,16 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
    }
 
   ngOnInit(): void {
+    
      this.formGroup.get('dateOfIncorporation')?.valueChanges.subscribe((date: Date) => {
       this.minCommencementDate = this.formGroup.get('dateOfIncorporation')?.value;
+    });
+
+    this.formGroup.get('dateOfCommencement')?.valueChanges.subscribe((date: Date) => {
+      if(this.formGroup.get('dateOfCommencement')?.value != null){
+        this.maxIncorporationDate = this.formGroup.get('dateOfCommencement')?.value;
+      }
+      
     });
     this.subscribe();
     this.addRow(); // Add first row on load
@@ -109,7 +118,6 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
     }
     this.formGroup.get('registeredOffice')?.updateValueAndValidity();
    
-   
   }
 
   onAccordionChange(index: number): void {
@@ -117,14 +125,14 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['masterData'] && changes['masterData'].currentValue) {
-      
+      console.log("master data in fvci", this.masterData)
       // Now you can work with masterData here
       this.initializeMasterData();
     }
     if(changes['applicationData'] && changes['applicationData'].currentValue){
-      
       this.initialiseForm()
     }
+    
   }
   ngAfterViewInit(): void{
     // this.initializeMasterData();
@@ -466,11 +474,13 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
   
     // 2. Business Code (Conditional Field)
     const businessCodeControl = this.formGroup.get('incomeDetails.businessCode');
+
     if (incomeDetails.businessCode) {
       const businessCode = this.businessCodeOptions.find(
-        o => o.code === incomeDetails.businessCode.code
+        o => o.code === incomeDetails.businessCode
       );
-      businessCodeControl?.setValue(businessCode);
+      console.log("businesscode", businessCode, businessCodeControl)
+      businessCodeControl?.setValue(incomeDetails.businessCode);
     }
     this.formGroup.get('incomeDetails.annualIncome')?.setValue(incomeDetails.annualIncome);
     this.formGroup.get('incomeDetails.assetLess')?.setValue(incomeDetails.assetLess);
@@ -692,7 +702,7 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
       const officeGroup = this.formGroup.get('OfficeInIndia') as FormGroup;
       const radioControl = officeGroup.get('OfficeInIndiaRadio');
     
-      const requiredKeys = ['indianCountryName', 'indianTownName', 'indianZipName'];
+      const requiredKeys = [ 'indianTownName', 'indianZipName'];
       const allKeys = Object.keys(officeGroup.controls).filter(key => key !== 'OfficeInIndiaRadio');
     
       if (!radioControl) return;
@@ -707,6 +717,7 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
     
       // Subscribe to changes
       radioControl.valueChanges.subscribe((selected: boolean) => {
+        console.log("value selected.", selected)
         if (selected === true) {
           // Enable controls and apply field + group-level validators
           allKeys.forEach((key) => {
@@ -717,10 +728,16 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
             }
             control?.updateValueAndValidity();
           });
+          const immatchedCountry = this.countries.find(
+            (c) => c.short_code === 'IN'
+          );
+          officeGroup.get('indianCountryName')?.setValue(immatchedCountry);
+          officeGroup.get('indianCountryName')?.disable();
     
           officeGroup.setValidators(atLeastTwoFieldsRequiredIValidator());
         } else {
           // Disable all fields, clear field + group-level validators
+          console.log("allKeys", allKeys)
           allKeys.forEach((key) => {
             const control = officeGroup.get(key);
             control?.clearValidators();
@@ -728,7 +745,9 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
             control?.disable();
             control?.updateValueAndValidity();
           });
-          this.formGroup.get('OfficeInIndia.notApplicableIndOffice')?.setValue(true);
+          officeGroup.get('indianZipName')?.clearValidators();
+          officeGroup.get('indianZipName')?.updateValueAndValidity();
+          // this.formGroup.get('OfficeInIndia.notApplicableIndOffice')?.setValue(true);
           officeGroup.clearValidators();
           officeGroup.setErrors(null); 
         }
@@ -762,11 +781,20 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
     
           if (key === selected) {
             // ✅ Apply required validators
+            if(key=='indian'){
+              const immatchedCountry = this.countries_pan.find(
+                (c) => c.short_code === 'IND'
+              );
+              countryCode?.setValue(immatchedCountry)
+              countryCode?.disable();
+            }else{
+              countryCode?.setValidators([Validators.required])
+            }
             areaCode?.setValidators([Validators.required]);
             number?.setValidators([Validators.required, Validators.pattern('^[0-9]+$$')]);
-            countryCode?.setValidators([Validators.required])
+            
           } else {
-            // ❌ Remove validators & clear values (but don't disable)
+            //Remove validators & clear values (but don't disable)
             areaCode?.clearValidators();
             areaCode?.setValue('');
             number?.clearValidators();
@@ -1066,5 +1094,13 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
     findName(this.formGroup.controls);
     return controlName;
   }
+
+
+  onDateKeyPress = (event: KeyboardEvent) => {
+    const allowedChars = /^[0-9/]$/;
+    if (!allowedChars.test(event.key)) {
+      event.preventDefault();
+    }
+  };
 
   }

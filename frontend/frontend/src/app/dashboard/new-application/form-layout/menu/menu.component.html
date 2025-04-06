@@ -61,8 +61,7 @@
       <div class="button-wrapper">
         <button
           *ngIf="
-            !hasPermission('approve_applications_maker') &&
-            !hasPermission('reject_applications_maker') &&
+            hasPermission('create_fvci_application') &&
             !isViewMode && 
             showButtons
           "
@@ -75,8 +74,7 @@
         <!-- Save Button with Loading and Success States -->
         <button
           *ngIf="
-            !hasPermission('approve_applications_maker') &&
-            !hasPermission('reject_applications_maker') &&
+            hasPermission('create_fvci_application') &&
             !isViewMode &&
             showButtons
           "
@@ -88,18 +86,14 @@
         </button>
 
         <button
-          *ngIf="
-            ((hasPermission('approve_applications_maker') || hasPermission('approve_applications_checker')) && (showButtonsApprove || showButtonsApproveChecker))
-          "
+        *ngIf="((hasPermission('approve_applications_maker') && showButtonsApprove) || (hasPermission('approve_applications_checker') && showButtonsApproveChecker))"
           class="primary-button"
           (click)="approveApplication()"
         >
           Approve
         </button>
         <button
-          *ngIf="
-           ( (hasPermission('reject_applications_maker') || hasPermission('approve_applications_checker')) && (showButtonsApprove || showButtonsApproveChecker))
-          "
+        *ngIf="((hasPermission('approve_applications_maker') && showButtonsApprove) || (hasPermission('approve_applications_checker') && showButtonsApproveChecker))"
           class="primary-button"
           (click)="rejectApplication()"
         >
@@ -121,6 +115,7 @@
   [anextureToCafForm]="anextureToCafForm"
   [documentUploadForm]="documentUploadForm"
   [declarationAndUndertakimgForm]="declarationAndUndertakimgForm"
+  [applicationData]="applicationData"
   (handleSaveSubmit)="handleSaveSubmitButton()"
 ></app-display-preview>
 
@@ -136,6 +131,9 @@
   <!-- Wrap reactive controls in a formGroup container -->
   <form [formGroup]="menuForm" class="p-fluid dialog-container">
     <!-- Signers Multiselect -->
+    <div *ngIf="showMakerDocErrorMessage && hasPermission('approve_applications_maker')" class="validation-message">
+      Please upload both Form Upload and Annexure Upload documents before approving.
+    </div>
     <div class="dialog-field" *ngIf=" hasPermission('approve_applications_checker')">
       <label for="signers">Select Signers</label>
       <p-multiselect
@@ -167,6 +165,7 @@
         type="button"
         class="p-button-success"
         (click)="confirmApprove()"
+        *ngIf="(!showMakerDocErrorMessage && hasPermission('approve_applications_maker')) || hasPermission('approve_applications_checker')"
       >
         <i class="pi pi-check"></i>
         <span class="p-ml-1">Approve</span>
