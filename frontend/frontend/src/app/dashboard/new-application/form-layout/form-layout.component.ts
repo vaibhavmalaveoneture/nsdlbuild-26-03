@@ -113,10 +113,11 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
+    this.showLoader= true;
     this.fetchApplicationData();
     this.loadData();
     this.initializeComponent();
-
+    this.showLoader=false;
     this.fvciForm = this.formInitService.createFvciForm();
 
     this.registartionForm = this.registartionFormService.createRegistrationForm();
@@ -187,11 +188,13 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
   }
 
   async fetchApplicationData(){
+    // this.showLoader=true
     const token = localStorage.getItem('token')?? '';
     const response = await firstValueFrom(
       this.fvciApplicationSaveService.getFvciApplicationById(this.applicationId??'', token)
     );
     this.applicationData = response;
+    // this.showLoader=false
   }
 
   
@@ -405,7 +408,7 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
   }
 
   loadData(): void {
-    this.showLoader = true;
+    // this.showLoader = true;
   
     this.commonService.apiCommonMastersGet().subscribe({
       next: (res: any) => {
@@ -418,7 +421,7 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
         console.error('Error fetching master data:', error);
       },
       complete: () => {
-        this.showLoader = false;
+        // this.showLoader = false;
       }
     });
   }

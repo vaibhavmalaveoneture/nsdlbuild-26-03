@@ -70,6 +70,7 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
 
   activeAccordionIndex: number | null = 0;
 
+  stopToogleSameAsAboveToggle: boolean = false;
   
 
 
@@ -299,8 +300,8 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
         (c) => c.short_code === rcountryValue?.short_code
       );
       this.formGroup.get('registeredOffice.registeredCountryName')?.setValue(rmatchedCountry)
-
-    this.formGroup.get('sameAsAbove')?.setValue(this.applicationData?.data?.ekycForm?.sameAsAbove);
+    this.stopToogleSameAsAboveToggle = true
+    // this.formGroup.get('sameAsAbove')?.setValue(this.applicationData?.data?.ekycForm?.sameAsAbove);
     this.formGroup.get('foreignOffice.foreignFlatNum')?.setValue(this.applicationData.data?.ekycForm?.foreignOffice?.foreignFlatNum)
     this.formGroup.get('foreignOffice.foreignBuildingName')?.setValue(this.applicationData.data?.ekycForm?.foreignOffice?.foreignBuildingName)
     this.formGroup.get('foreignOffice.foreignRoadName')?.setValue(this.applicationData.data?.ekycForm?.foreignOffice?.foreignRoadName)
@@ -315,7 +316,8 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
         (c) => c.short_code === fcountryValue?.short_code
       );
       this.formGroup.get('foreignOffice.foreignCountryName')?.setValue(fmatchedCountry)
-
+      console.log("this.applicationData.data?.ekycForm?.foreignOffice?.foreignFlatNum", this.applicationData.data?.ekycForm?.foreignOffice?.foreignFlatNum)
+    this.stopToogleSameAsAboveToggle = false
     this.formGroup.get('OfficeInIndia.indianFlatNum')?.setValue(this.applicationData.data?.ekycForm?.officeInIndia?.indianFlatNum)
     this.formGroup.get('OfficeInIndia.indianBuildingName')?.setValue(this.applicationData.data?.ekycForm?.officeInIndia?.indianBuildingName)
     this.formGroup.get('OfficeInIndia.indianRoadName')?.setValue(this.applicationData.data?.ekycForm?.officeInIndia?.indianRoadName)
@@ -622,6 +624,8 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
     }
 
     private handleSameAsAbove(): void {
+      console.log("stopToogleSameAsAboveToggle", this.stopToogleSameAsAboveToggle)
+      if(this.stopToogleSameAsAboveToggle){return}
       const registeredOffice = this.formGroup.get('registeredOffice') as FormGroup;
       const foreignOffice = this.formGroup.get('foreignOffice') as FormGroup;
       const sameAsAbove = this.formGroup.get('sameAsAbove');
@@ -687,7 +691,7 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
           zipSyncSub?.unsubscribe();
     
           // Reset values and enable manual editing
-          foreignOffice.reset();
+          // foreignOffice.reset();
           Object.keys(foreignOffice.controls).forEach(key => {
             foreignOffice.get(key)?.enable();
           });

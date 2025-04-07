@@ -804,15 +804,78 @@ export class DocumentsUploadComponent implements OnInit {
     window.open(documentPath, '_blank');
   }
   
-  onDeleteFile(doc: any) {
-    doc.documentPath = '';
-    doc.fileName = '';
-    doc.status = 'Pending';
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Deleted',
-      detail: 'File reference deleted from UI. (No backend call yet)',
+  onDeleteFile(filePath: string) {
+    this.confirmationService.confirm({
+      header: 'Confirm Deletion',
+      message: `Are you sure you want to delete this document?`,
+      icon: 'pi pi-exclamation-triangle',
+      acceptIcon: 'pi pi-check me-2',
+      rejectIcon: 'pi pi-times me-2',
+      rejectButtonStyleClass: 'p-button-sm me-1',
+      acceptButtonStyleClass: 'p-button-outlined p-button-sm me-1',
+  
+      accept: async () => {
+        this.showLoader = true;
+        const body = {
+          applicationId: this.applicationId!,
+          filePath: filePath,
+        };
+  
+        try {
+          const response: any = await firstValueFrom(
+            this.saveApplicationService.deleteFile(body)
+          );
+  
+          if (response?.success) {
+            const docIndex = this.additionalDocuments.findIndex(d => d.documentPath === filePath);
+          
+            if (docIndex !== -1) {
+              this.additionalDocuments.splice(docIndex, 1); // ✅ remove row
+            }
+          
+            // Also handle fixed docs (POA/POI)
+            const doc = this.documents.find(d => d.documentPath === filePath);
+            if (doc) {
+              const docType = doc.type;
+              // const identifier = docType === 'POA' ? this.POAdocumentIdentifier : docType === 'POI' ? this.POIdocumentIdentifier : null;
+              doc.documentPath = '';
+              doc.status = 'Pending';
+              doc.type = doc.type;
+            }
+          
+            this.messageService.add({
+              severity: 'success',
+              summary: 'File Deleted',
+              detail: response.message || 'Document has been deleted successfully',
+            });
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Delete Failed',
+              detail: response?.message || 'Failed to delete document.',
+            });
+          }
+        } catch (error: any) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Delete Failed',
+            detail: error.error?.message || 'Failed to delete document.',
+          });
+        } finally {
+          this.showLoader = false;
+        }
+      },
+  
+      reject: () => {
+        this.confirmationService.close();
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Deletion Cancelled',
+          detail: 'Document deletion has been cancelled.',
+        });
+      },
     });
+    
   }
 
   scrollToFirstInvalidField(): void {

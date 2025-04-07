@@ -243,7 +243,7 @@ export class MenuComponent implements OnInit {
       this.showButtonsApprove = true
     }
     console.log("")
-    if(this.applicationData?.data?.status == 3){
+    if(this.applicationData?.data?.status >= 3){
       this.showButtonsApproveChecker = true
     }
   }
@@ -367,24 +367,27 @@ export class MenuComponent implements OnInit {
       throw new Error('Failed to retrieve user profile');
     }
     this.approveDialogVisible = true;
-    try {
-      const response = await firstValueFrom(
-        this.adminService.apiAdminEtokenGet(profileResponse.data.dp_id)
-      );
-      this.cities = response.data.ats;
-      this.formControl['SignReqd']?.setValue(
-        response.data.ats[0]?.amT_SIGN_REQD ?? 0
-      );
-      // Open the approval dialog after successful data retrieval
-      this.menuForm.get('approvalComment')?.setValue('');
-      this.approveDialogVisible = true;
-    } catch (error) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Failed to approve application',
-      });
+    if(this.hasPermission('approve_applications_checker')){
+      try {
+        const response = await firstValueFrom(
+          this.adminService.apiAdminEtokenGet(profileResponse.data.dp_id)
+        );
+        this.cities = response.data.ats;
+        this.formControl['SignReqd']?.setValue(
+          response.data.ats[0]?.amT_SIGN_REQD ?? 0
+        );
+        // Open the approval dialog after successful data retrieval
+        this.menuForm.get('approvalComment')?.setValue('');
+        this.approveDialogVisible = true;
+      } catch (error) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to approve application',
+        });
+      }
     }
+    
   }
 
   rejectApplication() {
