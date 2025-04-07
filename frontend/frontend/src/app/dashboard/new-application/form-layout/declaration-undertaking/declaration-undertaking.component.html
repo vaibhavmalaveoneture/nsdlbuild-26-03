@@ -1,0 +1,94 @@
+<div [ngClass]="{ 'preview-mode': previewMode }">
+  <p-toast></p-toast>
+  <form [formGroup]="declarationForm">
+    <div class="declaration-text">
+      <p>
+        I/We
+        <input type="text" id="name" formControlName="name" class="input-field" placeholder="Enter Your Name" [ngClass]="{
+          'invalid-field':
+          declarationForm.get('name')?.invalid &&
+          declarationForm.get('name')?.touched
+        }" autocomplete="off"/>
+        , the applicant, in the capacity of
+        <input type="text" id="capacity" formControlName="capacity" class="input-field"
+          placeholder="Enter Your Capacity"  autocomplete="off"/>
+      </p>
+      <p>
+        do hereby declare that what is stated in the aforesaid application form
+        (including the enclosed documents/annexures) is complete and true to the
+        best of my/our information and belief. I/we undertake to inform you of
+        any changes therein, immediately. In case any of the above information
+        is found to be false or untrue or misleading or misrepresenting, I am/we
+        are aware that I/we may be held liable for it.
+      </p>
+      <p>
+        I/we hereby apply for registration as Foreign Portfolio Investor (“FPI”)
+        in accordance with the Securities and Exchange Board of India (Foreign
+        Portfolio Investors) Regulations, 2019, obtain Permanent Account Number
+        (PAN) from the Income Tax Department of India and open Depository
+        Account & Bank Account (if applicable).
+      </p>
+      <p>
+        Further, I/We have read and understood the Securities and Exchange Board
+        of India (Foreign Portfolio Investors) Regulations, 2019, circulars
+        issued thereunder, its operating guidelines, reply to frequently asked
+        questions on the FPI regime provided by SEBI and shall abide by any
+        other terms and conditions specified by SEBI from time to time.
+      </p>
+      <p>
+        I/We hereby declare that I/we fulfill the eligibility criteria under the
+        FPI Regulations and I/we am/are eligible to register as an FPI. Further,
+        I/we hereby declare that I/we do not hold PAN issued by the Income Tax
+        Department currently and shall be liable for a penalty of Rs. 10,000/-
+        as per the provision of section 272(B) of the Income Tax Act, 1961 for
+        possession of more than one PAN.
+      </p>
+    </div>
+
+    <div class="input-group">
+      <div class="grid-item">
+        <div class="sub-grid-item">
+          <label for="place">Place:</label>
+          <input type="text" id="place" pInputText formControlName="place" placeholder="Enter place" autocomplete="off"/>
+        </div>
+        <div class="sub-grid-item">
+          <label for="date">Date:</label>
+          <p-datepicker id="date" formControlName="date" [showIcon]="true" [appendTo]="'body'" [maxDate]="maxDate" autocomplete="off" variant="filled"/>
+        </div>
+      </div>
+
+      <div class="grid-item">
+        <p class="behalf-text">
+          For and on behalf of applicant (Name of Applicant)
+        </p>
+      </div>
+
+      <div class="grid-item">
+        <div class="sub-grid-item">
+          <label for="nameOfSignatory">Name:</label>
+          <input type="text" id="nameOfSignatory" pInputText formControlName="nameOfSignatory"
+            placeholder="Enter signatory name" autocomplete="off"/>
+        </div>
+        <div class="sub-grid-item">
+          <label for="designationOfSignatory">Designation:</label>
+          <input type="text" id="designationOfSignatory" pInputText formControlName="designationOfSignatory"
+            placeholder="Enter designation" autocomplete="off"/>
+        </div>
+      </div>
+
+      <div class="grid-item">
+        <div class="sub-grid-item">
+          <label for="dateOfSignature">Date <span>*</span>:</label>
+          <p-datepicker id="dateOfSignature" formControlName="dateOfSignature" [showIcon]="true" [appendTo]="'body'"
+            [maxDate]="maxDate" [disabled]="true" autocomplete="off"></p-datepicker>
+        </div>
+        <div class="sub-grid-item">
+          <label for="signature">Signature:</label>
+          <input type="text" id="signature" pInputText formControlName="signature" placeholder="Enter signature"
+            [disabled]="true" autocomplete="off"/>
+        </div>
+      </div>
+    </div>
+  </form>
+  <app-loader *ngIf="showLoader"></app-loader>
+</div>
