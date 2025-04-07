@@ -157,7 +157,7 @@ export class FvciFormComponent implements OnInit, AfterViewInit  {
     if(Array.isArray(this.masterData.country_pan)){
       this.countries_pan = this.masterData.country_pan.map((country: any) => ({
         name: country.country_name,
-        code: country.country_code.toString(),
+        code: country.country_isd_code,
         short_code: country.country_short_code,
         id: country.country_id,
       }));
