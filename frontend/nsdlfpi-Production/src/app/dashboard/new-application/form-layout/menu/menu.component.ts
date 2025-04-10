@@ -58,7 +58,7 @@ export class MenuComponent implements OnInit {
   @Input() documentUploadForm!: FormGroup;
   @Input() declarationAndUndertakimgForm!: FormGroup;
   @Input() applicationData!: any;
-  @Input() allDocumentsUploaded!: boolean;
+  @Input() allDocumentsUploaded: boolean | null = null;
   @Input() documentsReady: boolean = false;
   @Output() submitFClicked = new EventEmitter<void>();
 
@@ -238,16 +238,10 @@ export class MenuComponent implements OnInit {
           }
         }
       }
-      if (changes['allDocumentsUploaded'] && changes['allDocumentsUploaded'].currentValue) {
-        console.log("allDocumentsUploaded", this.allDocumentsUploaded)
-        console.log("this.allDocumentsUploadedqwert", this.allDocumentsUploaded)
-        if(this.allDocumentsUploaded){
-          console.log("allDocumentsUploaded calculated", this.allDocumentsUploaded)
-          this.showMakerDocErrorMessage = false;
-        }else{
-          this.showMakerDocErrorMessage = true;
-        }
+      if (changes['allDocumentsUploaded']) {
+        const currentVal = changes['allDocumentsUploaded'].currentValue;
         
+        this.showMakerDocErrorMessage = !currentVal;
       }
       if (changes['documentUploadForm'] && changes['documentUploadForm'].currentValue) {
         this.updateVisibleButtons();

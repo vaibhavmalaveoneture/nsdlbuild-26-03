@@ -389,6 +389,7 @@ export class DocumentsUploadComponent implements OnInit {
           if (poiDoc?.documentIdentifier) {
             this.POIdocumentIdentifier = poiDoc.documentIdentifier;
           }
+          this.emitIfAllRequiredDocsUploaded();
       } else {
         this.messageService.add({
           severity: 'error',

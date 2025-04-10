@@ -1,7 +1,0 @@
-CREATE TABLE ApplicationURNDetails (
-    ApplicationId INT NOT NULL,
-    URNNo VARCHAR(100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-    Status VARCHAR(50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-    Remarks VARCHAR(MAX),
-    created_at DATETIME DEFAULT GETDATE() NOT NULL
-);

@@ -85,7 +85,7 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
   masterData!: any[];
   applicationData!: any[];
   applicationDataStatus!: number;
-  allDocumentsUploaded = true;
+  allDocumentsUploaded!: boolean;
 
   showLoader = false;
   formCompletionPercentage = 0;

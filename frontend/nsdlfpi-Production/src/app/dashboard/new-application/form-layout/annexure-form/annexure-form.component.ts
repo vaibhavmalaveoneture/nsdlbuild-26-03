@@ -315,10 +315,13 @@ export class AnnexureFormComponent implements OnInit {
 
         for (let i = 0; i < beneficialOwnersArray.length; i++) {
           const group = materialShareholderRows.at(i) as FormGroup;
-          Object.keys(group.controls).forEach((key) => {
-            group.get(key)?.clearValidators();
-            group.get(key)?.updateValueAndValidity();
-          });
+          if(group!= undefined){
+            Object.keys(group.controls).forEach((key) => {
+              group.get(key)?.clearValidators();
+              group.get(key)?.updateValueAndValidity();
+            });
+          }
+          
         }
       } else {
         noentityHoldingControl?.clearValidators();
