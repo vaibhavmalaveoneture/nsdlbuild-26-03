@@ -1,0 +1,39 @@
+<form>
+  <div class="ack-wrapper">
+    <h1>Dear Applicant</h1>
+    <p>
+      Thank you for applying through common application form. Your online
+      application no. <b><span>{{ applicationId }}</span></b> is submitted successfully to DDP
+      <b><span>{{DDPName}}.</span></b> Unique Reference No. (URN)
+      <b><span>: {{urnNumber}} .</span></b> Online Submission Date/Time
+      <b><span> : {{submittiontime}} Hrs IST </span></b>
+    </p>
+    <p>
+      To complete the registration process, applicant is requested to follow the
+      below instruction:
+    </p>
+    <ol>
+      <li>
+        Download the duly filled FVCI Application Form along with
+        Annexure which is submitted electronically to DDP.
+      </li>
+      <li>To download final submitted FVCI Application Form, please <a class="link-style" (click)="downloadFvciPdf()"> Click Here </a> </li>
+      <li>To download final submitted Annexure, please <a class="link-style" (click)="downloadAnnexture()"> Click Here </a></li>
+      <li>
+        Applicant shall take a print and sign the online submitted CAF along
+        with its Annexure (duly filled). Applicant should sign on each page of
+        the duly filled CAF & Annexure.
+      </li>
+      <li>
+        Please scan and upload the duly signed CAF and its Annexure under
+        Documents Upload Tab. Refer scanning instructions on the Document upload
+        Tab.
+      </li>
+      <li>
+        Send the physical copy of duly signed Common Application Form along with
+        Annexure and supporting documents (selected in online form) to your DDP
+        via Post/Courier.
+      </li>
+    </ol>
+  </div>
+</form>

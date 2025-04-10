@@ -1,0 +1,5 @@
+
+CREATE SEQUENCE seq_urn_no
+    START WITH 1000000001
+    INCREMENT BY 1;
+   
