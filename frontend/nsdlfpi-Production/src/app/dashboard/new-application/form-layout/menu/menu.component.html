@@ -138,7 +138,7 @@
 <!-- Approval Dialog -->
 <p-dialog
   [(visible)]="approveDialogVisible"
-  [style]="{ height: '30rem' }"
+  [style]="{ width: '500px', height: '30rem' }"
   header="Approval Confirmation"
   [modal]="true"
   [closable]="false"
@@ -160,6 +160,7 @@
         placeholder="Select Signers"
         [maxSelectedLabels]="menuForm.get('SignReqd')?.value"
         [selectionLimit]="menuForm.get('SignReqd')?.value || 0"
+        [panelStyle]="{ 'max-width': '450px' }"
       >
       </p-multiselect>
     </div>
@@ -214,7 +215,7 @@
         placeholder="Enter your reason here..."
         [ngClass]="{ 'error-field': !(rejectionComment.trim() || '') }"
       ></textarea>
-      <div class="error-message">To reject the application, comment is mandatory.</div>
+      <div class="error-message">To reject the application, please add comment.</div>
     </div>
   </div>
   <ng-template pTemplate="footer">
@@ -266,7 +267,7 @@
         placeholder="Enter your reason here..."
         [ngClass]="{ 'error-field': !(returnToApplicantComment.trim() || '') }"
       ></textarea>
-      <div class="error-message">To send application back to applicant, comment is mandatory.</div>
+      <div class="error-message">To send application back to applicant, please add comment.</div>
     </div>
   </div>
   <ng-template pTemplate="footer">
@@ -317,7 +318,7 @@
         placeholder="Enter your reason here..."
         [ngClass]="{ 'error-field': !(returnToMakerComment.trim() || '') }"
       ></textarea>
-      <div class="error-message">To send application back to maker, comment is mandatory.</div>
+      <div class="error-message">To send application back to maker, please add comment.</div>
     </div>
   </div>
   <ng-template pTemplate="footer">
@@ -343,6 +344,6 @@
     </div>
   </ng-template>
 </p-dialog>
-<app-loader *ngIf="showLoader"></app-loader>
+
 <!-- Keep the existing ConfirmDialog for other confirmations -->
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

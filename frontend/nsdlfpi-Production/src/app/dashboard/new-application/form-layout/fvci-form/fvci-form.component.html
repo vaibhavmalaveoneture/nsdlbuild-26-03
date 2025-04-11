@@ -1865,7 +1865,7 @@
                   'invalid-field':
                     formGroup.get('proofOfIdentity')?.invalid &&
                     formGroup.get('proofOfIdentity')?.touched
-                }" autocomplete="off"></p-select>
+                }" autocomplete="off"  [panelStyle]="{ 'max-width': '500px' }"></p-select>
           <div *ngIf="
                   i === 0 &&
                   formGroup.get('proofOfIdentity')?.invalid &&
@@ -1880,7 +1880,7 @@
                   'invalid-field':
                     formGroup.get('proofOfAddress')?.invalid &&
                     formGroup.get('proofOfAddress')?.touched
-                }" autocomplete="off"></p-select>
+                }" autocomplete="off"  [panelStyle]="{ 'max-width': '500px' }"></p-select>
           <div *ngIf="
                   i === 1 &&
                   formGroup.get('proofOfAddress')?.invalid &&

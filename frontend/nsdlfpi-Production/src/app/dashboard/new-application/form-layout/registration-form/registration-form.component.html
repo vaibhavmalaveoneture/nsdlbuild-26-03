@@ -659,6 +659,7 @@
             [style]="{ width: '100%', marginTop: '.75rem' }"
             (onChange)="onBankSelected($event)"
             [showClear]="true"
+            [panelStyle]="{ 'max-width': '500px' }"
             [ngClass]="{
               'invalid-field':
                 formGroup.get('designatedBank.designatedBankName')?.invalid &&

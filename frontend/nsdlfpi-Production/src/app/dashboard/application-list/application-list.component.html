@@ -44,7 +44,7 @@
         class="new-application-button"
         type="button"
         (click)="confirmNewApplication()"
-        *ngIf="hasPermission('create_fvci_application')"
+        *ngIf="hasPermission('create_fvci_application') || hasPermission('create_one_fvci_application')"
       >
         New Application
       </button>
