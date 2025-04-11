@@ -1,6 +1,7 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { PdfService } from '../../../../services/pdf-download.service';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-acknowledgement',
@@ -8,6 +9,7 @@ import { PdfService } from '../../../../services/pdf-download.service';
   templateUrl: './acknowledgement.component.html',
   styleUrl: './acknowledgement.component.scss',
 })
+
 
 export class AcknowledgementComponent {
   @Input() applicationId: string | undefined;
@@ -18,6 +20,7 @@ export class AcknowledgementComponent {
   submittiontime: string = '';
   urnNumber: string = '';
   DDPName: string = '';
+  statusHistory: any[] = [];
 
 
   constructor(
@@ -32,6 +35,10 @@ export class AcknowledgementComponent {
          this.submittiontime =  this.applicationData?.data?.updatedAt
          this.urnNumber =  this.applicationData?.data?.urnNo
          this.DDPName = this.applicationData?.data?.registrationForm?.ddpName?.name
+
+         if (this.applicationData?.data?.applicationUrlDetails) {
+          this.statusHistory = this.applicationData.data.applicationUrlDetails;
+        }
       }
       
     }
