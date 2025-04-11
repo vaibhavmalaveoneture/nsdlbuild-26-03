@@ -65,6 +65,14 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   ddpOptions!: any[];
   regulatoryAuthorityOptions!: any[];
   custodianOptions!: any[];
+  registeredOrAssociatedAs = [
+    { name: 'FPI' },
+    { name: 'FII' },
+    { name: 'Sub Account' },
+    { name: 'QFI' },
+    { name: 'FVCI' },
+  ];
+
   bankOptions!: any[];
   incomeSourceOptions!: Income[];
   regulationData = regulationData;

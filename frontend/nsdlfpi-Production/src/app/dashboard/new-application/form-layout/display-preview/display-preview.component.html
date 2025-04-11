@@ -14,30 +14,30 @@
   <div *ngIf="!isLoading" >
     <div class="preview-section">
       <h3>EKYC</h3>
-      <app-fvci-form  [applicationId]="applicationId"  [formGroup]="fvciForm" [masterData]="masterData" [applicationData]="applicationData" [previewMode]="previewMode"></app-fvci-form>
+      <app-fvci-form  [applicationId]="applicationId"  [formGroup]="fvciForm1" [masterData]="masterData" [applicationData]="applicationData1" [previewMode]="previewMode" [viewMode]="'true'"></app-fvci-form>
       
     </div>
 
     <div class="preview-section">
       <h3>FVCI Registration</h3>
-      <app-registration-form  [applicationId]="applicationId"  [formGroup]="registartionForm" [masterData]="masterData" [applicationData]="applicationData"></app-registration-form>
+      <app-registration-form  [applicationId]="applicationId"  [formGroup]="registartionForm1" [masterData]="masterData" [applicationData]="applicationData1" [viewMode]="'true'"></app-registration-form>
       
     </div>
 
     <div class="preview-section">
       <h3>Annexure to CAF</h3>
-      <app-annexure-form  [applicationId]="applicationId" [formGroup]="anextureToCafForm" [masterData]="masterData" [applicationData]="applicationData"></app-annexure-form>
+      <app-annexure-form  [applicationId]="applicationId" [formGroup]="anextureToCafForm1" [masterData]="masterData" [applicationData]="applicationData1" [viewMode]="'true'"></app-annexure-form>
       
     </div>
 
     <div class="preview-section">
       <h3>Declaration and Undertaking</h3>
       <!-- <app-documents-upload [hidden]="currentStep !== 4" [applicationId]="applicationId" [formGroup]="documentUploadForm" [fvciForm]="fvciForm" [masterData]="masterData"></app-documents-upload> -->
-      <app-declaration-undertaking   [applicationId]="applicationId" [declarationForm]="declarationAndUndertakimgForm" [applicationData]="applicationData"></app-declaration-undertaking>
+      <app-declaration-undertaking   [applicationId]="applicationId" [declarationForm]="declarationAndUndertakimgForm1" [applicationData]="applicationData1" [viewMode]="'true'"></app-declaration-undertaking>
     </div>
   </div>
 
-  <div *ngIf="!isLoading && !applicationData" class="no-data-message">
+  <div *ngIf="!isLoading && !applicationData1" class="no-data-message">
     <p>No application data available for preview.</p>
   </div>
 

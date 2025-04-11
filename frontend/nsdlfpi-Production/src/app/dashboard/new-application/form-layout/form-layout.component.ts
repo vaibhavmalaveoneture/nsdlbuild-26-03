@@ -39,6 +39,7 @@ import { DeclarationUndertakingFormService } from './declaration-init.service'
 import { FormCompletionService } from './progress-bar.service'
 
 import { PdfService } from '../../../services/pdf-download.service';
+import { ScrollPanel } from 'primeng/scrollpanel';
 
 import {
   FormBuilder,
@@ -75,6 +76,7 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
   declarationUndertakingComponent!: DeclarationUndertakingComponent;
   @ViewChild(DocumentsUploadComponent)
   documentsUploadComponent!: DocumentsUploadComponent;
+  @ViewChild('scrollPanel') scrollPanel!: ScrollPanel;
 
 
   fvciForm: FormGroup = new FormGroup({});
@@ -134,6 +136,14 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
     
   }
 
+  scrollToTop() {
+    setTimeout(() => {
+      if (this.scrollPanel && this.scrollPanel['contentViewChild']) {
+        this.scrollPanel['contentViewChild'].nativeElement.scrollTop = 0;
+      }
+    });
+  }
+
   updateCurrentStep(step: number): void {
     // this.handleSaveClick()
     this.currentStep = step;
@@ -142,6 +152,7 @@ export class FormLayoutComponent implements OnInit, AfterViewInit {
         this.currentComponent = step.name;
       }
     });
+    this.scrollToTop();
     // this.fvciComponent.fetchUserApplication();
   }
 

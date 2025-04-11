@@ -13,7 +13,7 @@
         <a (click)="downloadFvciPdf()" style="cursor: pointer;">Download</a>
       </div>
     </div>
-    <p-scrollpanel [style]="{ width: '100%', height: '65vh' }">
+    <p-scrollpanel [style]="{ width: '100%', height: '65vh' }" #scrollPanel>
       <app-fvci-form [hidden]="currentStep !== 1" [applicationId]="applicationId"  [formGroup]="fvciForm" [masterData]="masterData" [applicationData]="applicationData" [viewMode]="viewMode"></app-fvci-form>
       <app-registration-form [hidden]="currentStep !== 2" [applicationId]="applicationId"  [formGroup]="registartionForm" [masterData]="masterData" [applicationData]="applicationData" [viewMode]="viewMode"></app-registration-form>
       <app-annexure-form [hidden]="currentStep !== 3" [applicationId]="applicationId" [formGroup]="anextureToCafForm" [masterData]="masterData" [applicationData]="applicationData" [viewMode]="viewMode"></app-annexure-form>

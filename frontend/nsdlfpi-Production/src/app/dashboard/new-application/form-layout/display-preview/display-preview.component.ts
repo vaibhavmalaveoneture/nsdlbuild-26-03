@@ -13,6 +13,15 @@ import { firstValueFrom } from 'rxjs';
 import { FvciApplicationSaveService } from '../fvci-application-save.service';
 import { Router } from '@angular/router';
 
+
+import { DeclarationUndertakingFormService } from '../declaration-init.service'
+import { FormInitService } from '../ekyc-init.service'
+import { RegistartionInitService } from '../registration-init.service'
+import { AnextureToCafService } from '../anexture-init.service'
+import { DocUploadInitService } from '../doc-upload-init.service';
+
+import { FormCompletionService } from '../progress-bar.service'
+
 interface AdditionalDocument {
   documentDescription: string;
   documentPath?: string;
@@ -41,6 +50,7 @@ export class DisplayPreviewComponent implements OnInit {
   @Output() handleSaveSubmit = new EventEmitter<void>();
   @Output() setAckActive= new EventEmitter<void>();
   
+  applicationData1!: any;
   isLoading: boolean = false;
   isSubmitting: boolean = false;
   previewMode: boolean = false;
@@ -49,18 +59,40 @@ export class DisplayPreviewComponent implements OnInit {
   additionalDocuments: AdditionalDocument[] = [];
   masterData: any[] = [];
 
+  fvciForm1: FormGroup = new FormGroup({});
+  registartionForm1: FormGroup = new FormGroup({});
+  anextureToCafForm1: FormGroup = new FormGroup({});
+  documentUploadForm1: FormGroup = new FormGroup({});
+  declarationAndUndertakimgForm1: FormGroup = new FormGroup({});
+
   constructor(
     private readonly saveApplicationService: SaveApplicationService,
     private readonly fvciService: FvciApplicationService,
     private readonly messageService: MessageService,
     private readonly http: HttpClient,
     private readonly router: Router,
-    private fvciApplicationSaveService: FvciApplicationSaveService,
     private readonly commonService: CommonService,
+    private formInitService: FormInitService,
+    private registartionFormService: RegistartionInitService,
+    private anextureFormService: AnextureToCafService,
+    private declarationFormService: DeclarationUndertakingFormService,
+    private fvciApplicationSaveService: FvciApplicationSaveService,
+    private formCompletionService: FormCompletionService,
+    private docUploadService: DocUploadInitService,
   ) {}
 
   ngOnInit() {
     // When initially rendered, don't fetch data
+
+    this.fvciForm1 = this.formInitService.createFvciForm();
+
+    this.registartionForm1 = this.registartionFormService.createRegistrationForm();
+
+    this.anextureToCafForm1 = this.anextureFormService.createAnnextureForm();
+
+    this.declarationAndUndertakimgForm1 = this.declarationFormService.createDeclrationAndUnderTaking();
+
+    this.documentUploadForm1 = this.docUploadService.createDocUploadForm();
    
   }
 
@@ -233,7 +265,7 @@ export class DisplayPreviewComponent implements OnInit {
     const response = await firstValueFrom(
       this.fvciApplicationSaveService.getFvciApplicationById(this.applicationId??'', token)
     );
-    this.applicationData = response;
+    this.applicationData1 = response;
   }
 
   

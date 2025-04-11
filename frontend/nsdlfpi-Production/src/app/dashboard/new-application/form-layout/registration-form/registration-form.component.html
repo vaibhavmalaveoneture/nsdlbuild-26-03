@@ -809,20 +809,41 @@
                     formControlName="entityName"
                     class="full-width"
                     autocomplete="off"
+                    [ngClass]="{
+                      'invalid-field':
+                          rowForm.get('entityName')
+                          ?.invalid
+                    }"
                   />
                 </td>
                 <td>
-                  <input
-                    pInputText
+                  <p-select
                     formControlName="registrationType"
+                    [options]="registeredOrAssociatedAs"
+                    optionLabel="name"
+                    optionValue="name"
                     class="full-width"
-                  />
+                    [filter]="true"
+                    [filterBy]="'name'"
+                    [showClear]="true"
+                    appendTo="body"
+                    [ngClass]="{
+                      'invalid-field':
+                          rowForm.get('registrationType')
+                          ?.invalid
+                    }"
+                  ></p-select>
                 </td>
                 <td>
                   <input
                     pInputText
                     formControlName="sebiRegNumber"
                     class="full-width"
+                    [ngClass]="{
+                      'invalid-field':
+                          rowForm.get('sebiRegNumber')
+                          ?.invalid
+                    }"
                   />
                 </td>
                 <td>
@@ -836,6 +857,11 @@
                     placeholder="Select Date Range"
                     [numberOfMonths]="2"
                     autocomplete="off"
+                    [ngClass]="{
+                      'ng-invalid ng-dirty':
+                          rowForm.get('registrationPeriod')
+                          ?.invalid
+                    }"
                   ></p-datepicker>
                 </td>
                 <td class="action-buttons">
