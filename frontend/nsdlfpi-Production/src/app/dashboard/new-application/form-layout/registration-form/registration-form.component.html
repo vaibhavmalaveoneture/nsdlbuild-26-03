@@ -505,6 +505,7 @@
                     formGroup.get('ddpName')?.touched
                 }"
                 autocomplete="off"
+                [panelStyle]="{ 'max-width': '450px' }"
               >
                 <ng-template pTemplate="item" let-option>
                   {{ option.name }}
@@ -540,6 +541,7 @@
                     formGroup.get('custodianName')?.touched
                 }"
                 autocomplete="off"
+                [panelStyle]="{ 'max-width': '450px' }"
               >
                 <ng-template pTemplate="item" let-option>
                   {{ option.name }}
@@ -575,6 +577,7 @@
                     formGroup.get('dpName')?.touched
                 }"
                 autocomplete="off"
+                [panelStyle]="{ 'max-width': '450px' }"
               >
                 <ng-template pTemplate="item" let-option>
                   {{ option.name }}
